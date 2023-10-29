@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SlideComponent } from './Components/principal/slide/slide.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CabecerxComponent } from './Components/principal/cabecerx/cabecerx.component';
+import { MenubusComponent } from './Components/principal/menubus/menubus.component';
 
 
 
@@ -24,7 +25,8 @@ import { CabecerxComponent } from './Components/principal/cabecerx/cabecerx.comp
     PrincipalComponent,
     MenuComponent,
     SlideComponent,
-    CabecerxComponent
+    CabecerxComponent,
+    MenubusComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,13 @@
+.card {
+    max-width: 600px; /* Ajusta el ancho máximo según tus necesidades */
+    margin: 200px; /* Esto centra horizontalmente */
+    margin-top: 20px; /* Esto agrega un margen superior */
+    margin-bottom: 20px; /* Esto agrega un margen inferior */
+  }
+  
+  .tmim {
+
+    width: 50px;
+    height: 50px;
+
+  }

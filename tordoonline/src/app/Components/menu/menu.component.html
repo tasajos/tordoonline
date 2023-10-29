@@ -1,17 +1,20 @@
-<button mat-button [matMenuTriggerFor]="belowMenu">Inicio</button>
-<mat-menu #belowMenu="matMenu" yPosition="below">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
-  </mat-menu>
-
-<button mat-button [matMenuTriggerFor]="belowMenu">Reserva Pasajes</button>
-<mat-menu #belowMenu="matMenu" yPosition="below">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
-</mat-menu>
-
-<button mat-button [matMenuTriggerFor]="belowMenu">Acerca de Nosotros</button>
-<mat-menu #belowMenu="matMenu" xPosition="before">
-  <button mat-menu-item>Item 1</button>
-  <button mat-menu-item>Item 2</button>
-</mat-menu>
+<div class="fondomenu">
+    <button mat-button [matMenuTriggerFor]="inicioMenu">Inicio</button>
+    <mat-menu #inicioMenu="matMenu" yPosition="below">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  
+    <button mat-button [matMenuTriggerFor]="reservaMenu">Reserva Pasajes</button>
+    <mat-menu #reservaMenu="matMenu" yPosition="below">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  
+    <button mat-button [matMenuTriggerFor]="acercaMenu">Acerca de Nosotros</button>
+    <mat-menu #acercaMenu="matMenu" xPosition="before">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  </div>
+  
