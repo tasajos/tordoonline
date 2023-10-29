@@ -10,6 +10,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
+import {MatGridListModule} from '@angular/material/grid-list';
+
 
 //trabajo
 import { AppComponent } from './app.component';
@@ -40,7 +42,8 @@ import { MenubusComponent } from './Components/principal/menubus/menubus.compone
     MatButtonModule,
     MatMenuModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

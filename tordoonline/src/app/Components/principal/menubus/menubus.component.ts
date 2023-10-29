@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { SflotaService } from 'src/app/Services/sflota.service';
 import { registrarflotaInter } from 'src/app/Interfaz/flota';
 import { Modal } from 'bootstrap'; // <-- Importa Bootstrap
+import {MatGridListModule} from '@angular/material/grid-list';
 import { FormsModule } from '@angular/forms';
 
 @Component({
