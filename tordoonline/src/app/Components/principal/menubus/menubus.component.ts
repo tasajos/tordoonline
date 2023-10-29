@@ -15,7 +15,7 @@ export class MenubusComponent implements OnInit, AfterViewInit {
   origen: string = '';
   destino: string = '';
   mostrarModal: boolean = false ;
-
+  registro: any;
   @ViewChild('modalNoResultados') modalNoResultados!: ElementRef;
   private bsModal!: Modal; // Instancia del modal de Bootstrap
 

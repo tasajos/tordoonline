@@ -1,63 +1,60 @@
-<div class="card">
-    <h3 class="card-header mx-2"><img class="tmim" src="../../../../assets/img/boleto-de-autobus.png">  Busca tu Pasaje</h3>
-    <div class="card-body">
-      <h5 class="card-title">
-        <div class="form-floating">
-            <form (submit)="buscarPorOrigenYDestino()">
-            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" [(ngModel)]="origen" [ngModelOptions]="{ standalone: true }">
-              <option selected>Origen</option>
-              <option value="La Paz">La Paz</option>
-              <option value="Cochabamba">Cochabamba</option>
-              <option value="Santa Cruz">Santa Cruz</option>
-              <option value="Oruro">Oruro</option>
-            </select>
-            <label for="floatingSelect"></label>
-            
+<div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <h3 class="card-header mx-2"><img class="tmim" src="../../../../assets/img/boleto-de-autobus.png">  Busca tu Pasaje</h3>
+        <div class="card-body">
+          <h5 class="card-title">
+            <div class="form-floating">
+              <form (submit)="buscarPorOrigenYDestino()">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" [(ngModel)]="origen" [ngModelOptions]="{ standalone: true }">
+                  <option selected>Origen</option>
+                  <option value="La Paz">La Paz</option>
+                  <option value="Cochabamba">Cochabamba</option>
+                  <option value="Santa Cruz">Santa Cruz</option>
+                  <option value="Oruro">Oruro</option>
+                </select>
+                <label for="floatingSelect"></label>
   
-      <p class="card-text">
-        <div class="form-floating">
-            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" [(ngModel)]="destino" [ngModelOptions]="{ standalone: true }">
-              <option selected>Destino</option>
-              <option value="La Paz">La Paz</option>
-              <option value="Cochabamba">Cochabamba</option>
-              <option value="Santa Cruz">Santa Cruz</option>
-              <option value="Oruro">Oruro</option>
-            </select>
-            <label for="floatingSelect"></label>
-          </div>
+                <p class="card-text">
+                  <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" [(ngModel)]="destino" [ngModelOptions]="{ standalone: true }">
+                      <option selected>Destino</option>
+                      <option value="La Paz">La Paz</option>
+                      <option value="Cochabamba">Cochabamba</option>
+                      <option value="Santa Cruz">Santa Cruz</option>
+                      <option value="Oruro">Oruro</option>
+                    </select>
+                    <label for="floatingSelect"></label>
+                  </div>
+                  <button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()">Buscar</button>
+                
+              </form>
+            </div>
+          </h5>
+        </div>
+      </div>
+    </div>
+  
    
-          <button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()">Buscar</button>
-      
-
-    
-
-
-
-  <div *ngIf="mostrarTabla" class="col-md-4 mt-2">
-    <div class="cards rounded-lg" style="margin-top: 2px;">
-      <div *ngFor="let registro of registrosFlota" class="card mt-2">
-        <div class="row no-gutters">
-          <div class="col-md-4 mt-5 text-center">
-            <img src="../../../../assets/img/autobus.png" class="mx-auto custom-img" alt="Imagen">
-          </div>
-          <div class="col-md-8 mt-2">
-            <div class="card-body">
-              <h2 class="card-title"> {{ registro.origen }} - {{ registro.destino }}</h2>
-              <!--<h3 class="card-header">Hora: {{ registro.hora }} - {{ registro.fecharegistro }}</h3>-->
-              <h3 class="card-header">Hora: {{ registro.hora }} {{ formatDate(registro.fecharegistro) }}</h3>
-
-              <h3 class="card-title">Tipo: {{ registro.tipo }}</h3>
-              <p><h3 class="card-title">Precio: {{ registro.precio }} Bs</h3>
-              <a href="#" class="btn btn-primary">Comprar</a>
+    <div *ngIf="mostrarTabla">
+        <div class="card mt-2" *ngFor="let registro of registrosFlota">
+          <div class="row no-gutters">
+            <div class="col-md-4 mt-5 text-center">
+              <img src="../../../../assets/img/autobus.png" class="mx-auto custom-img" alt="Imagen">
+            </div>
+            <div class="col-md-8 mt-2">
+              <div class="card-body">
+                <h2 class="card-title"> {{ registro.origen }} - {{ registro.destino }}</h2>
+                <h3 class="card-header">Hora: {{ registro.hora }} {{ formatDate(registro.fecharegistro) }}</h3>
+                <h3 class="card-title">Tipo: {{ registro.tipo }}</h3>
+                <p><h3 class="card-title">Precio: {{ registro.precio }} Bs</h3>
+                <a href="#" class="btn btn-primary">Comprar</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
       
-    </div>
-  </div>
-
-
 
 <!-- Botón para abrir el modal de "Sin resultados" -->
 
