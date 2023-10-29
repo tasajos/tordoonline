@@ -1,10 +1,15 @@
+//http
+import { HttpClientModule } from '@angular/common/http';
+
+
+
 //angular
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
-
+import { FormsModule } from '@angular/forms';
 
 //trabajo
 import { AppComponent } from './app.component';
@@ -33,7 +38,9 @@ import { MenubusComponent } from './Components/principal/menubus/menubus.compone
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
