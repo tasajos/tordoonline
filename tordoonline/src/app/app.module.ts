@@ -7,6 +7,7 @@ import { MenuComponent } from './Components/menu/menu.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SlideComponent } from './Components/principal/slide/slide.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CabecerxComponent } from './Components/principal/cabecerx/cabecerx.component';
 
 
 
@@ -15,7 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     PrincipalComponent,
     MenuComponent,
-    SlideComponent
+    SlideComponent,
+    CabecerxComponent
   ],
   imports: [
     BrowserModule,
