@@ -1,0 +1,8 @@
+.carousel-caption h5,
+.carousel-caption p {
+    color: rgb(255, 254, 254);
+}
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5); /* Ajusta el valor alfa (último número) para controlar la transparencia */
+    padding: 10px; /* Añade un espacio entre el texto y el fondo */
+}
