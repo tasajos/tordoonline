@@ -23,6 +23,7 @@ import { SlideComponent } from './Components/principal/slide/slide.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CabecerxComponent } from './Components/principal/cabecerx/cabecerx.component';
 import { MenubusComponent } from './Components/principal/menubus/menubus.component';
+import { PasajesComponent } from './Components/pasajes/pasajes.component';
 
 
 
@@ -33,7 +34,8 @@ import { MenubusComponent } from './Components/principal/menubus/menubus.compone
     MenuComponent,
     SlideComponent,
     CabecerxComponent,
-    MenubusComponent
+    MenubusComponent,
+    PasajesComponent
   ],
   imports: [
     BrowserModule,
