@@ -24,6 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CabecerxComponent } from './Components/principal/cabecerx/cabecerx.component';
 import { MenubusComponent } from './Components/principal/menubus/menubus.component';
 import { PasajesComponent } from './Components/pasajes/pasajes.component';
+import { VerflotaComponent } from './Components/pasajes/flota/verflota/verflota.component';
+import { ListaflotaComponent } from './Components/pasajes/flota/listaflota/listaflota.component';
 
 
 
@@ -35,7 +37,9 @@ import { PasajesComponent } from './Components/pasajes/pasajes.component';
     SlideComponent,
     CabecerxComponent,
     MenubusComponent,
-    PasajesComponent
+    PasajesComponent,
+    VerflotaComponent,
+    ListaflotaComponent
   ],
   imports: [
     BrowserModule,

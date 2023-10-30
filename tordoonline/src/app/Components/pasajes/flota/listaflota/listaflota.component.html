@@ -1,0 +1,31 @@
+<div class="container mt-4">
+    <div class="row">
+        <ng-container *ngFor="let i of [].constructor(passengerCount); let idx = index">
+            <div class="col-md-6 mb-3">
+                <div class="card" [ngClass]="{'orange-background': isSeatSold(idx + 1)}">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="../../../../assets/img/asiento.png" a [routerLink]="['/reservapasaje']" [queryParams]="{asiento: idx + 1,
+                                 fecha: flota.fecharegistro,
+                                 origen:flota.origen,  
+                                 destino:flota.destino,
+                                 tipo:flota.tipo,
+                                 hora:flota.hora,
+                                 placa:flota.placa,
+                                 precio:flota.precio}" class="img-fluid rounded-start centered-image cursor-pointer" alt="Imagen de pasajero {{ idx + 1 }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h4 class="card-title">Asiento {{ idx + 1 }}</h4>
+                                <p *ngIf="isSeatSold(idx + 1)" class="text-danger">Vendido</p>
+                                <p class="card-text">{{ flota.origen }} &rarr; {{ flota.destino }} | Hora: {{ flota.hora }}</p>
+                                <p class="card-text">Tipo: {{ flota.tipo }}</p>
+                                <p class="card-text"><small class="text-body-secondary">{{ flota.placa }} -{{ flota.fecharegistro }} - {{flota.precio}} Bs </small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

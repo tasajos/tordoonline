@@ -1,1 +1,4 @@
-<p>pasajes works!</p>
+<div *ngFor="let asiento of getArrayOfSize(numeroAsientos); let i = index">
+    <h4>Asiento Número: {{ i + 1 }}</h4>
+    <p>Placa: {{ placa }}</p>
+</div>

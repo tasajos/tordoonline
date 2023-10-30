@@ -4,6 +4,7 @@ import { registrarflotaInter } from 'src/app/Interfaz/flota';
 import { Modal } from 'bootstrap'; // <-- Importa Bootstrap
 import {MatGridListModule} from '@angular/material/grid-list';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menubus',
@@ -23,7 +24,8 @@ export class MenubusComponent implements OnInit, AfterViewInit {
   @ViewChild('modalOrigenDestino') modalOrigenDestino!: ElementRef;
   private modalOD!: Modal;  // Instancia del nuevo modal
 
-  constructor(private verFlota: SflotaService, private buscarFlotaService: SflotaService) {}
+  constructor(private verFlota: SflotaService, private buscarFlotaService: SflotaService,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.verFlota.getflota().subscribe((data: registrarflotaInter[]) => {
@@ -94,4 +96,11 @@ export class MenubusComponent implements OnInit, AfterViewInit {
 
     return inputDate >= today;
   }
+
+  verAsientos(registro: any) {
+    // Aquí puedes enviar cualquier dato que necesites, como la placa o el número de asientos de la flota
+    this.router.navigate(['/pasajes'], { queryParams: { placa: registro.placa, cantidadpasajeros: registro.cantidadpasajeros } });
+}
+
+
 }
