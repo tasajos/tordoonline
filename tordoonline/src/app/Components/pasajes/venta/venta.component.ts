@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router  } from '@angular/router';
 import { SusuarioService } from 'src/app/Services/susuario.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
@@ -51,7 +51,7 @@ export class VentaComponent implements OnInit {
   estado: string = '';
   // ... otros campos
 
-  constructor(private route: ActivatedRoute, private rtServicio: SusuarioService) {}
+  constructor(private route: ActivatedRoute, private rtServicio: SusuarioService,private routes: Router) {}
 
 
   ngOnInit(): void {
@@ -144,5 +144,10 @@ export class VentaComponent implements OnInit {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
+  }
+
+  volver() {
+    // Redirige al usuario a la página principal
+    this.routes.navigateByUrl('/');
   }
 }

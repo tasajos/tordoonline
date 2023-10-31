@@ -145,11 +145,12 @@
     <!-- Botón de enviar -->
     <br>
     <div class="row mt-3">
-      <div class="col-md-12">
-        <!--<button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Pagar</button>-->
-        <button type="button" class="btn btn-primary" (click)="openModal()">Pagar</button>
+        <div class="col-md-12">
+          <button type="button" class="btn btn-primary custom-button" (click)="openModal()">Pagar</button>
+          <button mat-raised-button color="accent" class="custom-button" (click)="volver()">Volver</button>
+        </div>
       </div>
-    </div>
+      
   </form>
 
   <!-- Button trigger modal 
@@ -157,6 +158,8 @@
     Launch static backdrop modal
   </button>-->
   
+
+
 <!-- Modal QR -->
 <div class="modal fade" id="staticBackdropQR" tabindex="-1" aria-labelledby="staticBackdropLabelQR" aria-hidden="true">
   <div class="modal-dialog">
