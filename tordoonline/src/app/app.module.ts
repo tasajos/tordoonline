@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
 
 
 //trabajo
@@ -49,7 +50,8 @@ import { ListaflotaComponent } from './Components/pasajes/flota/listaflota/lista
     MatMenuModule,
     FormsModule,
     HttpClientModule,
-    MatGridListModule
+    MatGridListModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

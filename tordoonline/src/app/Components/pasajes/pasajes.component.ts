@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router  } from '@angular/router';
 import { SusuarioService } from 'src/app/Services/susuario.service'; // Importa el servicio correcto
 import { VentaPasajeticketInter } from 'src/app/Interfaz/usuario';
 
@@ -21,7 +21,8 @@ export class PasajesComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private susuarioService: SusuarioService // Inyectar el servicio correcto
+    private susuarioService: SusuarioService,
+    private router: Router // Inyectar el servicio correcto
   ) {}
 
   ngOnInit() {
@@ -51,8 +52,20 @@ export class PasajesComponent implements OnInit {
       +pasajero.asiento === seatNumber && pasajero.placa === this.placa
     );
   }
+  
+  formatDate(dateString: string): string {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    };
+    return new Date(dateString).toLocaleDateString('es-ES', options);
+  }
+  
   getArrayOfSize(size: number): number[] {
     return Array.from({ length: size }, (_, index) => index + 1);
   }
+  redirectToHome() {
+    this.router.navigate(['/']); // Cambia '/' por la ruta de tu página principal
+  }
 }
-
