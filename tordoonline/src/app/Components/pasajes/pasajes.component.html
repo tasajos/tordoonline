@@ -1,4 +1,48 @@
-<div *ngFor="let asiento of getArrayOfSize(numeroAsientos); let i = index">
-    <h4>Asiento Número: {{ i + 1 }}</h4>
-    <p>Placa: {{ placa }}</p>
+<app-cabecerx></app-cabecerx>
+<br>
+<br>
+<p></p>
+<br>
+<p></p>
+<br>
+<p></p>
+<br>
+<p></p>
+<div class="container mt-4">
+    <div class="row">
+        <ng-container *ngFor="let i of getArrayOfSize(numeroAsientos); let idx = index">
+            <div class="col-md-6 mb-3">
+                <div class="card" [ngClass]="{'orange-background': isSeatSold(idx + 1)}">
+                    <div class="row g-0">
+                        <div class="col-md-4 mt-3">
+                            <img src="../../../assets/img/asiento_tierra.png" [routerLink]="['/reservapasaje']"
+                                [queryParams]="{
+                                    asiento: idx + 1,
+                                    origen: origen,
+                                    destino: destino,
+                                    tipo: tipo,
+                                    fecharegistro: fecharegistro,
+                                    placa: placa,
+                                    hora: hora,
+                                    precio: precio
+                                }"
+                                class="img-fluid rounded-start centered-image cursor-pointer"
+                                alt="Imagen del asiento">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h4 class="card-title">Asiento {{ idx + 1 }}</h4>
+                                <p *ngIf="isSeatSold(idx + 1)" class="text-danger">Vendido</p>
+                                <p class="card-text">{{ origen }} &rarr; {{ destino }} | Hora: {{ hora }}</p>
+                                <p class="card-text">{{ fecharegistro }}
+                                <p class="card-text">Tipo: {{ tipo }}
+                                <p class="card-text">Precio: {{ precio }}</p>
+                                <p class="card-text"><small class="text-body-secondary">Placa: {{ placa }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
 </div>

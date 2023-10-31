@@ -1,0 +1,22 @@
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Define tres columnas de igual ancho */
+    gap: 20px; /* Espaciado entre tarjetas */
+}
+
+.tmim {
+
+    width: 50px;
+    height: 50px;
+
+  }
+
+  .card-img-50 {
+    height: 50px;
+    width: 50px;  /* mantiene el aspecto original de la imagen */
+}
+
+.orange-background {
+    background-color: #E2D162;
+  }
+  

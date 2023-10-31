@@ -16,6 +16,10 @@ export class MenubusComponent implements OnInit, AfterViewInit {
   registrosFlota: registrarflotaInter[] = [];
   origen: string = '';
   destino: string = '';
+  fecharegistro: string = '';
+  tipo: string = '';
+  hora: string = '';
+  precio: string = '';
   mostrarModal: boolean = false ;
   registro: any;
   @ViewChild('modalNoResultados') modalNoResultados!: ElementRef;
@@ -99,7 +103,13 @@ export class MenubusComponent implements OnInit, AfterViewInit {
 
   verAsientos(registro: any) {
     // Aquí puedes enviar cualquier dato que necesites, como la placa o el número de asientos de la flota
-    this.router.navigate(['/pasajes'], { queryParams: { placa: registro.placa, cantidadpasajeros: registro.cantidadpasajeros } });
+    this.router.navigate(['/pasajes'], { queryParams: { placa: registro.placa, cantidadpasajeros: registro.cantidadpasajeros,
+      destino: registro.destino,
+      origen: registro.origen,
+      fecharegistro: registro.fecharegistro,
+      tipo: registro.tipo,
+      hora: registro.hora,
+      precio: registro.precio, } });
 }
 
 
