@@ -56,7 +56,12 @@ export class VentaComponent implements OnInit {
 
   ngOnInit(): void {
     this.flota.asiento = this.route.snapshot.queryParamMap.get('asiento');
-    this.flota.fecha = this.route.snapshot.queryParamMap.get('fecha');
+    //this.flota.fecharegistro = this.route.snapshot.queryParamMap.get('fecharegistro');
+    const fecharegistroParam = this.route.snapshot.queryParamMap.get('fecharegistro');
+  if (fecharegistroParam !== null) {
+    this.flota.fecharegistro = this.formatDate(fecharegistroParam);
+  }
+    
     this.flota.origen = this.route.snapshot.queryParamMap.get('origen');
     this.flota.destino = this.route.snapshot.queryParamMap.get('destino');
     //this.flota.precio = this.route.snapshot.queryParamMap.get('precio');
@@ -133,4 +138,11 @@ export class VentaComponent implements OnInit {
     }
   }
   
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
 }
