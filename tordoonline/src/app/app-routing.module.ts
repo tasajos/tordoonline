@@ -6,6 +6,7 @@ import { PrincipalComponent } from './Components/principal/principal.component';
 import { PasajesComponent } from './Components/pasajes/pasajes.component';
 import { VerflotaComponent } from './Components/pasajes/flota/verflota/verflota.component';
 import { ListaflotaComponent } from './Components/pasajes/flota/listaflota/listaflota.component';
+import { VentaComponent } from './Components/pasajes/venta/venta.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: '', redirectTo:'principal', pathMatch:'full'},
   {path: 'principal',component:PrincipalComponent},
   {path: 'ventas',component:PasajesComponent},
+  {path: 'ventapasaje',component:VentaComponent},
   {path: 'vflotas',component:VerflotaComponent},
   {path: 'pasajes',component:PasajesComponent},
   {path: 'pasajeros-tabla/:count',component:ListaflotaComponent},

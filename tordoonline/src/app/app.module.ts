@@ -27,6 +27,7 @@ import { MenubusComponent } from './Components/principal/menubus/menubus.compone
 import { PasajesComponent } from './Components/pasajes/pasajes.component';
 import { VerflotaComponent } from './Components/pasajes/flota/verflota/verflota.component';
 import { ListaflotaComponent } from './Components/pasajes/flota/listaflota/listaflota.component';
+import { VentaComponent } from './Components/pasajes/venta/venta.component';
 
 
 
@@ -40,7 +41,8 @@ import { ListaflotaComponent } from './Components/pasajes/flota/listaflota/lista
     MenubusComponent,
     PasajesComponent,
     VerflotaComponent,
-    ListaflotaComponent
+    ListaflotaComponent,
+    VentaComponent
   ],
   imports: [
     BrowserModule,
