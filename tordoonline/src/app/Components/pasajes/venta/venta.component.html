@@ -181,7 +181,7 @@
         <button type="button" class="btn btn-primary" [disabled]="!botonConfirmarModalHabilitado" (click)="onSubmit(reservaForm.value)">Confirmar</button>
       </div>
       <div class="d-flex justify-content-center mt-3 mb-2">
-        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" [disabled]="botonConfirmarModalHabilitado">
+        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" [disabled]="botonConfirmarModalHabilitado" (click)="generatePDF()">
           <mat-icon>print</mat-icon>
       </button>
       
@@ -209,7 +209,7 @@
         <button type="button" class="btn btn-primary" [disabled]="!botonConfirmarModalHabilitado" (click)="onSubmit(reservaForm.value)">Confirmar</button>
       </div>
       <div class="d-flex justify-content-center mt-3 mb-2">
-        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" [disabled]="botonConfirmarModalHabilitado">
+        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" [disabled]="botonConfirmarModalHabilitado" (click)="generatePDF()">
           <mat-icon>print</mat-icon>
       </button>
       

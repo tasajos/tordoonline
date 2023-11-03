@@ -31,6 +31,8 @@ import { VentaComponent } from './Components/pasajes/venta/venta.component';
 
 
 
+//pdf
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +55,8 @@ import { VentaComponent } from './Components/pasajes/venta/venta.component';
     FormsModule,
     HttpClientModule,
     MatGridListModule,
-    MatIconModule
+    MatIconModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

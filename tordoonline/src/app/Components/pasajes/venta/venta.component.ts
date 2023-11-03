@@ -4,6 +4,9 @@ import { SusuarioService } from 'src/app/Services/susuario.service';
 import { ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-venta',
@@ -160,5 +163,29 @@ export class VentaComponent implements OnInit {
   }
 
 
+  generatePDF() {
+    let docDefinition = {
+      content: [
+        // Puedes agregar más elementos a este array para estructurar tu PDF.
+        { text: 'Recibo', style: 'header' },
+        { text: 'Número de Asiento: ' + this.flota.asiento },
+        { text: 'Fecha: ' + this.flota.fecharegistro },
+        { text: 'Origen: ' + this.flota.origen + ' - Destino: ' + this.flota.destino },
+        { text: 'Nombre: ' + this.nombre + ' ' + this.apellidos },
+        // ... Agrega aquí todos los campos que desees.
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        }
+        // Puedes definir más estilos aquí.
+      }
+    };
+  
+    pdfMake.createPdf(docDefinition).download('Datos_Registrados.pdf');
+  }
+  
 
 }
