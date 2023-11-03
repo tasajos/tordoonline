@@ -13,12 +13,11 @@ import * as bootstrap from 'bootstrap';
 export class VentaComponent implements OnInit {
 
 
-  @ViewChild('miBoton') miBoton!: ElementRef;
-
 
   registroExitoso: boolean = false;
   botonConfirmarHabilitado: boolean = true;
   botonConfirmarModalHabilitado: boolean = true;
+  
 
 
   
@@ -57,7 +56,8 @@ export class VentaComponent implements OnInit {
   estado: string = '';
   // ... otros campos
 
-  constructor(private route: ActivatedRoute, private rtServicio: SusuarioService,private routes: Router) {}
+  constructor(private route: ActivatedRoute, private rtServicio: SusuarioService,
+    private routes: Router) {}
 
 
   ngOnInit(): void {
