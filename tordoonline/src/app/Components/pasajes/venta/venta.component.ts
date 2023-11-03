@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router  } from '@angular/router';
 import { SusuarioService } from 'src/app/Services/susuario.service';
+import { ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 
@@ -11,9 +12,14 @@ import * as bootstrap from 'bootstrap';
 })
 export class VentaComponent implements OnInit {
 
+
+  @ViewChild('miBoton') miBoton!: ElementRef;
+
+
   registroExitoso: boolean = false;
   botonConfirmarHabilitado: boolean = true;
   botonConfirmarModalHabilitado: boolean = true;
+
 
   
   flota: any = {
@@ -55,6 +61,8 @@ export class VentaComponent implements OnInit {
 
 
   ngOnInit(): void {
+  
+    
     this.flota.asiento = this.route.snapshot.queryParamMap.get('asiento');
     //this.flota.fecharegistro = this.route.snapshot.queryParamMap.get('fecharegistro');
     const fecharegistroParam = this.route.snapshot.queryParamMap.get('fecharegistro');
@@ -151,5 +159,6 @@ export class VentaComponent implements OnInit {
     this.routes.navigateByUrl('/');
   }
 
-  
+
+
 }
