@@ -150,4 +150,6 @@ export class VentaComponent implements OnInit {
     // Redirige al usuario a la página principal
     this.routes.navigateByUrl('/');
   }
+
+  
 }
