@@ -28,6 +28,7 @@ import { PasajesComponent } from './Components/pasajes/pasajes.component';
 import { VerflotaComponent } from './Components/pasajes/flota/verflota/verflota.component';
 import { ListaflotaComponent } from './Components/pasajes/flota/listaflota/listaflota.component';
 import { VentaComponent } from './Components/pasajes/venta/venta.component';
+import { FooterComponent } from './Components/principal/footer/footer.component';
 
 
 
@@ -44,7 +45,8 @@ import { VentaComponent } from './Components/pasajes/venta/venta.component';
     PasajesComponent,
     VerflotaComponent,
     ListaflotaComponent,
-    VentaComponent
+    VentaComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

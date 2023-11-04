@@ -1,0 +1,17 @@
+/* Estilos generales del footer */
+.footer {
+    background-color: f5f5f5;
+    color: black;
+    padding: 20px 0;
+  }
+  
+  /* Estilos para el contenido del footer en dispositivos pequeños */
+  @media (max-width: 768px) {
+    .footer .container {
+      text-align: center;
+    }
+  
+    .footer .row {
+      flex-direction: column;
+    }
+  }
