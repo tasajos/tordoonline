@@ -192,4 +192,23 @@ export class VentaComponent implements OnInit {
   }
   
 
+  enviarPorWhatsapp() {
+    const telefono = '+59170776212'; // El número de teléfono al que deseas enviar el mensaje
+    const mensaje = `Hola, aquí están los detalles de la compra: 
+    *Asiento* ${this.flota.asiento},
+    *Nombre:* ${this.nombre} ${this.apellidos},
+    *Fecha:* ${this.flota.fecharegistro}, *Hora:* ${this.flota.hora}, *Origen:* ${this.flota.origen}, *Destino:* ${this.flota.destino}, *Precio:* ${this.flota.precio} Bs,
+    *Placa Vehiculo:* ${this.flota.placa},
+    *Tipo:* ${this.flota.tipo}`;
+    
+    const urlWhatsapp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    window.open(urlWhatsapp, '_blank');
+  }
+
+  onButtonClick() {
+    this.generatePDF();
+    this.enviarPorWhatsapp();
+  }
+
+
 }
