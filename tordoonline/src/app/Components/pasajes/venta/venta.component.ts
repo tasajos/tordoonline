@@ -164,11 +164,14 @@ export class VentaComponent implements OnInit {
 
 
   generatePDF() {
+    
     let docDefinition = {
       content: [
         // Puedes agregar más elementos a este array para estructurar tu PDF.
+       
+        { text: '', margin: [0, 10] },
         { text: 'Recibo', style: 'header' },
-        { text: 'Número de Asiento: ' + this.flota.asiento },
+        { text: 'Número de Asiento: ' + this.flota.asiento + ' - Tipo: ' + this.flota.tipo },
         { text: 'Fecha: ' + this.flota.fecharegistro },
         { text: 'Origen: ' + this.flota.origen + ' - Destino: ' + this.flota.destino },
         { text: 'Nombre: ' + this.nombre + ' ' + this.apellidos },
@@ -182,6 +185,7 @@ export class VentaComponent implements OnInit {
         }
         // Puedes definir más estilos aquí.
       }
+      
     };
   
     pdfMake.createPdf(docDefinition).download('Datos_Registrados.pdf');
