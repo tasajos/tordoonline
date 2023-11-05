@@ -67,7 +67,8 @@ export class VentaComponent implements OnInit {
   
     
     this.flota.asiento = this.route.snapshot.queryParamMap.get('asiento');
-    //this.flota.fecharegistro = this.route.snapshot.queryParamMap.get('fecharegistro');
+    //this.flota.fecha = this.route.snapshot.queryParamMap.get('fecha');
+    this.flota.fecharegistro = this.route.snapshot.queryParamMap.get('fecharegistro');
     const fecharegistroParam = this.route.snapshot.queryParamMap.get('fecharegistro');
   if (fecharegistroParam !== null) {
     this.flota.fecharegistro = this.formatDate(fecharegistroParam);
@@ -88,7 +89,7 @@ export class VentaComponent implements OnInit {
 
     const pasajero = {
       asiento: this.flota.asiento,
-      fecha: this.flota.fecha, // Asegúrate de proporcionar un valor para fecha
+      fecha: this.flota.fecharegistro, // Asegúrate de proporcionar un valor para fecha
       nombre: this.nombre,
       apellidos: this.apellidos,
       nit: this.nit,
