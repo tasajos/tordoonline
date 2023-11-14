@@ -20,7 +20,7 @@
                 <div class="card" [ngClass]="{'orange-background': isSeatSold(idx + 1)}">
                     <div class="row g-0">
                         <div class="col-md-4 mt-5">
-                            <img src="../../../assets/img/asiento_tierra.png" [routerLink]="['/ventapasaje']"
+                            <img src="../../../assets/img/asiento_tierra.png" [routerLink]="isSeatSold(idx + 1) ? null : ['/ventapasaje']"
                                 [queryParams]="{
                                     asiento: idx + 1,
                                     origen: origen,
@@ -44,8 +44,8 @@
                                 <p class="card-text">Fecha: {{ formatDate(fecharegistro) }}</p>
                                 <p class="card-text"><small class="text-body-secondary">Placa: {{ placa }}</small></p>
                                 <div class="d-flex justify-content-center">
-                                    <button mat-raised-button color="primary" 
-        [routerLink]="['/ventapasaje']" 
+                                    <button mat-raised-button color="primary" id="buyButton{{ idx }}"
+                                    [routerLink]="isSeatSold(idx + 1) ? null : ['/ventapasaje']"
         [queryParams]="{
             asiento: idx + 1,
             origen: origen,
@@ -55,7 +55,12 @@
             placa: placa,
             hora: hora,
             precio: precio
-        }">Comprar</button>
+        }"
+        
+        [disabled]="isSeatSold(idx + 1)"
+  (click)="openSoldSeatModal(idx + 1)"
+        
+        >Comprar</button>
                                 </div>
                             </div>
                         </div>
@@ -64,4 +69,26 @@
             </div>
         </ng-container>
     </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="soldSeatModal" tabindex="-1" role="dialog" aria-labelledby="soldSeatModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="soldSeatModalLabel">Asiento Vendido</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Este asiento ya ha sido vendido. Por favor, seleccione otro asiento.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>

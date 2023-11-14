@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router  } from '@angular/router';
 import { SusuarioService } from 'src/app/Services/susuario.service'; // Importa el servicio correcto
 import { VentaPasajeticketInter } from 'src/app/Interfaz/usuario';
+import { MatDialog } from '@angular/material/dialog';
+
+declare var $: any; // Declara la variable jQuery
+
 
 @Component({
   selector: 'app-pasajes',
@@ -68,4 +72,11 @@ export class PasajesComponent implements OnInit {
   redirectToHome() {
     this.router.navigate(['/']); // Cambia '/' por la ruta de tu página principal
   }
+
+  openSoldSeatModal(seatNumber: number) {
+    if (this.isSeatSold(seatNumber)) {
+      $('#soldSeatModal').modal('show'); // Abre el modal
+    }
+  }
+  
 }
