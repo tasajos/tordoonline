@@ -3,6 +3,6 @@ export const environment = {
     endpoint: 'https://localhost:7196/',
 
     //production
-    //endpoint: 'http://54.213.112.54:5201/',
+   // endpoint: 'http://54.213.112.54:5201/',
 
 }
