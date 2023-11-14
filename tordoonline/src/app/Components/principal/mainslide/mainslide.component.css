@@ -1,0 +1,26 @@
+.card {
+    /* max-width: 50%; /* Ajusta el ancho máximo según tus necesidades */
+     margin: 30px ; /* Esto centra horizontalmente */
+     margin-top: 10px; /* Esto agrega un margen superior */
+     margin-bottom: 10px; /* Esto agrega un margen inferior */
+   }
+
+   .imgsrc {
+    margin-top: 10px !important; /* Agrega !important para dar prioridad */
+    height: 150px !important;
+    width: 150px !important;
+}
+
+.card-img-50 {
+    height: 120px !important;
+    width: 120px !important;  /* Mantiene el aspecto original de la imagen */
+}
+
+.img-container {
+    display: flex !important; /* Agrega !important para dar prioridad */
+    justify-content: center !important;
+    align-items: center !important;
+    height: 150px !important;
+    width: 150px !important;
+    margin-top: 10px !important;
+}
