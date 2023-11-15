@@ -1,5 +1,5 @@
 <div class="fondomenu">
-    <button mat-button [matMenuTriggerFor]="inicioMenu"> Inicio</button>
+    <button mat-button [matMenuTriggerFor]="inicioMenu" [routerLink]="['/principal']"> Inicio</button>
     <mat-menu #inicioMenu="matMenu" yPosition="below">
       <button mat-menu-item>Item 1</button>
       <button mat-menu-item>Item 2</button>
@@ -7,11 +7,11 @@
   
     <button mat-button [matMenuTriggerFor]="reservaMenu">Reserva Pasajes</button>
     <mat-menu #reservaMenu="matMenu" yPosition="below">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
+      <button mat-menu-item [routerLink]="['/reservp']">Conoce Mas</button>
+     
     </mat-menu>
   
-    <button mat-button [matMenuTriggerFor]="acercaMenu">Acerca de Nosotros</button>
+    <button mat-button [matMenuTriggerFor]="acercaMenu"  [routerLink]="['/mslide']">Acerca de Nosotros</button>
     <mat-menu #acercaMenu="matMenu" xPosition="before">
       <button mat-menu-item>Item 1</button>
       <button mat-menu-item>Item 2</button>
