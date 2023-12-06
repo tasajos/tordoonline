@@ -33,6 +33,9 @@ import { MainslideComponent } from './Components/principal/mainslide/mainslide.c
 import { ReservpComponent } from './Components/menu/reservp/reservp.component';
 import { MenslideComponent } from './Components/menu/menslide/menslide.component';
 import { CounterComponent } from './Components/menu/counter/counter.component';
+import { CboliviaComponent } from './Components/menu/cbolivia/cbolivia.component';
+import { CrutasComponent } from './Components/menu/crutas/crutas.component';
+import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.component';
 
 
 
@@ -54,7 +57,10 @@ import { CounterComponent } from './Components/menu/counter/counter.component';
     MainslideComponent,
     ReservpComponent,
     MenslideComponent,
-    CounterComponent
+    CounterComponent,
+    CboliviaComponent,
+    CrutasComponent,
+    CtipsviajeComponent
   ],
   imports: [
     BrowserModule,

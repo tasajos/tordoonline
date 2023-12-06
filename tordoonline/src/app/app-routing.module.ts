@@ -10,6 +10,9 @@ import { VentaComponent } from './Components/pasajes/venta/venta.component';
 import { ReservpComponent } from './Components/menu/reservp/reservp.component';
 import { MenslideComponent } from './Components/menu/menslide/menslide.component';
 import { CounterComponent } from './Components/menu/counter/counter.component';
+import { CboliviaComponent } from './Components/menu/cbolivia/cbolivia.component';
+import { CrutasComponent } from './Components/menu/crutas/crutas.component';
+import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.component';
 
 
 const routes: Routes = [
@@ -24,6 +27,9 @@ const routes: Routes = [
   {path: 'reservp',component:ReservpComponent},
   {path: 'mslide',component:MenslideComponent},
   {path: 'counter',component:CounterComponent},
+  {path: 'cbolivia',component:CboliviaComponent},
+  {path: 'crutas',component:CrutasComponent},
+  {path: 'ctips',component:CtipsviajeComponent},
 {path: '**', redirectTo:'principal', pathMatch:'full'}
 ];
 
