@@ -1,0 +1,250 @@
+*{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+	transition: 0.2s;
+}
+
+body {
+	background: linear-gradient(to right, #8e9eab, #eef2f3);
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: system-ui, -apple-system, system-ui, ".SFNSText-Regular", sans-serif;
+	letter-spacing: .03em;
+}
+
+a {
+	text-decoration: none;
+}
+
+i {
+	letter-spacing: 0;
+}
+
+/* .scroll {
+	overflow: scroll !important;
+} */
+
+.item {
+	width: 400px;
+	height: 500px;
+	background: #fff;
+    margin-left: 2%;
+	position: relative;
+	box-shadow: -15px 7px 30px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	border-radius: 10px;
+    
+
+
+}
+
+.item-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+    grid-gap: 20px; /* Espacio entre tarjetas */
+}
+
+.container {
+    padding: 20px;
+}
+
+.item .img {
+	width: 100%;
+	height: 50%;
+	background: black;
+	border-radius: 10px 10px 0 0;
+	position: absolute;
+	z-index: 5;
+	overflow: hidden;
+}
+
+.item .img-content {
+	width: 100%;
+	height: 100%;
+	transition: 0 !important;
+	background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/26th_Tokyo_International_Film_Festival-_Tom_Hanks_from_Captain_Phillips_%2814970103713%29.jpg/640px-26th_Tokyo_International_Film_Festival-_Tom_Hanks_from_Captain_Phillips_%2814970103713%29.jpg);
+    
+	background-size: cover;
+	background-position: top center;
+	background-repeat: no-repeat;
+}
+
+.item.showfull .text-container {
+	height: 90%;
+}
+
+.item.showfull .content {
+	height: 78%;
+}
+
+.item.showfull .social {
+	top: 25px;
+}
+
+.item.showfull .img-content {
+	transform: scale(1.04);
+	filter: blur(5px);
+}
+
+.item.showfull .like {
+	margin-top: 100px;
+}
+
+.item .text-container {
+	width: 100%;
+	height: 55%;
+	background: #fff;
+	border-radius: 10px;
+	position: absolute;
+	bottom: 0;
+	z-index: 10;
+	box-shadow: -3px -10px 10px rgba(0, 0, 0, 0.3);
+	overflow: hidden;
+	padding: 30px 20px 20px 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.item .content {
+	height: 63%;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+.item .social {
+	width: 100%;
+	height: 50px;
+	position: absolute;
+	z-index: 15;
+	top: 40%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.item h2 {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.item .social div {
+	width: 50px;
+	height: 50px;
+	background: green;
+	margin: 0 5px;
+	border-radius: 50%;
+	cursor: pointer;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+}
+
+.item .social div:hover {
+	transform: scale(1.1);
+}
+
+.item .social a:last-child {
+	margin-right: 20px;
+}
+
+.item a .tw {
+	background-color: #0084b4;
+}
+
+.item a .fb {
+	background-color: #3b5998;
+}
+
+.item a .ig {
+	background-color: #cd486b;
+}
+
+.item .like {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	background: #a37f7f;
+	border-radius: 50%;
+	color: #fff;
+	right: 30px;
+	top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10;
+}
+
+.item .like:hover {
+	transform: scale(1.1);
+}
+
+.item .like i {
+	font-size: 15px;
+}
+
+.item .like.clicked {
+	background: #ffcece;
+}
+
+.item .like.clicked i {
+	color: #e60026;
+}
+
+.item .readmore {
+	display: flex;
+	padding-bottom: 5px;
+}
+
+.item .readmore h3 {
+	display: block;
+	padding: 10px 15px;
+	border-radius: 40px;
+	border: 1px solid;
+	cursor: pointer;
+	font-size: 10px;
+	margin-bottom: 5px;
+}
+
+
+
+.item-1 .img-content {
+    background-image: url('https://planetofhotels.com/guide/sites/default/files/styles/paragraph__live_banner__lb_image__1880bp/public/live_banner/La-Paz.jpg'); /* Reemplaza con la URL de tu segunda imagen */
+}
+
+
+.item-2 .img-content {
+    background-image: url('https://estaticos-noticias.unitel.bo/binrepository/1024x638/0c63/1024d512/none/125450566/PILM/cbba-frio_101-6273733_20230627224150.jpg'); /* Reemplaza con la URL de tu segunda imagen */
+}
+
+.item-3 .img-content {
+    background-image: url('https://cdn.bolivia.com/sdi/2018/09/26/7-curiosidades-de-santa-cruz-673897.jpg'); /* Reemplaza con la URL de tu segunda imagen */
+}
+
+.item-4 .img-content {
+    background-image: url('https://lapalabradelbeni.com.bo/wp-content/uploads/2022/06/IGLESIA-CATEDRAL-1024x768.jpg'); /* Reemplaza con la URL de tu segunda imagen */
+}
+
+.item-5 .img-content {
+    background-image: url('https://boliviaemprende.com/wp-content/uploads/2015/09/pando-cobija.jpg'); /* Reemplaza con la URL de tu segunda imagen */
+}
+
+.item-6 .img-content {
+    background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/04/20/82/87/carnaval-de-oruro.jpg?w=500&h=300&s=1'); /* Reemplaza con la URL de tu segunda imagen */
+}
+
+.item-7 .img-content {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Potosiperso.JPG/1200px-Potosiperso.JPG'); /* Reemplaza con la URL de tu segunda imagen */
+}
+
+.item-8 .img-content {
+    background-image: url('https://www.prensa-latina.cu/wp-content/uploads/2023/05/Chuquisaca.jpg'); /* Reemplaza con la URL de tu segunda imagen */
+}
+
+.item-9 .img-content {
+    background-image: url('https://www.antenainfinita.com/wp-content/uploads/2021/04/tarijita1.jpg'); /* Reemplaza con la URL de tu segunda imagen */
+}
