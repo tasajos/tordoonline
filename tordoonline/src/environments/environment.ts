@@ -7,3 +7,12 @@ export const environment = {
    // endpoint: 'http://54.213.112.54:5201/',
 
 }
+
+
+export const envgeneraqr = {
+    production: false,
+    //endpointgeneraqr: 'https://dev-sip.mc4.com.bo:8443/'
+    endpointgeneraqr: 'https://sip.mc4.com.bo:8443/'
+    //production
+   // endpoint: 'http://54.213.112.54:5201/',
+}

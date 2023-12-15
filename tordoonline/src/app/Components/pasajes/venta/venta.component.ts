@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router  } from '@angular/router';
 import { SusuarioService } from 'src/app/Services/susuario.service';
+import { QrService } from 'src/app/Services/qr.service';
 import { ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
@@ -20,7 +21,7 @@ export class VentaComponent implements OnInit {
   registroExitoso: boolean = false;
   botonConfirmarHabilitado: boolean = true;
   botonConfirmarModalHabilitado: boolean = true;
-  
+  qrData: any; // Declara qrData aquí
 
 
   
@@ -59,8 +60,11 @@ export class VentaComponent implements OnInit {
   estado: string = '';
   // ... otros campos
 
-  constructor(private route: ActivatedRoute, private rtServicio: SusuarioService,
-    private routes: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private rtServicio: SusuarioService,
+    private routes: Router,
+    private qrService: QrService ) {}
 
 
   ngOnInit(): void {
@@ -87,6 +91,33 @@ export class VentaComponent implements OnInit {
     console.log('Datos del formulario:', formData);
 
 
+    this.qrData = {
+      alias: this.nombre,
+      callback: this.flota.asiento,
+      detalleGlosa: this.nombre + this.ci,
+      monto: 20.0,
+      moneda: 'BOB', // Asegúrate de que 'BOB' sea un string
+      fechaVencimiento:  this.flota.fecharegistro, // Reemplaza 'fechahoy' con la fecha adecuada
+      tipoSolicitud: 'API', // Asegúrate de que 'API' sea un string
+      unicoUso: true,
+    };
+
+    console.log('qrData:', this.qrData);
+
+    // Llama al servicio para generar el código QR
+    this.qrService.createqr(this.qrData).subscribe(
+      (response) => {
+        console.log('Código QR generado:', response);
+
+        // Después de generar el código QR, puedes abrir el modal
+        this.openModal();
+      },
+      (error) => {
+        console.error('Error al generar el código QR:', error);
+        // Maneja el error de acuerdo a tus necesidades
+      }
+    );
+
     const pasajero = {
       asiento: this.flota.asiento,
       fecha: this.flota.fecharegistro, // Asegúrate de proporcionar un valor para fecha
@@ -109,6 +140,9 @@ export class VentaComponent implements OnInit {
       // ... otros campos
     };
 
+    
+
+
  // Después de un registro exitoso
  this.registroExitoso = true;
     // Aquí puedes procesar los datos del formulario, como enviarlos a un backend
@@ -129,14 +163,14 @@ export class VentaComponent implements OnInit {
   }
 
   openModal() {
-    if (this.metodopago === 'qr') {
+    if (this.metodopago === 'qr' && this.qrData) {
       // Abre el modal "QR"
       const modalQR = document.getElementById('staticBackdropQR');
       if (modalQR) {
         const bsModal = new bootstrap.Modal(modalQR);
         bsModal.show();
         // Deshabilita el botón "Confirmar" después de abrir el modal
-      this.botonConfirmarHabilitado = false;
+        this.botonConfirmarHabilitado = false;
       }
     } else if (this.metodopago === 'efectivo') {
       // Abre el modal "Efectivo"
@@ -145,10 +179,13 @@ export class VentaComponent implements OnInit {
         const bsModal = new bootstrap.Modal(modalEfectivo);
         bsModal.show();
         // Deshabilita el botón "Confirmar" después de abrir el modal
-      this.botonConfirmarHabilitado = false;
+        this.botonConfirmarHabilitado = false;
       }
     }
   }
+  
+  
+
   
   formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -210,6 +247,4 @@ export class VentaComponent implements OnInit {
     this.generatePDF();
     this.enviarPorWhatsapp();
   }
-
-
 }

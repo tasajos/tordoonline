@@ -1,0 +1,47 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { envgeneraqr } from 'src/environments/environment';
+import { generaQr } from '../Interfaz/qr';
+import { VentaPasajeticketInter } from '../Interfaz/usuario';
+import { catchError, map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+
+
+export class QrService {
+
+private Myappurl: string = envgeneraqr.endpointgeneraqr;
+private Myapiurl: string = 'api/v1/generaQr';
+
+constructor(private http: HttpClient) { }
+
+
+//funcion generar qr
+
+
+/*createqr  (createqr:generaQr ): Observable<generaQr>{
+
+  return this.http.post<generaQr>(`${this.Myappurl}${this.Myapiurl}`,createqr);
+  
+  }
+
+
+}
+*/
+
+createqr(createqr: generaQr): Observable<generaQr> {
+  // Define los encabezados de la solicitud HTTP
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'apikeyServicio': 'ad3abc8fda3e938efbd6601dd0bd0e7883eeec4d27da85e1',
+    'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJOb21icmUiOiJKVUFOQSBKVUxJQU5BIFZBU1FVRVogVklMTEFSUk9FTCIsInN1YiI6IkpVQU5BSiIsIlRpcG8iOiJFTVBSRVNBIiwiU3UvdGlwbyI6bnVsbCwiSWRVc3VhcmlvIjoyOTMwNiwiT2JzZXJ2YWRvIjpmYWxzZSwiTWVudSI6W3sidGl0dWxvIjoiQWRtaW5pc3RyYWNpw7NuIiwib3JkZW4iOjEsImxpc3RhUGVybWlzbyI6W3siaWRQZXJtaXNvIjoxNSwibm9tYnJlIjoiVXN1YXJpb3MiLCJ2YWxvciI6Ii91c3VhcmlvcyIsIm9yZGVuIjoxLCJfX2hpam9zIjpudWxsfV19LHsidGl0dWxvIjoiVHJhbnNmZXJlbmNpYXMiLCJvcmRlbiI6MCwibGlzdGFQZXJtaXNvIjpbeyJpZFBlcm1pc28iOjE3LCJub21icmUiOiJUcmFuc2FjY2lvbmVzIiwidmFsb3IiOiIvdHJhbnNhY2Npb25lcyIsIm9yZGVuIjoxLCJfX2hpam9zIjpudWxsfSx7ImlkUGVybWlzbyI6MjMsIm5vbWJyZSI6IlJlcG9ydGVzIiwidmFsb3IiOiIvcmVwb3J0ZXMiLCJvcmRlbiI6MSwiX19oaWpvcyI6bnVsbH1dfSx7InRpdHVsbyI6IkVudGlkYWRlcyIsIm9yZGVuIjozLCJsaXN0YVBlcm1pc28iOlt7ImlkUGVybWlzbyI6MjEsIm5vbWJyZSI6IlNlcnZpY2lvcyIsInZhbG9yIjoiL3NlcnZpY2lvcyIsIm9yZGVuIjoxLCJfX2hpam9zIjpudWxsfSx7ImlkUGVybWlzbyI6OTcsIm5vbWJyZSI6IkVzdHJ1Y3R1cmEiLCJ2YWxvciI6Ii9lc3RydWN0dXJhIiwib3JkZW4iOjIsIl9faGlqb3MiOm51bGx9XX1dLCJleHAiOjE3MDI2MTc2MzgsImlhdCI6MTcwMjYxNDAzOCwiRW50aWRhZCI6MTY5NTB9.LLl2dJVCRtHJxT-jgVdpbYTGjVGV4UY1YS21wEYwclUrpJt0EFq1mVvLXurKSFSOgoldgzwWv4vcb4x5cJQi9g'
+  });
+
+  // Realiza la solicitud HTTP con los encabezados
+  return this.http.post<generaQr>(`${this.Myappurl}${this.Myapiurl}`, createqr, { headers });
+}
+}
