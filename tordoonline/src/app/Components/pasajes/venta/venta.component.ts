@@ -80,11 +80,15 @@ export class VentaComponent implements OnInit {
     private route: ActivatedRoute,
     private rtServicio: SusuarioService,
     private routes: Router,
-    private qrService: QrService ) {}
+    private qrService: QrService,
+    private router: Router ) {}
 
 
   ngOnInit(): void {
   
+
+     // Agrega un manejador de eventos para el evento hidden.bs.modal
+     
     
     this.flota.asiento = this.route.snapshot.queryParamMap.get('asiento');
     //this.flota.fecha = this.route.snapshot.queryParamMap.get('fecha');
@@ -207,6 +211,25 @@ export class VentaComponent implements OnInit {
     }
   }
   
+  // Función para cerrar el modal y redirigir al inicio
+  closeModalAndRedirect() {
+   // Cierra el modal QR si está abierto
+  const modalQR = document.getElementById('staticBackdropQR');
+  if (modalQR) {
+    const bsModal = new bootstrap.Modal(modalQR);
+    bsModal.hide();
+  }
+
+  // Cierra el modal Efectivo si está abierto
+  const modalEfectivo = document.getElementById('staticBackdropefectivo');
+  if (modalEfectivo) {
+    const bsModal = new bootstrap.Modal(modalEfectivo);
+    bsModal.hide();
+  }
+
+  // Redirige al usuario a la página de inicio y recarga el sitio
+  window.location.href = '/';
+}
   
 
   
@@ -220,7 +243,8 @@ export class VentaComponent implements OnInit {
 
   volver() {
     // Redirige al usuario a la página principal
-    this.routes.navigateByUrl('/');
+    //this.routes.navigateByUrl('/');
+    window.location.href = '/';
   }
 
 
@@ -332,4 +356,10 @@ export class VentaComponent implements OnInit {
       }
     );
   
-}}
+}
+
+cerraryvolver() {
+  window.location.href = '/';
+}
+
+}
