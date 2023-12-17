@@ -8,4 +8,9 @@ export interface generaQr {
     fechaVencimiento: string,
     tipoSolicitud: string,
     unicoUso: string
+
+    objeto: {
+        imagenQr: string;
+        // Otras propiedades si las hay
+      };
 }

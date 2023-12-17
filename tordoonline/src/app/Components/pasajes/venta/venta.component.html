@@ -198,6 +198,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <!-- Mostrar la imagen del código QR -->
+        <img [src]="qrResponse?.objeto?.imagenQr" alt="QR" width="80%">
         <h1>Por Favor Pagar <span class="badge bg-secondary">{{ flota.precio }} Bs</span></h1>
       </div>
       <!-- Alerta de registro exitoso -->

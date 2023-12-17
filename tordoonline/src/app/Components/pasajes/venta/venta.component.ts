@@ -22,6 +22,7 @@ export class VentaComponent implements OnInit {
   botonConfirmarHabilitado: boolean = true;
   botonConfirmarModalHabilitado: boolean = true;
   qrData: any; // Declara qrData aquí
+  qrResponse: any;
 
 
   
@@ -92,10 +93,10 @@ export class VentaComponent implements OnInit {
 
 
     this.qrData = {
-      alias: this.nombre,
+      alias: 'Pasaje Tordo'+this.flota.fecharegistro + this.flota.asiento + this.nombre + this.apellidos,
       callback: this.flota.asiento,
-      detalleGlosa: this.nombre + this.ci,
-      monto: 20.0,
+      detalleGlosa: this.nombre +' ' + this.apellidos + ' Pasaje Tordo ' + this.flota.fecharegistro + 'Asiento: ' +this.flota.asiento,	
+      monto: this.flota.precio, // Asegúrate de que 'monto' sea un número
       moneda: 'BOB', // Asegúrate de que 'BOB' sea un string
       fechaVencimiento:  this.flota.fecharegistro, // Reemplaza 'fechahoy' con la fecha adecuada
       tipoSolicitud: 'API', // Asegúrate de que 'API' sea un string
@@ -105,9 +106,16 @@ export class VentaComponent implements OnInit {
     console.log('qrData:', this.qrData);
 
     // Llama al servicio para generar el código QR
-    this.qrService.createqr(this.qrData).subscribe(
+    this.qrService.createqrbe(this.qrData).subscribe(
       (response) => {
         console.log('Código QR generado:', response);
+
+        // Modifica la asignación para incluir 'data:image/png;base64,'
+    this.qrResponse = {
+      objeto: {
+        imagenQr: 'data:image/png;base64,' + response.objeto.imagenQr
+      }
+    };
 
         // Después de generar el código QR, puedes abrir el modal
         this.openModal();
