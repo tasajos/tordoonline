@@ -114,7 +114,7 @@ export class VentaComponent implements OnInit {
     this.qrData = {
       alias: 'Pasaje Tordo'+this.flota.fecharegistro + this.flota.asiento + this.nombre + this.apellidos,
       callback: this.flota.asiento,
-      detalleGlosa: this.nombre +' ' + this.apellidos + ' Pasaje Tordo ' + this.flota.fecharegistro + 'Asiento: ' +this.flota.asiento,	
+      detalleGlosa: this.apellidos + 'Tordo ' + this.flota.fecharegistro + 'Asiento: ' +this.flota.asiento + ' '+'Destino:'+ this.flota.destino,	
       monto: this.flota.precio, // Asegúrate de que 'monto' sea un número
       moneda: 'BOB', // Asegúrate de que 'BOB' sea un string
       fechaVencimiento:  this.flota.fecharegistro, // Reemplaza 'fechahoy' con la fecha adecuada

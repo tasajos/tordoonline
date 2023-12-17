@@ -17,7 +17,8 @@ export class QrService {
 //private Myappurl: string = envgeneraqr.endpointgeneraqr;
 private Myappurl: string = environment.endpoint;
 private Myapiurl: string = 'api/v1/generaQr';
-private Myapiurls: string = 'api/APIQR/generaQr'; 
+//private Myapiurls: string = 'api/APIQR/generaQr';   //--clean
+private Myapiurls: string = 'api/APIQR/GenerarTokenYQr'; 
 
 
 constructor(private http: HttpClient) { }
