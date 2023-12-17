@@ -124,29 +124,30 @@
     </div>
 
     <!-- Cuarta fila de campos (opciones de pago) -->
-    <div class="row">
+   <!-- <div class="row">
       <div class="col-md-4">
         <div class="form-check form-check-inline align-items-center">
           <input class="form-check-input" type="radio" name="metodopago" id="qr" value="qr" [(ngModel)]="metodopago">
           <label class="form-check-label" for="qr"><img src="../../../assets/img/codigo-qr.png"> QR</label>
         </div>
-      </div>
+      </div>-->
       <div class="col-md-4">
         <div class="form-check form-check-inline align-items-center">
           <input class="form-check-input" type="radio" name="metodopago" id="efectivo" value="efectivo" [(ngModel)]="metodopago">
-          <label class="form-check-label" for="efectivo"> <img src="../../../assets/img/metodo-de-pago (2).png">Efectivo</label>
+          <label class="form-check-label" for="efectivo"> <img src="../../../assets/img/codigo-qr.png">QR</label>
         </div>
       </div>
       <div class="col-md-4">
         <!-- Opciones de pago aquí... -->
       </div>
-    </div>
+   
 
     <!-- Botón de enviar -->
     <br>
     <div class="row mt-3">
         <div class="col-md-12">
           <button type="button" class="btn btn-primary custom-button" (click)="openModal()">Pagar</button>
+          <!--<button type="button" class="btn btn-primary custom-button" (click)="generateQROnEfectivo()">Pagar</button>-->
           <button mat-raised-button color="accent" class="custom-button" (click)="volver()">Volver</button>
         </div>
       </div>
@@ -178,7 +179,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         <!--<button type="button" class="btn btn-primary" (click)="onSubmit(reservaForm.value)">Confirmar</button>-->
-        <button type="button" class="btn btn-primary" [disabled]="!botonConfirmarModalHabilitado" (click)="onSubmit(reservaForm.value)">Confirmar</button>
+        <button type="button" class="btn btn-primary" [disabled]="!botonConfirmarModalHabilitado" (click)="onSubmit(reservaForm.value)">Generar QR</button>
       </div>
       <div class="d-flex justify-content-center mt-3 mb-2">
         <button mat-fab color="primary" aria-label="Example icon button with a delete icon" [disabled]="botonConfirmarModalHabilitado" (click)="generatePDF()">
@@ -200,15 +201,17 @@
       <div class="modal-body">
         <!-- Mostrar la imagen del código QR -->
         <img [src]="qrResponse?.objeto?.imagenQr" alt="QR" width="80%">
+        <!-- Mostrar la imagen del código QR si qrGenerated es true -->
         <h1>Por Favor Pagar <span class="badge bg-secondary">{{ flota.precio }} Bs</span></h1>
       </div>
       <!-- Alerta de registro exitoso -->
-      <div class="alert alert-success mt-3" *ngIf="registroExitoso">
-        Registro exitoso. ¡Gracias por tu compra!
+      <div #registroExitosoMessage class="alert alert-success mt-3" *ngIf="registroExitoso">
+        Generando QR.............
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" [disabled]="!botonConfirmarModalHabilitado" (click)="onSubmit(reservaForm.value)">Confirmar</button>
+        <button type="button" class="btn btn-primary" [disabled]="!botonConfirmarModalHabilitado" (click)="onSubmit(reservaForm.value)">Generar QR</button>
+        
       </div>
       <div class="d-flex justify-content-center mt-3 mb-2">
         <button mat-fab color="primary" aria-label="Example icon button with a delete icon" [disabled]="botonConfirmarModalHabilitado" (click)="onButtonClick()">

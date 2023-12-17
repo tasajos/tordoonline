@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router  } from '@angular/router';
 import { SusuarioService } from 'src/app/Services/susuario.service';
 import { QrService } from 'src/app/Services/qr.service';
-import { ViewChild, ElementRef } from '@angular/core';
+import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 import pdfMake from 'pdfmake/build/pdfmake';
@@ -19,10 +19,25 @@ export class VentaComponent implements OnInit {
 
 
   registroExitoso: boolean = false;
+  @ViewChild('registroExitosoMessage') registroExitosoMessage: ElementRef | undefined;
   botonConfirmarHabilitado: boolean = true;
   botonConfirmarModalHabilitado: boolean = true;
   qrData: any; // Declara qrData aquí
   qrResponse: any;
+  qrGenerated: boolean = false;
+
+
+
+  ngAfterViewInit(): void {
+    // Oculta el mensaje de registro exitoso después de 4 segundos
+    if (this.registroExitoso) {
+      setTimeout(() => {
+        if (this.registroExitosoMessage) {
+          this.registroExitosoMessage.nativeElement.style.display = 'none';
+        }
+      }, 4000); // 4 segundos
+    }
+  }
 
 
   
@@ -255,4 +270,66 @@ export class VentaComponent implements OnInit {
     this.generatePDF();
     this.enviarPorWhatsapp();
   }
-}
+
+  generateQROnEfectivo() {
+    if (this.metodopago === 'efectivo') {
+      // Llama al servicio para generar el código QR
+      this.qrService.createqrbe(this.qrData).subscribe(
+        (response) => {
+          console.log('Código QR generado:', response);
+
+          // Modifica la asignación para incluir 'data:image/png;base64,'
+          this.qrResponse = {
+            objeto: {
+              imagenQr: 'data:image/png;base64,' + response.objeto.imagenQr
+            }
+          };
+
+           // Establece qrGenerated en true después de generar el código QR
+        this.qrGenerated = true;
+
+          // Abre el modal "Efectivo" y muestra el QR generado
+          const modalEfectivo = document.getElementById('staticBackdropefectivo');
+          if (modalEfectivo) {
+            const bsModal = new bootstrap.Modal(modalEfectivo);
+            bsModal.show();
+          }
+
+          // Deshabilita el botón "Confirmar" después de abrir el modal
+          this.botonConfirmarHabilitado = false;
+        },
+        (error) => {
+          console.error('Error al generar el código QR:', error);
+          // Maneja el error de acuerdo a tus necesidades
+        }
+      );
+    }
+    
+  }
+
+  generateQR() {
+    // Llama a tu servicio para generar el código QR y maneja la respuesta
+    this.qrService.createqrbe(this.qrData).subscribe(
+      (response) => {
+        console.log('Código QR generado:', response);
+
+        // Modifica la asignación para incluir 'data:image/png;base64,'
+        this.qrResponse = {
+          objeto: {
+            imagenQr: 'data:image/png;base64,' + response.objeto.imagenQr
+          }
+        };
+
+        // Establece qrGenerated en true después de generar el código QR
+        this.qrGenerated = true;
+
+        // Abre el modal si es necesario
+        this.openModal();
+      },
+      (error) => {
+        console.error('Error al generar el código QR:', error);
+        // Maneja el error de acuerdo a tus necesidades
+      }
+    );
+  
+}}
