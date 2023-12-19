@@ -1,3 +1,9 @@
 .custom-button {
     margin-right: 10px; /* Ajusta el valor según la cantidad de espacio deseado */
   }
+
+  .alert-customvqr {
+    background-color: blue; /* Cambia el color de fondo a azul */
+    color: white; /* Cambia el color del texto a blanco o el que desees */
+    /* Agrega otros estilos según tus necesidades */
+  }

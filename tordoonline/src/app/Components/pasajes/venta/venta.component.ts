@@ -112,7 +112,7 @@ export class VentaComponent implements OnInit {
 
 
     this.qrData = {
-      alias: 'Pasaje Tordo'+this.flota.fecharegistro + this.flota.asiento + this.nombre + this.apellidos,
+      alias: 'Pasaje Tordo'+' Fecha: '+ this.flota.fecharegistro +'-'+'Asiento: '+ this.flota.asiento +'-' + ' Nombres: '+this.nombre+ ' ' + this.apellidos,
       callback: this.flota.asiento,
       detalleGlosa: this.apellidos + 'Tordo ' + this.flota.fecharegistro + 'Asiento: ' +this.flota.asiento + ' '+'Destino:'+ this.flota.destino,	
       monto: this.flota.precio, // Asegúrate de que 'monto' sea un número
@@ -361,5 +361,21 @@ export class VentaComponent implements OnInit {
 cerraryvolver() {
   window.location.href = '/';
 }
+
+openValidarQRModal() {
+ // Actualiza el contenido del elemento <span> con el alias
+ const aliasPlaceholder = document.getElementById('aliasPlaceholder');
+ if (aliasPlaceholder) {
+   aliasPlaceholder.textContent = this.qrData.alias;
+ }
+
+ // Abre el modal de validación del QR
+ const validarQRModal = document.getElementById('validarQRModal');
+ if (validarQRModal) {
+   const bsModal = new bootstrap.Modal(validarQRModal);
+   bsModal.show();
+ }
+}
+
 
 }

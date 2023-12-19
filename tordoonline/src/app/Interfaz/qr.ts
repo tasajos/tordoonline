@@ -11,6 +11,7 @@ export interface generaQr {
 
     objeto: {
         imagenQr: string;
+        estadoActual: string;
         // Otras propiedades si las hay
       };
 }

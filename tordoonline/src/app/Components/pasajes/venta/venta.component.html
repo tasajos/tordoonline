@@ -180,6 +180,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         <!--<button type="button" class="btn btn-primary" (click)="onSubmit(reservaForm.value)">Confirmar</button>-->
         <button type="button" class="btn btn-primary" [disabled]="!botonConfirmarModalHabilitado" (click)="onSubmit(reservaForm.value)">Generar QR</button>
+        
       </div>
       <div class="d-flex justify-content-center mt-3 mb-2">
         <button mat-fab color="primary" aria-label="Example icon button with a delete icon" [disabled]="botonConfirmarModalHabilitado" (click)="generatePDF()">
@@ -211,6 +212,9 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="cerraryvolver()" >Cerrar</button>
         <button type="button" class="btn btn-primary" [disabled]="!botonConfirmarModalHabilitado" (click)="onSubmit(reservaForm.value)">Generar QR</button>
+        <!--<button type="button" class="btn btn-primary" [disabled]="!botonConfirmarModalHabilitado" (click)="onSubmit(reservaForm.value)">Generar QR</button>-->
+        <!--<button mat-raised-button color="accent" class="custom-button" (click)="openValidarQRModal()">Validar QR</button>-->
+        <button mat-raised-button color="accent" class="custom-button" [disabled]="botonConfirmarModalHabilitado" (click)="openValidarQRModal()">Validar QR</button>
         </div>
       <div class="d-flex justify-content-center mt-3 mb-2">
         <button mat-fab color="primary" aria-label="Example icon button with a delete icon" [disabled]="botonConfirmarModalHabilitado" (click)="onButtonClick()">
@@ -226,3 +230,26 @@
   </div>
 </div>
 
+<!-- Modal Validar QR -->
+<div class="modal fade" id="validarQRModal" tabindex="-1" aria-labelledby="validarQRModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="validarQRModalLabel">Validar QR</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-customvqr" role="alert">
+          <strong>Alias:</strong> <span id="aliasPlaceholder"></span>
+        </div>
+
+        <!-- Contenido del modal de validación del QR -->
+        <!-- Agrega aquí los elementos que necesitas para la validación del QR -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <!-- Puedes agregar botones u opciones para validar el QR aquí -->
+      </div>
+    </div>
+  </div>
+</div>

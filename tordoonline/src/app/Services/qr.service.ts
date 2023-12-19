@@ -18,7 +18,8 @@ export class QrService {
 private Myappurl: string = environment.endpoint;
 private Myapiurl: string = 'api/v1/generaQr';
 //private Myapiurls: string = 'api/APIQR/generaQr';   //--clean
-private Myapiurls: string = 'api/APIQR/GenerarTokenYQr'; 
+private Myapiurls: string = 'api/APIQR/GenerarTokenYQr';
+private Myapiurvqr: string = 'api/APIQR/validacionQryRespuesta'; 
 
 
 constructor(private http: HttpClient) { }
@@ -60,6 +61,16 @@ createqrbe(createqr: generaQr): Observable<generaQr> {
 
   // Realiza la solicitud HTTP con los encabezados
   return this.http.post<generaQr>(`${this.Myappurl}${this.Myapiurls}`, createqr, { headers });
+}
+
+
+validarqrbe(validarqr: generaQr): Observable<generaQr> {
+  // Define los encabezados de la solicitud HTTP
+  const headers = new HttpHeaders({  
+  });
+
+  // Realiza la solicitud HTTP con los encabezados
+  return this.http.post<generaQr>(`${this.Myappurl}${this.Myapiurvqr}`, validarqr, { headers });
 }
 
 
