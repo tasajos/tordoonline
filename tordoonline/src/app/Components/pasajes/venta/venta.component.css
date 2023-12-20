@@ -7,3 +7,8 @@
     color: white; /* Cambia el color del texto a blanco o el que desees */
     /* Agrega otros estilos según tus necesidades */
   }
+
+  .spinner-border {
+    color: #0047AB; /* Cambia este valor al color azul fuerte que prefieras */
+  }
+  

@@ -221,6 +221,14 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="onValidarQRClick()">Validar QR</button>
+
+        <!-- Spinner -->
+  <div *ngIf="showSpinner" class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+
+
         <!-- Puedes agregar botones u opciones para validar el QR aquí -->
       </div>
     </div>

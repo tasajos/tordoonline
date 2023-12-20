@@ -27,6 +27,7 @@ export class VentaComponent implements OnInit {
   qrResponse: any;
   qrGenerated: boolean = false;
   qrValidarData: any;
+  showSpinner: boolean = false;
 
 
 
@@ -411,4 +412,15 @@ enviarValidacionQR() {
     }
   );
 
-}}
+}
+
+onValidarQRClick() {
+  this.showSpinner = true; // Muestra el spinner
+
+  // Espera 5 segundos antes de ejecutar enviarValidacionQR
+  setTimeout(() => {
+    this.enviarValidacionQR();
+    this.showSpinner = false; // Oculta el spinner después de ejecutar la función
+  }, 5000);
+}
+}
