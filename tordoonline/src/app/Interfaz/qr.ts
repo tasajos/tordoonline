@@ -15,3 +15,19 @@ export interface generaQr {
         // Otras propiedades si las hay
       };
 }
+
+export interface validaQrINterface {
+
+  objeto: {
+  imagenQr: string;
+    estadoActual: string;
+    fechaProcesamiento: string; // Debes agregar esta propiedad
+    fechaRegistro: string; // Debes agregar esta propiedad
+    numeroOrdenOriginante: string | null; // Debes agregar esta propiedad
+    idQr: string;
+    moneda: string;
+    cuentaCliente: string | null; // Debes agregar esta propiedad
+    nombreCliente: string | null; // Debes agregar esta propiedad
+    documentoCliente: string | null; //
+};
+}

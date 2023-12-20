@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { envgeneraqr, environment } from 'src/environments/environment';
-import { generaQr } from '../Interfaz/qr';
+import { generaQr,validaQrINterface } from '../Interfaz/qr';
 import { VentaPasajeticketInter } from '../Interfaz/usuario';
 import { catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -63,16 +63,35 @@ createqrbe(createqr: generaQr): Observable<generaQr> {
   return this.http.post<generaQr>(`${this.Myappurl}${this.Myapiurls}`, createqr, { headers });
 }
 
-
-validarqrbe(validarqr: generaQr): Observable<generaQr> {
+/*
+validarqrbe(validarqr: validaQrINterface): Observable<validaQrINterface> {
   // Define los encabezados de la solicitud HTTP
-  const headers = new HttpHeaders({  
-  });
 
+  // Antes de realizar la solicitud POST, configura el encabezado Content-Type
+const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  
   // Realiza la solicitud HTTP con los encabezados
-  return this.http.post<generaQr>(`${this.Myappurl}${this.Myapiurvqr}`, validarqr, { headers });
+  return this.http.post<validaQrINterface>(`${this.Myappurl}${this.Myapiurvqr}`, validarqr, { headers });
 }
+*/
 
+
+validarqrbe(validarqr: validaQrINterface): Observable<validaQrINterface> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  return this.http.post(`${this.Myappurl}${this.Myapiurvqr}`, validarqr, { headers }).pipe(
+    map((response: any) => {
+      // Parsea la respuesta JSON antes de devolverla
+      const jsonResponse = JSON.parse(response);
+      return jsonResponse;
+    }),
+    catchError((error) => {
+      console.error('Error al validar el QR:', error);
+      return throwError(error); // Puedes manejar el error de acuerdo a tus necesidades
+    })
+  );
+}
 
 
 }

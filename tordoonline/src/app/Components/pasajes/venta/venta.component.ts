@@ -25,6 +25,7 @@ export class VentaComponent implements OnInit {
   qrData: any; // Declara qrData aquí
   qrResponse: any;
   qrGenerated: boolean = false;
+  qrValidarData: any;
 
 
 
@@ -124,6 +125,12 @@ export class VentaComponent implements OnInit {
 
     console.log('qrData:', this.qrData);
 
+    //qrvalidardata
+
+    this.qrValidarData = {
+      alias: this.qrData.alias
+    }
+
     // Llama al servicio para generar el código QR
     this.qrService.createqrbe(this.qrData).subscribe(
       (response) => {
@@ -213,26 +220,16 @@ export class VentaComponent implements OnInit {
   
   // Función para cerrar el modal y redirigir al inicio
   closeModalAndRedirect() {
-   // Cierra el modal QR si está abierto
-  const modalQR = document.getElementById('staticBackdropQR');
-  if (modalQR) {
-    const bsModal = new bootstrap.Modal(modalQR);
-    bsModal.hide();
-  }
-
   // Cierra el modal Efectivo si está abierto
   const modalEfectivo = document.getElementById('staticBackdropefectivo');
   if (modalEfectivo) {
     const bsModal = new bootstrap.Modal(modalEfectivo);
     bsModal.hide();
   }
-
   // Redirige al usuario a la página de inicio y recarga el sitio
   window.location.href = '/';
 }
-  
-
-  
+ 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
@@ -243,10 +240,8 @@ export class VentaComponent implements OnInit {
 
   volver() {
     // Redirige al usuario a la página principal
-    //this.routes.navigateByUrl('/');
-    window.location.href = '/';
+        window.location.href = '/';
   }
-
 
   generatePDF() {
     
@@ -363,19 +358,18 @@ cerraryvolver() {
 }
 
 openValidarQRModal() {
- // Actualiza el contenido del elemento <span> con el alias
- const aliasPlaceholder = document.getElementById('aliasPlaceholder');
- if (aliasPlaceholder) {
-   aliasPlaceholder.textContent = this.qrData.alias;
- }
+  const modalElement = document.getElementById('validarQRModal');
+  const aliasElement = document.getElementById('aliasValue');
 
- // Abre el modal de validación del QR
- const validarQRModal = document.getElementById('validarQRModal');
- if (validarQRModal) {
-   const bsModal = new bootstrap.Modal(validarQRModal);
-   bsModal.show();
- }
-}
+  if (modalElement && aliasElement && this.qrData && this.qrData.alias) {
+    // Actualizar el contenido del elemento con el valor del alias
+    aliasElement.innerText = this.qrData.alias;
 
+    // Mostrar el modal
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  } else {
+    console.error('No se encontró el modal o el elemento del alias, o no hay datos de alias disponibles.');
+  }
 
-}
+}}
