@@ -372,4 +372,7 @@ openValidarQRModal() {
     console.error('No se encontró el modal o el elemento del alias, o no hay datos de alias disponibles.');
   }
 
-}}
+}
+
+
+}
