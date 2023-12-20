@@ -18,6 +18,8 @@ export interface generaQr {
 
 export interface validaQrINterface {
 
+  alias: string;
+  /*
   objeto: {
   imagenQr: string;
     estadoActual: string;
@@ -30,4 +32,5 @@ export interface validaQrINterface {
     nombreCliente: string | null; // Debes agregar esta propiedad
     documentoCliente: string | null; //
 };
+*/
 }

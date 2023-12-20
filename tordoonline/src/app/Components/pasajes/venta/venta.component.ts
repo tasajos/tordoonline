@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router  } from '@angular/router';
 import { SusuarioService } from 'src/app/Services/susuario.service';
 import { QrService } from 'src/app/Services/qr.service';
+import {validaQrINterface  } from 'src/app/Interfaz/qr';
 import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
@@ -374,5 +375,40 @@ openValidarQRModal() {
 
 }
 
+enviarValidacionQR() {
+  const datosValidacion: validaQrINterface = {
 
-}
+    alias: this.qrData.alias
+    /*
+    objeto: {
+      imagenQr: this.qrResponse.objeto.imagenQr, // Asumiendo que esto viene de tu respuesta QR
+      // Completa las demás propiedades según tus datos
+      estadoActual: '',
+      fechaProcesamiento: '',
+      fechaRegistro: '',
+      numeroOrdenOriginante: null,
+      idQr: '',
+      moneda: '',
+      cuentaCliente: null,
+      nombreCliente: null,
+      documentoCliente: null
+    }
+    */
+  };
+
+  this.qrService.validarqrbe(datosValidacion).subscribe(
+    (response) => {
+      // Actualiza el segundo alerta con la respuesta
+      const resultadoElement = document.getElementById('validationResult');
+      if (resultadoElement) {
+        resultadoElement.innerHTML = `Resultado: ${JSON.stringify(response)}`;
+      }
+    },
+    (error) => {
+      console.error('Error en la validación:', error);
+      // Aquí puedes manejar el error como quieras. Por ejemplo, podrías mostrar un mensaje al usuario:
+      alert('Ocurrió un error al validar el QR. Por favor, inténtalo de nuevo.');
+    }
+  );
+
+}}

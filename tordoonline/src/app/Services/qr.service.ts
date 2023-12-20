@@ -76,7 +76,7 @@ const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 }
 */
 
-
+/*
 validarqrbe(validarqr: validaQrINterface): Observable<validaQrINterface> {
   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -85,6 +85,26 @@ validarqrbe(validarqr: validaQrINterface): Observable<validaQrINterface> {
       // Parsea la respuesta JSON antes de devolverla
       const jsonResponse = JSON.parse(response);
       return jsonResponse;
+    }),
+    catchError((error) => {
+      console.error('Error al validar el QR:', error);
+      return throwError(error); // Puedes manejar el error de acuerdo a tus necesidades
+    })
+  );
+}
+
+*/
+validarqrbe(validarqr: validaQrINterface): Observable<validaQrINterface> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  console.log('Enviando al backend:', validarqr);
+
+  return this.http.post(`${this.Myappurl}${this.Myapiurvqr}`, validarqr, { headers }).pipe(
+    map((response: any) => {
+      // Parsea la respuesta JSON antes de devolverla
+      //const jsonResponse = JSON.parse(response);
+      //return jsonResponse;
+      return response;
     }),
     catchError((error) => {
       console.error('Error al validar el QR:', error);
