@@ -5,6 +5,7 @@ export const environment = {
 
     //production
    // endpoint: 'http://54.213.112.54:5201/',
+   //endpoint: 'http://54.70.236.69:5201/',
 
 }
 
