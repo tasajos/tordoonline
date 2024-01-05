@@ -50,32 +50,29 @@
           </div>
       </div>
   </div>
+
+  <!-- Columna de Resultados -->
+  <div class="col-md-3 mt-1">
+      <div *ngIf="mostrarTabla">
+          <div class="card mt-3 custom-card" *ngFor="let registro of registrosFlota">
+              <div class="row no-gutters">
+                  <div class="col-md-3 mt-5 text-center">
+                      <img src="../../../../assets/img/autobus.png" class="mx-auto custom-img" alt="Imagen">
+                  </div>
+                  <div class="col-md-8 mt-2">
+                      <div class="card-body">
+                          <h2 class="card-title"> {{ registro.origen }} - {{ registro.destino }}</h2>
+                          <h3 class="card-header">Hora: {{ registro.hora }} {{ formatDate(registro.fecharegistro) }}</h3>
+                          <h3 class="card-title">Tipo: {{ registro.tipo }}</h3>
+                          <h3 class="card-title">Precio: {{ registro.precio }} Bs</h3>
+                          <a (click)="verAsientos(registro)" class="btn btn-primary">Comprar</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
-
-    <!-- Columna de Resultados -->
-    <div class="col-md-3 mt-1">
-        <div *ngIf="mostrarTabla">
-            <div class="card mt-2 custom-card" *ngFor="let registro of registrosFlota">
-                <div class="row no-gutters">
-                    <div class="col-md-3 mt-5 text-center">
-                        <img src="../../../../assets/img/autobus.png" class="mx-auto custom-img" alt="Imagen">
-                    </div>
-                    <div class="col-md-8 mt-2">
-                        <div class="card-body">
-                            <h2 class="card-title"> {{ registro.origen }} - {{ registro.destino }}</h2>
-                            <h3 class="card-header">Hora: {{ registro.hora }} {{ formatDate(registro.fecharegistro) }}</h3>
-                            <h3 class="card-title">Tipo: {{ registro.tipo }}</h3>
-                            <h3 class="card-title">Precio: {{ registro.precio }} Bs</h3>
-                            <!--<a href="vflotas" class="btn btn-primary">Comprar</a>-->
-                            <a (click)="verAsientos(registro)" class="btn btn-primary">Comprar</a>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
   
 
 
