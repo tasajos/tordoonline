@@ -11,5 +11,29 @@
     height: 50px;
 
   }
+/* Estilo personalizado para reducir el tamaño de los selects */
+.custom-select {
+  height: 30px; /* Altura deseada */
+  width: 150px; /* Ancho deseado */
+  font-size: 14px; /* Tamaño de fuente deseado */
+}
+
+/* Aplicar estilos al select de fecha de inicio y fecha de fin */
+.mat-form-field {
+  height: 30px; /* Altura deseada */
+  width: 150px; /* Ancho deseado */
+  font-size: 14px; /* Tamaño de fuente deseado */
+}
+
+/* Opcional: ajusta los estilos del botón de búsqueda */
+.btn-primary {
+  font-size: 14px; /* Tamaño de fuente deseado */
+}
+
+.form-select {
+  height: 30px; /* Altura deseada */
+  width: 300px; /* Ancho deseado */
+  font-size: 14px; /* Tamaño de fuente deseado */
+}	
 
  

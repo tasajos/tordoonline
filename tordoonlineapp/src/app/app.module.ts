@@ -12,6 +12,11 @@ import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+
+
 
 
 //trabajo
@@ -72,6 +77,10 @@ import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.com
     HttpClientModule,
     MatGridListModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule
+
     
   ],
   providers: [],

@@ -12,6 +12,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./menubus.component.css']
 })
 export class MenubusComponent implements OnInit, AfterViewInit {
+
+  startDate!: Date;
+  endDate!: Date;
+  
+
+
   mostrarTabla: boolean = false;
   registrosFlota: registrarflotaInter[] = [];
   origen: string = '';
