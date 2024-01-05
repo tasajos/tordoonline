@@ -40,5 +40,5 @@
   height: 60px; /* Altura deseada */
   width: 350px; /* Ancho deseado */
   font-size: 14px; /* Tamaño de fuente deseado */
-  background-color: #fff; /* Fondo blanco */
+  background-color: #fff !important; /* Fondo blanco */
 }
