@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { SflotaService } from 'src/app/Services/sflota.service';
+import { SflotaService } from 'src/app/Services/sflota.service'; // Importa el servicio original
 import { registrarflotaInter } from 'src/app/Interfaz/flota';
-import { Modal } from 'bootstrap'; // <-- Importa Bootstrap
-import {MatGridListModule} from '@angular/material/grid-list';
-import { FormsModule } from '@angular/forms';
+import { Modal } from 'bootstrap'; // Importa Bootstrap
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,9 +12,8 @@ import { Router } from '@angular/router';
 export class MenubusComponent implements OnInit, AfterViewInit {
 
   startDate!: Date;
-  endDate!: Date;
-  
 
+ 
 
   mostrarTabla: boolean = false;
   registrosFlota: registrarflotaInter[] = [];
@@ -26,7 +23,7 @@ export class MenubusComponent implements OnInit, AfterViewInit {
   tipo: string = '';
   hora: string = '';
   precio: string = '';
-  mostrarModal: boolean = false ;
+  mostrarModal: boolean = false;
   registro: any;
   @ViewChild('modalNoResultados') modalNoResultados!: ElementRef;
   private bsModal!: Modal; // Instancia del modal de Bootstrap
@@ -34,7 +31,7 @@ export class MenubusComponent implements OnInit, AfterViewInit {
   @ViewChild('modalOrigenDestino') modalOrigenDestino!: ElementRef;
   private modalOD!: Modal;  // Instancia del nuevo modal
 
-  constructor(private verFlota: SflotaService, private buscarFlotaService: SflotaService,
+  constructor(private verFlota: SflotaService, private buscarFlotaService: SflotaService, // Utiliza el servicio SflotaService
     private router: Router) {}
 
   ngOnInit(): void {
@@ -49,18 +46,18 @@ export class MenubusComponent implements OnInit, AfterViewInit {
   }
 
   buscarPorOrigenYDestino() {
-    // Revisa si origen y destino están presentes
-    if (!this.origen || !this.destino) {
+    // Revisa si origen y destino están presentes y si startDate (fecha) está seleccionada
+    if (!this.origen || !this.destino || !this.startDate) {
       this.modalOD.show();  // Mostrar el modal de origen y destino
       return;
     }
-    
-    // Haces la petición a tu servicio
-    this.buscarFlotaService.buscarFlota(this.origen, this.destino)
+  
+    // Haces la petición a tu nuevo servicio pasando solo la fecha de inicio
+    this.buscarFlotaService.buscarFlotaPorFecha(this.origen, this.destino, this.startDate)
       .subscribe((data: registrarflotaInter[] | any) => {
         // Filtramos los registros por la fecha actual o futura
         this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
-        
+  
         // Si no hay registros que coincidan, muestra el modal
         if (this.registrosFlota.length === 0) {
           this.bsModal.show();
@@ -74,6 +71,7 @@ export class MenubusComponent implements OnInit, AfterViewInit {
   }
   
 
+
   formatDate(dateInput: any): string {
     let date;
     try {
@@ -82,7 +80,7 @@ export class MenubusComponent implements OnInit, AfterViewInit {
       } else {
           date = new Date(dateInput);
       }
-      
+
       const day = date.getUTCDate().toString().padStart(2, '0');
       const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
       const year = date.getUTCFullYear();
@@ -116,7 +114,9 @@ export class MenubusComponent implements OnInit, AfterViewInit {
       tipo: registro.tipo,
       hora: registro.hora,
       precio: registro.precio, } });
-}
-
-
+  }
+  onDateChange(event: any) {
+    // El evento contiene la fecha seleccionada
+    this.startDate = event.value;
+  }
 }
