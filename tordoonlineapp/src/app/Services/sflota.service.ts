@@ -80,9 +80,9 @@ buscarFlotaPorFecha(origen: string, destino: string, fecha: Date): Observable<re
   // Construye la URL de la solicitud GET utilizando plantillas de cadena
   const url = `${baseUrl}/api/Flta/buscar/${origen}/${destino}/${fechaSinHora}`;
 
-  return this.http.get<registrarflotaInter[]>(url).pipe(
+  return this.http.get<any>(url).pipe(
     catchError((error) => {
-      if (error.status === 404 && error.error && error.error.mensaje) {
+      if (error.status === 404 && error.error && error.error.mensaje === "No se encontraron resultados") {
         return throwError(error.error.mensaje);
       } else {
         console.error('Error al buscar flota Fecha:', error);

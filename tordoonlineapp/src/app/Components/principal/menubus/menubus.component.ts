@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { SflotaService } from 'src/app/Services/sflota.service'; // Importa el servicio original
 import { registrarflotaInter } from 'src/app/Interfaz/flota';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Modal } from 'bootstrap'; // Importa Bootstrap
 import { Router } from '@angular/router';
@@ -12,16 +13,22 @@ import { Router } from '@angular/router';
 })
 export class MenubusComponent implements OnInit, AfterViewInit {
 
+  //declaracion de variables de fechas
   startDate!: Date;
   minDate!: Date;
-  errorMensaje: string = ''; // Variable para almacenar el mensaje de error
-  mostrarErrorModal: boolean = false; // Variable para controlar la visibilidad del modal de error
+
+  //declaracion de variables de modal
+  modalRef!: BsModalRef;
+
+ 
+  //declaracion de variables de origen y destino
   mostrarAlerta: boolean = false;
-  mensajeError: string = ''; // Variable para almacenar el mensaje de error
-mostrarError: boolean = false; // Variable para controlar la visibilidad del mensaje de error
+   mostrarTabla: boolean = false;
+   mensajeAlerta: string = '';
 
+   mostrarResultados: boolean = false;
 
-  mostrarTabla: boolean = false;
+   
   registrosFlota: registrarflotaInter[] = [];
   origen: string = '';
   destino: string = '';
@@ -31,95 +38,63 @@ mostrarError: boolean = false; // Variable para controlar la visibilidad del men
   precio: string = '';
   mostrarModal: boolean = false;
   registro: any;
-  @ViewChild('modalNoResultados') modalNoResultados!: ElementRef;
-  private bsModal!: Modal; // Instancia del modal de Bootstrap
+ 
 
-
-  @ViewChild('modalError') modalError!: ElementRef;
-  private errorModal!: Modal;  // Instancia del modal de error
-  
-
-  @ViewChild('modalOrigenDestino') modalOrigenDestino!: ElementRef;
-  private modalOD!: Modal;  // Instancia del nuevo modal
-
-  constructor(private verFlota: SflotaService, private buscarFlotaService: SflotaService, // Utiliza el servicio SflotaService
+  constructor(private verFlota: SflotaService, 
+    private buscarFlotaService: SflotaService, // Utiliza el servicio SflotaService
+    private modalService: BsModalService,
     private router: Router) {}
 
   ngOnInit(): void {
     this.verFlota.getflota().subscribe((data: registrarflotaInter[]) => {
       this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
+      
     });
     this.minDate = new Date(); // Establecer la fecha mínima como la fecha actual
   }
 
   ngAfterViewInit(): void {
-    //this.bsModal = new Modal(this.modalNoResultados.nativeElement);
-    this.bsModal = new Modal(this.modalNoResultados.nativeElement);
-    this.modalOD = new Modal(this.modalOrigenDestino.nativeElement);  // Inicialización del nuevo modal
-    this.errorModal = new Modal(this.modalError.nativeElement); // Inicialización del modal de error
-    //this.errorModal = new Modal(this.modalError.nativeElement); // Inicialización del modal de error
+   
   }
 
-  /*buscarPorOrigenYDestino() {
-    // Revisa si origen y destino están presentes y si startDate (fecha) está seleccionada
+  
+
+  buscarPorOrigenYDestino() {
     if (!this.origen || !this.destino || !this.startDate) {
-      this.modalOD.show();  // Mostrar el modal de origen y destino
-      return;
+      return Promise.resolve(); // No hagas nada si faltan datos
     }
-  
-    // Haces la petición a tu nuevo servicio pasando solo la fecha de inicio
-    this.buscarFlotaService.buscarFlotaPorFecha(this.origen, this.destino, this.startDate)
+
+    return new Promise<void>((resolve, reject) => {
+      this.buscarFlotaService.buscarFlotaPorFecha(this.origen, this.destino, this.startDate)
       .subscribe((data: registrarflotaInter[] | any) => {
-        // Filtramos los registros por la fecha actual o futura
-        this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
-  
-        // Si no hay registros que coincidan, muestra el modal
-        if (this.registrosFlota.length === 0) {
-          this.bsModal.show();
-        } else {
-          this.mostrarTabla = true;
+        if (Array.isArray(data)) {
+    
+          this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
+    
+          if (this.registrosFlota.length === 0) {
+            // No hay resultados
+            this.mostrarAlerta = true;
+    
+          } else {
+            // Hay resultados
+            this.mostrarTabla = true;
+          }
+    
+          if (data.length > 0 && this.registrosFlota.length === 0) {
+            this.mostrarAlerta = true;
+          }
+    
+          resolve(); // Resuelve la promesa después de buscar
         }
-      }, error => {
+      }, (error) => { // Aquí se corrigió el error en la declaración del parámetro 'error'
         console.error('Error al realizar la búsqueda.', error);
         alert('Error al realizar la búsqueda.');
+        reject(error); // Rechaza la promesa si hay un error
       });
-  }
-  
-*/
-
-buscarPorOrigenYDestino() {
-  // Revisa si origen y destino están presentes y si startDate (fecha) está seleccionada
-  if (!this.origen || !this.destino || !this.startDate) {
-    this.modalOD.show();  // Mostrar el modal de origen y destino
-    return;
-  }
-
-  // Haces la petición a tu nuevo servicio pasando solo la fecha de inicio
-  this.buscarFlotaService.buscarFlotaPorFecha(this.origen, this.destino, this.startDate)
-    .subscribe((data: registrarflotaInter[] | any) => {
-      // Filtramos los registros por la fecha actual o futura
-      this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
-
-     // Si no hay registros que coincidan, muestra el mensaje de error
-     if (this.registrosFlota.length === 0) {
-      this.mostrarError = true;
-      this.mostrarAlerta = true;
-      this.mensajeError = 'No se encontraron resultados.';
-    } else {
-      this.mostrarTabla = true;
-    }
-
-      // Si el backend devuelve otros datos, muestra una alerta
-      if (data.length > 0 && this.registrosFlota.length === 0) {
-        this.mostrarAlerta = true;
-      }
-    }, error => {
-      console.error('Error al realizar la búsqueda.', error);
-      alert('Error al realizar la búsqueda.');
     });
-}
+  }
 
-
+//formatear fecha
 
   formatDate(dateInput: any): string {
     let date;
@@ -140,6 +115,7 @@ buscarPorOrigenYDestino() {
     }
   }
 
+  //comprobar si la fecha es actual o futura
   isTodayOrFutureDate(dateInput: any): boolean {
     let inputDate;
     if (dateInput instanceof Date) {
@@ -176,4 +152,34 @@ buscarPorOrigenYDestino() {
       this.startDate = selectedDate;
     }
   }
-}
+
+  openModal() {
+    this.modalRef = this.modalService.show('modalTemplate'); // Asegúrate de que el ID sea el correcto
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+  }
+
+  buscarYMostrarModal() {
+    // Llama a la función para buscar
+    this.buscarPorOrigenYDestino()
+      .then((data: any) => {
+        // Abre el modal solo si no hay resultados
+        if (this.registrosFlota.length === 0) {
+          this.openModal();
+          this.mensajeAlerta = ''; // Borra cualquier mensaje anterior
+        } else {
+          // Muestra el mensaje del backend si no se encontraron resultados
+          this.mostrarAlerta = true;
+          this.mensajeAlerta = data.mensaje;
+        }
+      })
+      .catch((error) => {
+        // Manejar otros errores aquí
+        console.error('Error al buscar flota:', error);
+        this.mostrarAlerta = true;
+        this.mensajeAlerta = 'Error al realizar la búsqueda.';
+      });
+  }
+}  

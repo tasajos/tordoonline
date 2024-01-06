@@ -15,7 +15,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 
@@ -79,7 +79,8 @@ import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.com
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    ModalModule.forRoot()
 
     
   ],

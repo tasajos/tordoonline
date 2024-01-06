@@ -6,7 +6,7 @@
           <div class="card-body">
               <form (submit)="buscarPorOrigenYDestino()">
                   <div class="form-floating">
-                      <select class="form-select" id="origen" aria-label="Origen" [(ngModel)]="origen" [ngModelOptions]="{ standalone: true }">
+                      <select class="form-select" id="origen" aria-label="Origen" [(ngModel)]="origen" [ngModelOptions]="{ standalone: true }" name="origen">
                           <option selected>Origen</option>
                           <option value="La Paz">La Paz</option>
                           <option value="Cochabamba">Cochabamba</option>
@@ -16,7 +16,7 @@
                       <label for="origen">Origen</label>
                   </div>
                   <div class="form-floating">
-                      <select class="form-select mt-2" id="destino" aria-label="Destino" [(ngModel)]="destino" [ngModelOptions]="{ standalone: true }">
+                      <select class="form-select mt-2" id="destino" aria-label="Destino" [(ngModel)]="destino" [ngModelOptions]="{ standalone: true }" name="destino">
                           <option selected>Destino</option>
                           <option value="La Paz">La Paz</option>
                           <option value="Cochabamba">Cochabamba</option>
@@ -29,7 +29,7 @@
                   <div class="form-floating mt-2">
                     <mat-form-field appearance="fill" class="formatofechamenu">
                       <mat-label>Fecha</mat-label>
-                      <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" (dateChange)="onDateChange($event, startDatePicker)" required [min]="minDate">
+                      <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" (dateChange)="onDateChange($event, startDatePicker)" required [min]="minDate" name="startDate">
                       <!--<input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" (dateChange)="onDateChange($event, startDatePicker)" required>-->
                       <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                       <mat-datepicker #startDatePicker></mat-datepicker>
@@ -39,6 +39,9 @@
                   
                   
                   <button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()" [disabled]="!startDate">Buscar</button>
+                 <!-- <button type="button" class="btn btn-primary mt-3" (click)="buscarYMostrarModal()" [disabled]="!startDate">Buscar</button>-->
+                  
+
                   <!--<button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()">Buscar</button>-->
                   
               </form>
@@ -68,81 +71,7 @@
       </div>
   </div>
 </div>
-  
-<div class="modal fade" [ngClass]="{'show': mostrarAlerta}" tabindex="-1" aria-labelledby="modalAlertaLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title" id="modalAlertaLabel">Alerta</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="mostrarAlerta = false"></button>
-      </div>
-      <div class="modal-body">
-        El backend devolvió otros datos.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="mostrarAlerta = false">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+<div class="alert alert-danger" *ngIf="mostrarAlerta">{{ mensajeAlerta }}</div>
 
 
-<!-- Modal para mostrar "Sin resultados" -->
-<div class="modal fade" #modalNoResultados id="modalNoResultados" tabindex="-1" aria-labelledby="modalNoResultadosLabel" aria-hidden="true">
-
-<!--<div class="modal fade" id="modalNoResultados" tabindex="-1" aria-labelledby="modalNoResultadosLabel" aria-hidden="true">-->
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 class="modal-title" id="modalNoResultadosLabel">Sin resultados</h2>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-      No se encontraron resultados para la búsqueda.
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-    </div>
-  </div>
-</div>
-</div>
-
-
-<!-- Modal para mostrar "Seleccione origen y destino" -->
-<div class="modal fade" #modalOrigenDestino id="modalOrigenDestino" tabindex="-1" aria-labelledby="modalOrigenDestinoLabel" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="modalOrigenDestinoLabel">Atención</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-      Por favor, seleccione un origen y un destino.
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<div *ngIf="mostrarError">
-  {{ mensajeError }}
-</div>
-
-<div class="modal fade" id="modalAlerta" tabindex="-1" aria-labelledby="modalAlertaLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title" id="modalAlertaLabel">Alerta</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="mostrarAlerta = false"></button>
-      </div>
-      <div class="modal-body">
-        El backend devolvió otros datos.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="mostrarAlerta = false">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
