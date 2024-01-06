@@ -28,12 +28,15 @@
                   <!-- Agregar campo de selección de fecha de inicio -->
                   <div class="form-floating mt-2">
                     <mat-form-field appearance="fill" class="formatofechamenu">
-                      <mat-label>Fecha de inicio</mat-label>
-                      <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" (dateChange)="onDateChange($event)" required>
+                      <mat-label>Fecha</mat-label>
+                      <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" (dateChange)="onDateChange($event, startDatePicker)" required [min]="minDate">
+                      <!--<input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" (dateChange)="onDateChange($event, startDatePicker)" required>-->
                       <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                       <mat-datepicker #startDatePicker></mat-datepicker>
+
                     </mat-form-field>
                   </div>
+                  
                   
                   <button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()" [disabled]="!startDate">Buscar</button>
                   <!--<button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()">Buscar</button>-->

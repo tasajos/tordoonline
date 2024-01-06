@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { SflotaService } from 'src/app/Services/sflota.service'; // Importa el servicio original
 import { registrarflotaInter } from 'src/app/Interfaz/flota';
+import { MatDatepicker } from '@angular/material/datepicker';
 import { Modal } from 'bootstrap'; // Importa Bootstrap
 import { Router } from '@angular/router';
 
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class MenubusComponent implements OnInit, AfterViewInit {
 
   startDate!: Date;
-
+  minDate!: Date;
  
 
   mostrarTabla: boolean = false;
@@ -38,6 +39,7 @@ export class MenubusComponent implements OnInit, AfterViewInit {
     this.verFlota.getflota().subscribe((data: registrarflotaInter[]) => {
       this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
     });
+    this.minDate = new Date(); // Establecer la fecha mínima como la fecha actual
   }
 
   ngAfterViewInit(): void {
@@ -115,8 +117,16 @@ export class MenubusComponent implements OnInit, AfterViewInit {
       hora: registro.hora,
       precio: registro.precio, } });
   }
-  onDateChange(event: any) {
-    // El evento contiene la fecha seleccionada
-    this.startDate = event.value;
+  onDateChange(event: any, datepicker: MatDatepicker<Date>) {
+    const selectedDate: Date = event.value;
+    const currentDate: Date = new Date();
+
+    if (selectedDate < currentDate) {
+      // Si el usuario selecciona una fecha anterior a la actual, establece la fecha actual
+      this.startDate = currentDate;
+      datepicker.select(currentDate);
+    } else {
+      this.startDate = selectedDate;
+    }
   }
 }
