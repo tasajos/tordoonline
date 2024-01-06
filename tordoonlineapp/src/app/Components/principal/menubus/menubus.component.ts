@@ -16,7 +16,10 @@ export class MenubusComponent implements OnInit, AfterViewInit {
   minDate!: Date;
   errorMensaje: string = ''; // Variable para almacenar el mensaje de error
   mostrarErrorModal: boolean = false; // Variable para controlar la visibilidad del modal de error
-  
+  mostrarAlerta: boolean = false;
+  mensajeError: string = ''; // Variable para almacenar el mensaje de error
+mostrarError: boolean = false; // Variable para controlar la visibilidad del mensaje de error
+
 
   mostrarTabla: boolean = false;
   registrosFlota: registrarflotaInter[] = [];
@@ -97,19 +100,26 @@ buscarPorOrigenYDestino() {
       // Filtramos los registros por la fecha actual o futura
       this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
 
-      // Si no hay registros que coincidan, muestra el modal de error utilizando bsModal
-      if (this.registrosFlota.length === 0) {
-        this.errorMensaje = 'No se encontraron resultados.';
-        this.mostrarErrorModal = true;
-        this.bsModal.show(); // Mostrar el modal de error
-      } else {
-        this.mostrarTabla = true;
+     // Si no hay registros que coincidan, muestra el mensaje de error
+     if (this.registrosFlota.length === 0) {
+      this.mostrarError = true;
+      this.mostrarAlerta = true;
+      this.mensajeError = 'No se encontraron resultados.';
+    } else {
+      this.mostrarTabla = true;
+    }
+
+      // Si el backend devuelve otros datos, muestra una alerta
+      if (data.length > 0 && this.registrosFlota.length === 0) {
+        this.mostrarAlerta = true;
       }
     }, error => {
       console.error('Error al realizar la búsqueda.', error);
       alert('Error al realizar la búsqueda.');
     });
 }
+
+
 
   formatDate(dateInput: any): string {
     let date;

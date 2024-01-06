@@ -69,6 +69,22 @@
   </div>
 </div>
   
+<div class="modal fade" [ngClass]="{'show': mostrarAlerta}" tabindex="-1" aria-labelledby="modalAlertaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalAlertaLabel">Alerta</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="mostrarAlerta = false"></button>
+      </div>
+      <div class="modal-body">
+        El backend devolvió otros datos.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="mostrarAlerta = false">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- Modal para mostrar "Sin resultados" -->
@@ -110,22 +126,23 @@
 </div>
 </div>
 
+<div *ngIf="mostrarError">
+  {{ mensajeError }}
+</div>
 
-<!-- Modal para mostrar el mensaje de error -->
-<div class="modal fade" #modalError id="modalError" tabindex="-1" aria-labelledby="modalErrorLabel" aria-hidden="true">
+<div class="modal fade" id="modalAlerta" tabindex="-1" aria-labelledby="modalAlertaLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title" id="modalErrorLabel">Error</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h2 class="modal-title" id="modalAlertaLabel">Alerta</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="mostrarAlerta = false"></button>
       </div>
       <div class="modal-body">
-        {{ errorMensaje }}
+        El backend devolvió otros datos.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="mostrarAlerta = false">Cerrar</button>
       </div>
     </div>
   </div>
 </div>
-

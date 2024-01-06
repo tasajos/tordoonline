@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { registrarflotaInter } from '../Interfaz/flota';
 import { catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 
 
@@ -66,6 +67,8 @@ buscarFlotaPorOrigenDestinoYFecha(origen: string, destino: string, fechaRegistro
   );
 }
 
+
+
 buscarFlotaPorFecha(origen: string, destino: string, fecha: Date): Observable<registrarflotaInter[]> {
   // Formatea la fecha como "yyyy-MM-dd" sin hora y minutos
   const fechaSinHora = fecha.toISOString().split('T')[0];
@@ -79,11 +82,12 @@ buscarFlotaPorFecha(origen: string, destino: string, fecha: Date): Observable<re
 
   return this.http.get<registrarflotaInter[]>(url).pipe(
     catchError((error) => {
-      console.error('Error al buscar flota Fecha:', error);
-      // Muestra una alerta con el mensaje deseado cuando no se encuentran resultados
-      alert('No se encontraron resultados');
-      // Lanza el error para que se maneje en el componente, si es necesario
-      return throwError(error);
+      if (error.status === 404 && error.error && error.error.mensaje) {
+        return throwError(error.error.mensaje);
+      } else {
+        console.error('Error al buscar flota Fecha:', error);
+        return throwError('Error al realizar la búsqueda.'); // Otra alternativa de mensaje de error genérico
+      }
     })
   );
 }
