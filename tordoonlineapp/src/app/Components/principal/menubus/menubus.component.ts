@@ -88,7 +88,7 @@ export class MenubusComponent implements OnInit, AfterViewInit {
               if (this.registrosFlota.length === 0) {
                 // No hay resultados
                 this.mostrarAlerta = true;
-                alert('No se encontraron buses o registros en ese rango.');
+                alert('No se permite fechas anteriores.');
               } else {
                 // Hay resultados
                 this.mostrarTabla = true;
