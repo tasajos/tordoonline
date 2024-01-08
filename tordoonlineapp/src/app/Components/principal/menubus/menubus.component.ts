@@ -15,6 +15,9 @@ import { Router } from '@angular/router';
 })
 export class MenubusComponent implements OnInit, AfterViewInit {
 
+  respuestaBackend: any; // Declara la variable para almacenar la respuesta del backend
+
+
   //declaracion de variables de fechas
   startDate!: Date;
   minDate!: Date;
@@ -63,32 +66,40 @@ export class MenubusComponent implements OnInit, AfterViewInit {
     if (!this.origen || !this.destino || !this.startDate) {
       return Promise.resolve(); // No hagas nada si faltan datos
     }
-  
+
     return new Promise<void>((resolve, reject) => {
       this.buscarFlotaService
         .buscarFlotaPorFecha(this.origen, this.destino, this.startDate)
         .subscribe(
           (data: registrarflotaInter[] | any) => {
-            if (Array.isArray(data)) {
-              // Filtra los registros antes de asignarlos a this.registrosFlota
+            if (data && data.mensaje === 'No se encontraron resultados') {
+              // No se encontraron resultados
+              this.mostrarAlerta = true;
+              alert('No se encontraron buses en ese rango.');
+              this.registrosFlota = []; // Puedes establecer la variable de registros como un arreglo vacío
+            } else if (Array.isArray(data)) {
+              // La respuesta es un arreglo, así que podemos aplicar filter
+              console.log(data); // Muestra la respuesta del backend en la consola
+              this.respuestaBackend = data; // Asigna la respuesta del backend a la variable
               this.registrosFlota = data.filter((registro: registrarflotaInter) =>
                 this.isTodayOrFutureDate(registro.fecharegistro)
               );
-  
+
               if (this.registrosFlota.length === 0) {
                 // No hay resultados
                 this.mostrarAlerta = true;
+                alert('No se encontraron buses o registros en ese rango.');
               } else {
                 // Hay resultados
                 this.mostrarTabla = true;
               }
-  
-              if (data.length > 0 && this.registrosFlota.length === 0) {
-                this.mostrarAlerta = true;
-              }
-  
-              resolve(); // Resuelve la promesa después de buscar
+            } else {
+              // La respuesta no es un arreglo ni un mensaje de "No se encontraron resultados"
+              console.error('La respuesta del servidor no es válida:', data);
+              alert('La respuesta del servidor no es válida.');
             }
+
+            resolve(); // Resuelve la promesa después de buscar
           },
           (error) => {
             console.error('Error al realizar la búsqueda.', error);
@@ -98,7 +109,6 @@ export class MenubusComponent implements OnInit, AfterViewInit {
         );
     });
   }
-
 //formatear fecha
 
   formatDate(dateInput: any): string {
