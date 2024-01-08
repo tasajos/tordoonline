@@ -3,6 +3,8 @@ import { SflotaService } from 'src/app/Services/sflota.service'; // Importa el s
 import { registrarflotaInter } from 'src/app/Interfaz/flota';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+
 import { Modal } from 'bootstrap'; // Importa Bootstrap
 import { Router } from '@angular/router';
 
@@ -45,12 +47,10 @@ export class MenubusComponent implements OnInit, AfterViewInit {
     private modalService: BsModalService,
     private router: Router) {}
 
-  ngOnInit(): void {
-    this.verFlota.getflota().subscribe((data: registrarflotaInter[]) => {
-      this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
-      
-    });
-    this.minDate = new Date(); // Establecer la fecha mínima como la fecha actual
+    ngOnInit(): void {
+      this.verFlota.getflota().subscribe((data: registrarflotaInter[]) => {
+        this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
+      });
   }
 
   ngAfterViewInit(): void {
@@ -63,34 +63,39 @@ export class MenubusComponent implements OnInit, AfterViewInit {
     if (!this.origen || !this.destino || !this.startDate) {
       return Promise.resolve(); // No hagas nada si faltan datos
     }
-
+  
     return new Promise<void>((resolve, reject) => {
-      this.buscarFlotaService.buscarFlotaPorFecha(this.origen, this.destino, this.startDate)
-      .subscribe((data: registrarflotaInter[] | any) => {
-        if (Array.isArray(data)) {
-    
-          this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
-    
-          if (this.registrosFlota.length === 0) {
-            // No hay resultados
-            this.mostrarAlerta = true;
-    
-          } else {
-            // Hay resultados
-            this.mostrarTabla = true;
+      this.buscarFlotaService
+        .buscarFlotaPorFecha(this.origen, this.destino, this.startDate)
+        .subscribe(
+          (data: registrarflotaInter[] | any) => {
+            if (Array.isArray(data)) {
+              // Filtra los registros antes de asignarlos a this.registrosFlota
+              this.registrosFlota = data.filter((registro: registrarflotaInter) =>
+                this.isTodayOrFutureDate(registro.fecharegistro)
+              );
+  
+              if (this.registrosFlota.length === 0) {
+                // No hay resultados
+                this.mostrarAlerta = true;
+              } else {
+                // Hay resultados
+                this.mostrarTabla = true;
+              }
+  
+              if (data.length > 0 && this.registrosFlota.length === 0) {
+                this.mostrarAlerta = true;
+              }
+  
+              resolve(); // Resuelve la promesa después de buscar
+            }
+          },
+          (error) => {
+            console.error('Error al realizar la búsqueda.', error);
+            alert('Error al realizar la búsqueda.');
+            reject(error);
           }
-    
-          if (data.length > 0 && this.registrosFlota.length === 0) {
-            this.mostrarAlerta = true;
-          }
-    
-          resolve(); // Resuelve la promesa después de buscar
-        }
-      }, (error) => { // Aquí se corrigió el error en la declaración del parámetro 'error'
-        console.error('Error al realizar la búsqueda.', error);
-        alert('Error al realizar la búsqueda.');
-        reject(error); // Rechaza la promesa si hay un error
-      });
+        );
     });
   }
 
@@ -143,14 +148,17 @@ export class MenubusComponent implements OnInit, AfterViewInit {
   onDateChange(event: any, datepicker: MatDatepicker<Date>) {
     const selectedDate: Date = event.value;
     const currentDate: Date = new Date();
-
+  
     if (selectedDate < currentDate) {
-      // Si el usuario selecciona una fecha anterior a la actual, establece la fecha actual
-      this.startDate = currentDate;
-      datepicker.select(currentDate);
+      // Si el usuario selecciona una fecha anterior a la actual, muestra un mensaje de error
+      this.mostrarAlerta = true;
+      this.mensajeAlerta = 'No se pueden buscar registros en fechas pasadas.';
     } else {
+      // Actualiza la fecha de inicio correctamente
       this.startDate = selectedDate;
+      this.mostrarAlerta = false; // Oculta el mensaje de error si estaba visible
     }
+    datepicker.close(); // Cierra el datepicker después de seleccionar una fecha
   }
 
   openModal() {
