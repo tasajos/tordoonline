@@ -85,3 +85,36 @@
     </div>
   </div>
 </div>
+
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 500px;">
+  <tbody>
+    <tr *ngFor="let row of chunkArray(getArrayOfSize(numeroAsientos), 2); let rowIndex = index">
+      <ng-container *ngFor="let item of row; let colIndex = index">
+        <td style="width: 10%; padding: 3px; margin: 0; vertical-align: top;">
+          <!-- Celda con número de asiento y imagen -->
+          <div style="text-align: center; margin-bottom: 10px;">
+            <img src="../../../assets/img/asiento_tierra.png" [routerLink]="isSeatSold(item) ? null : ['/ventapasaje']"
+              [queryParams]="{
+                asiento: item,
+                origen: origen,
+                destino: destino,
+                tipo: tipo,
+                fecharegistro: fecharegistro,
+                placa: placa,
+                hora: hora,
+                precio: precio
+              }"
+              class="img-fluid rounded-start centered-image cursor-pointer"
+              alt="Imagen del asiento" style="max-width: 30%; height: auto;">
+          </div>
+          <div style="text-align: center;">
+            <h4>{{ item }}</h4>
+            <div *ngIf="isSeatSold(item)" style="color: red;">Vendido</div>
+          </div>
+        </td>
+      </ng-container>
+    </tr>
+  </tbody>
+</table>
+
