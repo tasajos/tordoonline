@@ -87,4 +87,7 @@ export class PasajesComponent implements OnInit {
     return result;
   }
 
+  public calculateFloor(value: number): number {
+    return Math.floor(value);
+  }
 }

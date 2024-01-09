@@ -85,36 +85,47 @@
     </div>
   </div>
 </div>
+<p></p>
+<br>
+<br>
 
-
-<table border="1" cellpadding="1" cellspacing="1" style="width: 500px;">
+<table border="1" cellpadding="1" cellspacing="1" style="width: 200px;">
   <tbody>
-    <tr *ngFor="let row of chunkArray(getArrayOfSize(numeroAsientos), 2); let rowIndex = index">
+    <tr *ngFor="let row of chunkArray(getArrayOfSize(numeroAsientos), 5); let rowIndex = index">
       <ng-container *ngFor="let item of row; let colIndex = index">
-        <td style="width: 10%; padding: 3px; margin: 0; vertical-align: top;">
-          <!-- Celda con número de asiento y imagen -->
-          <div style="text-align: center; margin-bottom: 10px;">
-            <img src="../../../assets/img/asiento_tierra.png" [routerLink]="isSeatSold(item) ? null : ['/ventapasaje']"
-              [queryParams]="{
-                asiento: item,
-                origen: origen,
-                destino: destino,
-                tipo: tipo,
-                fecharegistro: fecharegistro,
-                placa: placa,
-                hora: hora,
-                precio: precio
-              }"
-              class="img-fluid rounded-start centered-image cursor-pointer"
-              alt="Imagen del asiento" style="max-width: 30%; height: auto;">
+        <!-- Celda con número de asiento y contenido -->
+        <td style="width: 5%; padding: 1px; margin: 0; vertical-align: top;">
+          <div style="text-align: center; margin-bottom: 5px;">
+            <!-- Verificar si la columna es la tercera -->
+            <ng-container *ngIf="colIndex === 2">
+              <span>Vacío</span>
+            </ng-container>
+            <!-- Si no es la tercera columna, mostrar el asiento -->
+            <ng-container *ngIf="colIndex !== 2">
+              <img src="../../../assets/img/asiento_tierra.png" [routerLink]="isSeatSold(item) ? null : ['/ventapasaje']"
+                [queryParams]="{
+                  asiento: item,
+                  origen: origen,
+                  destino: destino,
+                  tipo: tipo,
+                  fecharegistro: fecharegistro,
+                  placa: placa,
+                  hora: hora,
+                  precio: precio
+                }"
+                class="img-fluid rounded-start centered-image cursor-pointer"
+                alt="Imagen del asiento" style="max-width: 30%; height: auto;">
+            </ng-container>
           </div>
           <div style="text-align: center;">
-            <h4>{{ item }}</h4>
-            <div *ngIf="isSeatSold(item)" style="color: red;">Vendido</div>
+            <!-- Mostrar el número de asiento si no es la tercera columna -->
+            <ng-container *ngIf="colIndex !== 2">
+              <h4>{{ item }}</h4>
+              <div *ngIf="isSeatSold(item)" style="color: red;">Vendido</div>
+            </ng-container>
           </div>
         </td>
       </ng-container>
     </tr>
   </tbody>
 </table>
-
