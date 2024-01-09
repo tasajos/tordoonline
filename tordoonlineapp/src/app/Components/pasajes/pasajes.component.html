@@ -88,39 +88,44 @@
 <p></p>
 <br>
 <br>
+<!--CODIGO PARA MOSTRAR EL BUS-->
 <table border="1" cellpadding="1" cellspacing="1" style="width: 200px;">
   <tbody>
-    <tr *ngFor="let row of chunkArray(getArrayOfSize(numeroAsientos), 5); let rowIndex = index">
-      <ng-container *ngFor="let item of row; let colIndex = index">
-        <!-- Celda con número de asiento y contenido -->
-        <td style="width: 5%; padding: 1px; margin: 0; vertical-align: top;">
-          <div style="text-align: center; margin-bottom: 5px;">
-            <!-- Si no es la tercera columna, mostrar el asiento con numeración -->
-            <ng-container *ngIf="colIndex !== 2">
-              <img src="../../../assets/img/asiento_tierra.png" [routerLink]="isSeatSold(item) ? null : ['/ventapasaje']"
-                [queryParams]="{
-                  asiento: item,
-                  origen: origen,
-                  destino: destino,
-                  tipo: tipo,
-                  fecharegistro: fecharegistro,
-                  placa: placa,
-                  hora: hora,
-                  precio: precio
-                }"
-                class="img-fluid rounded-start centered-image cursor-pointer"
-                alt="Imagen del asiento" style="max-width: 30%; height: auto;">
-              <!-- Calcular el número de asiento correctamente -->
-              <h4 *ngIf="colIndex !== 2">{{ rowIndex * 5 + colIndex - (colIndex > 2 ? 1 : 0) + 1 }}</h4>
-              <div *ngIf="isSeatSold(item)" style="color: red;">Vendido</div>
-            </ng-container>
-            <!-- En la tercera columna, mostrar "Vacío" sin numeración -->
-            <ng-container *ngIf="colIndex === 2">
-              <span>Vacío</span>
-            </ng-container>
-          </div>
-        </td>
-      </ng-container>
-    </tr>
+    <ng-container *ngFor="let row of chunkArray(getArrayOfSize(numeroAsientos), 5); let rowIndex = index">
+      <tr>
+        <ng-container *ngFor="let item of row; let colIndex = index">
+          <!-- Celda con número de asiento y contenido -->
+          <td style="width: 5%; padding: 1px; margin: 0; vertical-align: top;">
+            <div style="text-align: center; margin-bottom: 5px;">
+              <!-- Si no es la tercera columna, mostrar el asiento con numeración -->
+              <ng-container *ngIf="colIndex !== 2 || (colIndex === 2 && rowIndex === (chunkArray(getArrayOfSize(numeroAsientos), 5).length - 1))">
+                <img src="../../../assets/img/asiento_tierra.png" [routerLink]="isSeatSold(item) ? null : ['/ventapasaje']"
+                  [queryParams]="{
+                    asiento: item,
+                    origen: origen,
+                    destino: destino,
+                    tipo: tipo,
+                    fecharegistro: fecharegistro,
+                    placa: placa,
+                    hora: hora,
+                    precio: precio
+                  }"
+                  class="img-fluid rounded-start centered-image cursor-pointer"
+                  alt="Imagen del asiento" style="max-width: 30%; height: auto;">
+                <!-- Calcular el número de asiento correctamente -->
+                <h4 *ngIf="colIndex !== 2 || (colIndex === 2 && rowIndex === (chunkArray(getArrayOfSize(numeroAsientos), 5).length - 1))">
+                  {{ rowIndex * 5 + colIndex - (colIndex > 2 && rowIndex !== (chunkArray(getArrayOfSize(numeroAsientos), 5).length - 1) ? 1 : 0) + 1 }}
+                </h4>
+                <div *ngIf="isSeatSold(item)" style="color: red;">Vendido</div>
+              </ng-container>
+              <!-- En la tercera columna, mostrar "Vacío" sin numeración -->
+              <ng-container *ngIf="colIndex === 2">
+                <span>Vacío</span>
+              </ng-container>
+            </div>
+          </td>
+        </ng-container>
+      </tr>
+    </ng-container>
   </tbody>
 </table>
