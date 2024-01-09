@@ -110,8 +110,8 @@
                 }"
                 class="img-fluid rounded-start centered-image cursor-pointer"
                 alt="Imagen del asiento" style="max-width: 30%; height: auto;">
-              <!-- Mostrar el número de asiento -->
-              <h4 *ngIf="colIndex !== 2">{{ colIndex < 2 ? rowIndex * 4 + colIndex + 1 : rowIndex * 4 + colIndex }}</h4>
+              <!-- Calcular el número de asiento correctamente -->
+              <h4 *ngIf="colIndex !== 2">{{ rowIndex * 5 + colIndex - (colIndex > 2 ? 1 : 0) + 1 }}</h4>
               <div *ngIf="isSeatSold(item)" style="color: red;">Vendido</div>
             </ng-container>
             <!-- En la tercera columna, mostrar "Vacío" sin numeración -->
