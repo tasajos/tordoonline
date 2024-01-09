@@ -88,7 +88,7 @@
 <p></p>
 <br>
 <br>
-<!--CODIGO PARA MOSTRAR EL BUS-->
+<!-- CODIGO PARA MOSTRAR EL BUS -->
 <table border="1" cellpadding="1" cellspacing="1" style="width: 200px;">
   <tbody>
     <ng-container *ngFor="let row of chunkArray(getArrayOfSize(numeroAsientos), 5); let rowIndex = index">
@@ -120,7 +120,7 @@
               </ng-container>
               <!-- En la tercera columna, mostrar "Vacío" sin numeración -->
               <ng-container *ngIf="colIndex === 2">
-                <span>Vacío</span>
+                <span>Pasillo</span>
               </ng-container>
             </div>
           </td>
@@ -129,3 +129,4 @@
     </ng-container>
   </tbody>
 </table>
+
