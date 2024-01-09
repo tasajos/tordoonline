@@ -13,6 +13,8 @@ declare var $: any; // Declara la variable jQuery
   styleUrls: ['./pasajes.component.css']
 })
 export class PasajesComponent implements OnInit {
+  seatNumber: number = 1;
+  
   numeroAsientos!: number;
   placa!: string;
   destino!: string;
@@ -89,5 +91,14 @@ export class PasajesComponent implements OnInit {
 
   public calculateFloor(value: number): number {
     return Math.floor(value);
+  }
+  incrementSeatNumber() {
+    this.seatNumber++;
+  }
+  assignSeatNumber(colIndex: number) {
+    if (colIndex === 0 || colIndex === 3) {
+      return this.seatNumber++;
+    }
+    return '';
   }
 }
