@@ -8,12 +8,15 @@
 <br>
 <p></p>
 
+<div class="d-flex justify-content-center mb-3">
+  <button mat-fab color="primary" aria-label="Example icon button with a home icon" (click)="redirectToHome()">
+      <mat-icon>home</mat-icon>
+  </button>
+</div>
+<app-distrbus></app-distrbus>
+
 <div class="container mt-2">
-  <div class="d-flex justify-content-center mb-3">
-      <button mat-fab color="primary" aria-label="Example icon button with a home icon" (click)="redirectToHome()">
-          <mat-icon>home</mat-icon>
-      </button>
-  </div>
+  
   <div class="row">
       <ng-container *ngFor="let i of getArrayOfSize(numeroAsientos); let idx = index">
           <div class="col-md-5 mb-2">
