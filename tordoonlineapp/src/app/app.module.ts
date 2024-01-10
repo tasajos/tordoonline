@@ -44,6 +44,7 @@ import { CrutasComponent } from './Components/menu/crutas/crutas.component';
 import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.component';
 import { DistrbusComponent } from './Components/pasajes/distrbus/distrbus.component';
 import { Distrbus49Component } from './Components/pasajes/distrbus49/distrbus49.component';
+import { Distrbus14hComponent } from './Components/pasajes/distrbus14h/distrbus14h.component';
 
 
 
@@ -72,6 +73,7 @@ import { Distrbus49Component } from './Components/pasajes/distrbus49/distrbus49.
     CtipsviajeComponent,
     DistrbusComponent,
     Distrbus49Component,
+    Distrbus14hComponent,
    
   ],
   imports: [
