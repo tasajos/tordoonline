@@ -1,3 +1,5 @@
+
+
 <app-cabecerx></app-cabecerx>
 <br>
 <br>
@@ -13,7 +15,16 @@
       <mat-icon>home</mat-icon>
   </button>
 </div>
-<app-distrbus></app-distrbus>
+<!--Codigo de distribucion de asientos-->
+<ng-container *ngIf="numeroAsientos === 39">
+  <!-- Contenido para 39 asientos -->
+  <app-distrbus></app-distrbus>
+</ng-container>
+
+<ng-container *ngIf="numeroAsientos === 49">
+  <!-- Contenido para 49 asientos -->
+  <app-distrbus49></app-distrbus49>
+</ng-container>
 
 <div class="container mt-2">
   

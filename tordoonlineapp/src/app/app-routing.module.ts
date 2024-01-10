@@ -14,6 +14,7 @@ import { CboliviaComponent } from './Components/menu/cbolivia/cbolivia.component
 import { CrutasComponent } from './Components/menu/crutas/crutas.component';
 import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.component';
 import { DistrbusComponent } from './Components/pasajes/distrbus/distrbus.component';
+import { Distrbus49Component } from './Components/pasajes/distrbus49/distrbus49.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'crutas',component:CrutasComponent},
   {path: 'ctips',component:CtipsviajeComponent},
   {path: 'dbus',component:DistrbusComponent},
+  {path: 'dbus49',component:Distrbus49Component},
 {path: '**', redirectTo:'principal', pathMatch:'full'}
 ];
 

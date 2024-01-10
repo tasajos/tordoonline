@@ -43,6 +43,7 @@ import { CboliviaComponent } from './Components/menu/cbolivia/cbolivia.component
 import { CrutasComponent } from './Components/menu/crutas/crutas.component';
 import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.component';
 import { DistrbusComponent } from './Components/pasajes/distrbus/distrbus.component';
+import { Distrbus49Component } from './Components/pasajes/distrbus49/distrbus49.component';
 
 
 
@@ -70,6 +71,7 @@ import { DistrbusComponent } from './Components/pasajes/distrbus/distrbus.compon
     CrutasComponent,
     CtipsviajeComponent,
     DistrbusComponent,
+    Distrbus49Component,
    
   ],
   imports: [
