@@ -45,6 +45,7 @@ import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.com
 
 
 
+
 //pdf
 
 @NgModule({
@@ -66,7 +67,8 @@ import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.com
     CounterComponent,
     CboliviaComponent,
     CrutasComponent,
-    CtipsviajeComponent
+    CtipsviajeComponent,
+   
   ],
   imports: [
     BrowserModule,
