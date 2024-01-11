@@ -26,3 +26,7 @@
     align-items: center;
     justify-content: center;
 }
+.outer-table {
+  margin-left: auto;
+  margin-right: auto;
+}

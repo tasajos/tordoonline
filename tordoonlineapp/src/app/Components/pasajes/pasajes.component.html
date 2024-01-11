@@ -26,24 +26,36 @@
   <app-distrbus49></app-distrbus49>
 </ng-container>
 
-
 <ng-container *ngIf="numeroAsientos === 16">
-  <table style="border-collapse: collapse; width: 34.1564%;" border="1">
-    <tbody>
-      <tr *ngFor="let row of [[13, 10, 7, 4, 1], [14, 11, 8, 5, 2], [15, null, null, null, null], [16, 12, 9, 6, 3]]; let rowIndex = index">
-        <td style="width: 6.28258%;" *ngFor="let numeroAsiento of row; let colIndex = index">
-          <ng-container *ngIf="numeroAsiento !== null">
-            <div [ngClass]="{'text-danger': isSeatSold(numeroAsiento)}">
-              {{ isSeatSold(numeroAsiento) ? 'Vendido' : numeroAsiento }}
-            </div>
-          </ng-container>
-        </td>
-      </tr>
-    </tbody>
+  <table class="outer-table" style="width: 60%;">
+    <tr>
+      <td style="width: 50%;">
+        <table style="border-collapse: collapse; width: 100%;" border="1">
+          <tbody>
+            <tr *ngFor="let row of [[13, 10, 7, 4, 1], [14, 11, 8, 5, 2], [15, null, null, null, null], [16, 12, 9, 6, 3]]; let rowIndex = index">
+              <td style="width: 6.28258%;" *ngFor="let numeroAsiento of row; let colIndex = index">
+                <ng-container *ngIf="numeroAsiento !== null">
+                  <div [ngStyle]="{'background-color': isSeatSold(numeroAsiento) ? '#E2D162' : 'transparent'}">
+                    <img src="../../../assets/img/asiento24.png" alt="Imagen del asiento" style="max-width: 30px; height: auto;">
+                    {{ numeroAsiento }}
+                    <span *ngIf="isSeatSold(numeroAsiento)">Vendido</span>
+                  </div>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td style="width: 60%;">
+        <!-- Aquí puedes colocar la imagen que desees -->
+        <img src="../../../assets/img/bus_aereo.png" alt="Tu imagen" style="max-width: 80%; height: auto;">
+      </td>
+    </tr>
   </table>
 </ng-container>
 
-<div class="container mt-2">
+
+<div class="container mt-3">
   
   <div class="row">
       <ng-container *ngFor="let i of getArrayOfSize(numeroAsientos); let idx = index">
