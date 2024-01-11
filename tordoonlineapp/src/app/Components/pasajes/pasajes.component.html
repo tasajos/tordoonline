@@ -26,6 +26,23 @@
   <app-distrbus49></app-distrbus49>
 </ng-container>
 
+
+<ng-container *ngIf="numeroAsientos === 16">
+  <table style="border-collapse: collapse; width: 34.1564%;" border="1">
+    <tbody>
+      <tr *ngFor="let row of [[13, 10, 7, 4, 1], [14, 11, 8, 5, 2], [15, null, null, null, null], [16, 12, 9, 6, 3]]; let rowIndex = index">
+        <td style="width: 6.28258%;" *ngFor="let numeroAsiento of row; let colIndex = index">
+          <ng-container *ngIf="numeroAsiento !== null">
+            <div [ngClass]="{'text-danger': isSeatSold(numeroAsiento)}">
+              {{ isSeatSold(numeroAsiento) ? 'Vendido' : numeroAsiento }}
+            </div>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
 <div class="container mt-2">
   
   <div class="row">

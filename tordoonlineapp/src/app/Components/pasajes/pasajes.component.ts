@@ -14,7 +14,11 @@ declare var $: any; // Declara la variable jQuery
 })
 export class PasajesComponent implements OnInit {
   seatNumber: number = 1;
+  //asientosVendidos: boolean[] = [false, false, true, false, false, false, false, false, true, false, false, false, false, false, false, false];
+  asientosVendidos: Set<number> = new Set<number>();
+
   
+
   numeroAsientos!: number;
   placa!: string;
   destino!: string;
