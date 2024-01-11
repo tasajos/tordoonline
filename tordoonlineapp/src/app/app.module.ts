@@ -12,6 +12,12 @@ import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 //trabajo
@@ -36,6 +42,10 @@ import { CounterComponent } from './Components/menu/counter/counter.component';
 import { CboliviaComponent } from './Components/menu/cbolivia/cbolivia.component';
 import { CrutasComponent } from './Components/menu/crutas/crutas.component';
 import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.component';
+import { DistrbusComponent } from './Components/pasajes/distrbus/distrbus.component';
+import { Distrbus49Component } from './Components/pasajes/distrbus49/distrbus49.component';
+import { Distrbus14hComponent } from './Components/pasajes/distrbus14h/distrbus14h.component';
+
 
 
 
@@ -60,7 +70,11 @@ import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.com
     CounterComponent,
     CboliviaComponent,
     CrutasComponent,
-    CtipsviajeComponent
+    CtipsviajeComponent,
+    DistrbusComponent,
+    Distrbus49Component,
+    Distrbus14hComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -72,6 +86,12 @@ import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.com
     HttpClientModule,
     MatGridListModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatSnackBarModule,
+    ModalModule.forRoot()
+
     
   ],
   providers: [],

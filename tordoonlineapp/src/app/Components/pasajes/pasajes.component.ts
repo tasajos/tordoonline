@@ -13,6 +13,33 @@ declare var $: any; // Declara la variable jQuery
   styleUrls: ['./pasajes.component.css']
 })
 export class PasajesComponent implements OnInit {
+  seatNumber: number = 1;
+  //asientosVendidos: boolean[] = [false, false, true, false, false, false, false, false, true, false, false, false, false, false, false, false];
+  asientosVendidos: Set<number> = new Set<number>();
+  asientos: (number | null)[][] = [
+    [19, 16, 13, 10, 7, 4, 1],
+    [20, 17, 14, 11, 8, 5, 2],
+    [null, null, null, null, null, null, null],
+    [21, 18, 15, 12, 9, 6, 3]
+  ];
+  
+  asientos39: (number | null)[][] = [
+    [19, 16, 13, 10, 7, 4, 1],
+    [20, 17, 14, 11, 8, 5, 2],
+    [null, null, null, null, null, null, null],
+    [21, 18, 15, 12, 9, 6, 3],
+    [null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null],
+    [37, 34, 31, 28, 25, 22],
+    [38, 35, 32, 29, 26, 23],
+    [null, null, null, null, null, null, null],
+    [39, 36, 33, 30, 27, 24]
+  ];
+
+
+
+  rowIndex: number | null = null;
+  
   numeroAsientos!: number;
   placa!: string;
   destino!: string;
@@ -79,4 +106,24 @@ export class PasajesComponent implements OnInit {
     }
   }
   
+  chunkArray(array: any[], size: number) {
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+      result.push(array.slice(i, i + size));
+    }
+    return result;
+  }
+
+  public calculateFloor(value: number): number {
+    return Math.floor(value);
+  }
+  incrementSeatNumber() {
+    this.seatNumber++;
+  }
+  assignSeatNumber(colIndex: number) {
+    if (colIndex === 0 || colIndex === 3) {
+      return this.seatNumber++;
+    }
+    return '';
+  }
 }

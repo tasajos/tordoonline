@@ -1,3 +1,5 @@
+
+
 <app-cabecerx></app-cabecerx>
 <br>
 <br>
@@ -8,69 +10,140 @@
 <br>
 <p></p>
 
-<div class="container mt-5">
-    <div class="d-flex justify-content-center mb-3">
-        <button mat-fab color="primary" aria-label="Example icon button with a home icon" (click)="redirectToHome()">
-            <mat-icon>home</mat-icon>
-        </button>
-    </div>
-    <div class="row">
-        <ng-container *ngFor="let i of getArrayOfSize(numeroAsientos); let idx = index">
-            <div class="col-md-6 mb-3">
-                <div class="card" [ngClass]="{'orange-background': isSeatSold(idx + 1)}">
-                    <div class="row g-0">
-                        <div class="col-md-4 mt-5">
-                            <img src="../../../assets/img/asiento_tierra.png" [routerLink]="isSeatSold(idx + 1) ? null : ['/ventapasaje']"
-                                [queryParams]="{
-                                    asiento: idx + 1,
-                                    origen: origen,
-                                    destino: destino,
-                                    tipo: tipo,
-                                    fecharegistro: fecharegistro,
-                                    placa: placa,
-                                    hora: hora,
-                                    precio: precio
-                                }"
-                                class="img-fluid rounded-start centered-image cursor-pointer"
-                                alt="Imagen del asiento">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h4 class="card-title">Asiento {{ idx + 1 }}</h4>
-                                <p *ngIf="isSeatSold(idx + 1)" class="text-danger">Vendido</p>
-                                <p class="card-text">{{ origen }} &rarr; {{ destino }} | Hora: {{ hora }}</p>
-                                <p class="card-text">Tipo: {{ tipo }}</p>
-                                <p class="card-text">Precio: {{ precio }} Bs</p>
-                                <p class="card-text">Fecha: {{ formatDate(fecharegistro) }}</p>
-                                <p class="card-text"><small class="text-body-secondary">Placa: {{ placa }}</small></p>
-                                <div class="d-flex justify-content-center">
-                                    <button mat-raised-button color="primary" id="buyButton{{ idx }}"
-                                    [routerLink]="isSeatSold(idx + 1) ? null : ['/ventapasaje']"
-        [queryParams]="{
-            asiento: idx + 1,
-            origen: origen,
-            destino: destino,
-            tipo: tipo,
-            fecharegistro: fecharegistro,
-            placa: placa,
-            hora: hora,
-            precio: precio
-        }"
-        
-        [disabled]="isSeatSold(idx + 1)"
-  (click)="openSoldSeatModal(idx + 1)"
-        
-        >Comprar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
-    </div>
+<div class="d-flex justify-content-center mb-3">
+  <button mat-fab color="primary" aria-label="Example icon button with a home icon" (click)="redirectToHome()">
+      <mat-icon>home</mat-icon>
+  </button>
 </div>
 
+
+<!--Codigo de distribucion de asientos-->
+
+
+<ng-container *ngIf="numeroAsientos === 39">
+  <table class="outer-table" style="width: 60%;">
+    <tr>
+      <td style="width: 50%;">
+        <table style="border-collapse: collapse; width: 100%;" border="1">
+          <tbody>
+            <tr *ngFor="let row of asientos39; let rowIndex = index">
+              <td style="width: 6.28258%;" *ngFor="let numeroAsiento of row; let colIndex = index">
+                <ng-container>
+                  <div [ngStyle]="{'background-color': numeroAsiento !== null && isSeatSold(numeroAsiento) ? '#E2D162' : 'transparent'}">
+                    <ng-container *ngIf="numeroAsiento !== null; else emptyCell">
+                      <img src="../../../assets/img/asiento24.png" alt="Imagen del asiento" style="max-width: 30px; height: auto;">
+                      {{ numeroAsiento }}
+                      <span *ngIf="isSeatSold(numeroAsiento)">Vendido</span>
+                    </ng-container>
+                    <ng-template #emptyCell>&nbsp;</ng-template>
+                  </div>
+                </ng-container>
+              </td>
+            </tr>
+            <tr *ngIf="rowIndex === 2 || rowIndex === 5">
+              <td colspan="7" style="text-align: center;">2do piso</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td style="width: 60%;">
+        <!-- Aquí puedes colocar la imagen que desees -->
+        <img src="../../../assets/img/bus_aereo.png" alt="Tu imagen" style="max-width: 80%; height: auto;">
+      </td>
+    </tr>
+  </table>
+</ng-container>
+
+
+<ng-container *ngIf="numeroAsientos === 49">
+  <!-- Contenido para 49 asientos -->
+  <app-distrbus49></app-distrbus49>
+</ng-container>
+
+<ng-container *ngIf="numeroAsientos === 16">
+  <table class="outer-table" style="width: 60%;">
+    <tr>
+      <td style="width: 50%;">
+        <table style="border-collapse: collapse; width: 100%;" border="1">
+          <tbody>
+            <tr *ngFor="let row of [[13, 10, 7, 4, 1], [14, 11, 8, 5, 2], [15, null, null, null, null], [16, 12, 9, 6, 3]]; let rowIndex = index">
+              <td style="width: 6.28258%;" *ngFor="let numeroAsiento of row; let colIndex = index">
+                <ng-container *ngIf="numeroAsiento !== null">
+                  <div [ngStyle]="{'background-color': isSeatSold(numeroAsiento) ? '#E2D162' : 'transparent'}">
+                    <img src="../../../assets/img/asiento24.png" alt="Imagen del asiento" style="max-width: 30px; height: auto;">
+                    {{ numeroAsiento }}
+                    <span *ngIf="isSeatSold(numeroAsiento)">Vendido</span>
+                  </div>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td style="width: 60%;">
+        <!-- Aquí puedes colocar la imagen que desees -->
+        <img src="../../../assets/img/bus_aereo.png" alt="Tu imagen" style="max-width: 80%; height: auto;">
+      </td>
+    </tr>
+  </table>
+</ng-container>
+
+
+
+
+
+<div class="container mt-3">
+  
+  <div class="row">
+      <ng-container *ngFor="let i of getArrayOfSize(numeroAsientos); let idx = index">
+          <div class="col-md-5 mb-2">
+              <div class="card" [ngClass]="{'orange-background': isSeatSold(idx + 1)}">
+                  <div class="row g-0">
+                      <div class="col-md-3 mt-3 mb-2 seat-container">
+                          <img src="../../../assets/img/asiento_tierra.png" [routerLink]="isSeatSold(idx + 1) ? null : ['/ventapasaje']"
+                              [queryParams]="{
+                                  asiento: idx + 1,
+                                  origen: origen,
+                                  destino: destino,
+                                  tipo: tipo,
+                                  fecharegistro: fecharegistro,
+                                  placa: placa,
+                                  hora: hora,
+                                  precio: precio
+                              }"
+                              class="img-fluid rounded-start centered-image cursor-pointer"
+                              alt="Imagen del asiento">
+                          <div class="d-flex justify-content-center mt-2">
+                              <button mat-raised-button color="primary" id="buyButton{{ idx }}"
+                                  [routerLink]="isSeatSold(idx + 1) ? null : ['/ventapasaje']"
+                                  [queryParams]="{
+                                      asiento: idx + 1,
+                                      origen: origen,
+                                      destino: destino,
+                                      tipo: tipo,
+                                      fecharegistro: fecharegistro,
+                                      placa: placa,
+                                      hora: hora,
+                                      precio: precio
+                                  }"
+                                  [disabled]="isSeatSold(idx + 1)"
+                                  (click)="openSoldSeatModal(idx + 1)">Comprar</button>
+                          </div>
+                      </div>
+                      <div class="col-md-4">
+                          <div class="card-body">
+                              <h4 class="card-title">Asiento {{ idx + 1 }}</h4>
+                              <p *ngIf="isSeatSold(idx + 1)" class="text-danger">Vendido</p>
+                              <!-- Resto del código de la tarjeta -->
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    
+      </ng-container>
+  </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="soldSeatModal" tabindex="-1" role="dialog" aria-labelledby="soldSeatModalLabel"
@@ -92,3 +165,7 @@
     </div>
   </div>
 </div>
+<p></p>
+<br>
+<br>
+

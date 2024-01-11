@@ -1,98 +1,76 @@
 <div class="row">
-    <!-- Columna de Búsqueda -->
-    <div class="col-md-6">
-        <div class="card"> 
-            <h3 class="card-header mx-2"><img class="tmim" src="../../../../assets/img/boleto-de-autobus.png"> Busca tu Pasaje</h3>
-            <div class="card-body">
-                <form (submit)="buscarPorOrigenYDestino()">
-                    <div class="form-floating">
-                        <select class="form-select" id="origen" aria-label="Origen" [(ngModel)]="origen" [ngModelOptions]="{ standalone: true }">
-                            <option selected>Origen</option>
-                            <option value="La Paz">La Paz</option>
-                            <option value="Cochabamba">Cochabamba</option>
-                            <option value="Santa Cruz">Santa Cruz</option>
-                            <!--<option value="Oruro">Oruro</option>-->
-                        </select>
-                        <label for="origen">Origen</label>
-                    </div>
-                    <div class="form-floating">
-                        <select class="form-select mt-2" id="destino" aria-label="Destino" [(ngModel)]="destino" [ngModelOptions]="{ standalone: true }">
-                            <option selected>Destino</option>
-                            <option value="La Paz">La Paz</option>
-                            <option value="Cochabamba">Cochabamba</option>
-                            <option value="Santa Cruz">Santa Cruz</option>
-                            <!--<option value="Oruro">Oruro</option>-->
-                        </select>
-                        <label for="destino">Destino</label>
-                    </div>
-                    <button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()">Buscar</button>
-                </form>
-            </div>
-        </div>
-    </div>
+  <!-- Columna de Búsqueda -->
+  <div class="col-md-3">
+      <div class="card"> 
+          <h3 class="card-header mx-2"><img class="tmim" src="../../../../assets/img/boleto-de-autobus.png"> Busca tu Pasaje</h3>
+          <div class="card-body">
+              <form (submit)="buscarPorOrigenYDestino()">
+                  <div class="form-floating">
+                      <select class="form-select" id="origen" aria-label="Origen" [(ngModel)]="origen" [ngModelOptions]="{ standalone: true }" name="origen">
+                          <option selected>Origen</option>
+                          <option value="La Paz">La Paz</option>
+                          <option value="Cochabamba">Cochabamba</option>
+                          <option value="Santa Cruz">Santa Cruz</option>
+                          <!--<option value="Oruro">Oruro</option>-->
+                      </select>
+                      <label for="origen">Origen</label>
+                  </div>
+                  <div class="form-floating">
+                      <select class="form-select mt-2" id="destino" aria-label="Destino" [(ngModel)]="destino" [ngModelOptions]="{ standalone: true }" name="destino">
+                          <option selected>Destino</option>
+                          <option value="La Paz">La Paz</option>
+                          <option value="Cochabamba">Cochabamba</option>
+                          <option value="Santa Cruz">Santa Cruz</option>
+                          <!--<option value="Oruro">Oruro</option>-->
+                      </select>
+                      <label for="destino">Destino</label>
+                  </div>
+                  <!-- Agregar campo de selección de fecha de inicio -->
+                  <div class="form-floating mt-2">
+                    <mat-form-field appearance="fill" class="formatofechamenu">
+                      <mat-label>Fecha</mat-label>
+                      <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" (dateChange)="onDateChange($event, startDatePicker)" required [min]="minDate" name="startDate">
+                      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #startDatePicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  
+                  
+                  <button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()" [disabled]="!startDate">Buscar</button>
+                 <!-- <button type="button" class="btn btn-primary mt-3" (click)="buscarYMostrarResultados()" [disabled]="!startDate">Buscar</button>-->
 
-    <!-- Columna de Resultados -->
-    <div class="col-md-6 mt-2">
-        <div *ngIf="mostrarTabla">
-            <div class="card mt-2 custom-card" *ngFor="let registro of registrosFlota">
-                <div class="row no-gutters">
-                    <div class="col-md-3 mt-5 text-center">
-                        <img src="../../../../assets/img/autobus.png" class="mx-auto custom-img" alt="Imagen">
-                    </div>
-                    <div class="col-md-8 mt-2">
-                        <div class="card-body">
-                            <h2 class="card-title"> {{ registro.origen }} - {{ registro.destino }}</h2>
-                            <h3 class="card-header">Hora: {{ registro.hora }} {{ formatDate(registro.fecharegistro) }}</h3>
-                            <h3 class="card-title">Tipo: {{ registro.tipo }}</h3>
-                            <h3 class="card-title">Precio: {{ registro.precio }} Bs</h3>
-                            <!--<a href="vflotas" class="btn btn-primary">Comprar</a>-->
-                            <a (click)="verAsientos(registro)" class="btn btn-primary">Comprar</a>
+                  <!-- <button type="button" class="btn btn-primary mt-3" (click)="buscarYMostrarModal()" [disabled]="!startDate">Buscar</button>-->
+                  
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-  
+                  <!--<button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()">Buscar</button>-->
+                  
+              </form>
+          </div>
+      </div>
+  </div>
 
-
-<!-- Modal para mostrar "Sin resultados" -->
-<div class="modal fade" #modalNoResultados id="modalNoResultados" tabindex="-1" aria-labelledby="modalNoResultadosLabel" aria-hidden="true">
-
-<!--<div class="modal fade" id="modalNoResultados" tabindex="-1" aria-labelledby="modalNoResultadosLabel" aria-hidden="true">-->
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 class="modal-title" id="modalNoResultadosLabel">Sin resultados</h2>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-      No se encontraron resultados para la búsqueda.
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-    </div>
+ <!-- Columna de Resultados -->
+<div class="col-md-3 mt-1">
+  <div>
+      
+  </div>
+  <div *ngIf="mostrarTabla">
+      <div class="card mt-3 custom-card" *ngFor="let registro of registrosFlota">
+          <div class="row no-gutters">
+              <div class="col-md-3 mt-5 text-center">
+                  <img src="../../../../assets/img/autobus.png" class="mx-auto custom-img" alt="Imagen">
+              </div>
+              <div class="col-md-8 mt-2">
+                  <div class="card-body">
+                      <h2 class="card-title"> {{ registro.origen }} - {{ registro.destino }}</h2>
+                      <h3 class="card-header">Hora: {{ registro.hora }} {{ formatDate(registro.fecharegistro) }}</h3>
+                      <h3 class="card-title">Tipo: {{ registro.tipo }}</h3>
+                      <h3 class="card-title">Precio: {{ registro.precio }} Bs</h3>
+                      <a (click)="verAsientos(registro)" class="btn btn-primary">Comprar</a>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
 </div>
-</div>
 
-
-<!-- Modal para mostrar "Seleccione origen y destino" -->
-<div class="modal fade" #modalOrigenDestino id="modalOrigenDestino" tabindex="-1" aria-labelledby="modalOrigenDestinoLabel" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="modalOrigenDestinoLabel">Atención</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-      Por favor, seleccione un origen y un destino.
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-    </div>
-  </div>
-</div>
-</div>

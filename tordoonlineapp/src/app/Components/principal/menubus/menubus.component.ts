@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { SflotaService } from 'src/app/Services/sflota.service';
+import { SflotaService } from 'src/app/Services/sflota.service'; // Importa el servicio original
 import { registrarflotaInter } from 'src/app/Interfaz/flota';
-import { Modal } from 'bootstrap'; // <-- Importa Bootstrap
-import {MatGridListModule} from '@angular/material/grid-list';
-import { FormsModule } from '@angular/forms';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+
+import { Modal } from 'bootstrap'; // Importa Bootstrap
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +14,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./menubus.component.css']
 })
 export class MenubusComponent implements OnInit, AfterViewInit {
-  mostrarTabla: boolean = false;
+
+  respuestaBackend: any; // Declara la variable para almacenar la respuesta del backend
+
+
+  //declaracion de variables de fechas
+  startDate!: Date;
+  minDate!: Date;
+
+  //declaracion de variables de modal
+  modalRef!: BsModalRef;
+
+ 
+  //declaracion de variables de origen y destino
+  mostrarAlerta: boolean = false;
+   mostrarTabla: boolean = false;
+   mensajeAlerta: string = '';
+
+   mostrarResultados: boolean = false;
+
+   
   registrosFlota: registrarflotaInter[] = [];
   origen: string = '';
   destino: string = '';
@@ -20,53 +41,75 @@ export class MenubusComponent implements OnInit, AfterViewInit {
   tipo: string = '';
   hora: string = '';
   precio: string = '';
-  mostrarModal: boolean = false ;
+  mostrarModal: boolean = false;
   registro: any;
-  @ViewChild('modalNoResultados') modalNoResultados!: ElementRef;
-  private bsModal!: Modal; // Instancia del modal de Bootstrap
+ 
 
-  @ViewChild('modalOrigenDestino') modalOrigenDestino!: ElementRef;
-  private modalOD!: Modal;  // Instancia del nuevo modal
-
-  constructor(private verFlota: SflotaService, private buscarFlotaService: SflotaService,
+  constructor(private verFlota: SflotaService, 
+    private buscarFlotaService: SflotaService, // Utiliza el servicio SflotaService
+    private modalService: BsModalService,
     private router: Router) {}
 
-  ngOnInit(): void {
-    this.verFlota.getflota().subscribe((data: registrarflotaInter[]) => {
-      this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
-    });
+    ngOnInit(): void {
+      this.verFlota.getflota().subscribe((data: registrarflotaInter[]) => {
+        this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
+      });
   }
 
   ngAfterViewInit(): void {
-    this.bsModal = new Modal(this.modalNoResultados.nativeElement);
-    this.modalOD = new Modal(this.modalOrigenDestino.nativeElement);  // Inicialización del nuevo modal
+   
   }
 
-  buscarPorOrigenYDestino() {
-    // Revisa si origen y destino están presentes
-    if (!this.origen || !this.destino) {
-      this.modalOD.show();  // Mostrar el modal de origen y destino
-      return;
-    }
-    
-    // Haces la petición a tu servicio
-    this.buscarFlotaService.buscarFlota(this.origen, this.destino)
-      .subscribe((data: registrarflotaInter[] | any) => {
-        // Filtramos los registros por la fecha actual o futura
-        this.registrosFlota = data.filter((registro: registrarflotaInter) => this.isTodayOrFutureDate(registro.fecharegistro));
-        
-        // Si no hay registros que coincidan, muestra el modal
-        if (this.registrosFlota.length === 0) {
-          this.bsModal.show();
-        } else {
-          this.mostrarTabla = true;
-        }
-      }, error => {
-        console.error('Error al realizar la búsqueda.', error);
-        alert('Error al realizar la búsqueda.');
-      });
-  }
   
+
+  buscarPorOrigenYDestino() {
+    if (!this.origen || !this.destino || !this.startDate) {
+      return Promise.resolve(); // No hagas nada si faltan datos
+    }
+
+    return new Promise<void>((resolve, reject) => {
+      this.buscarFlotaService
+        .buscarFlotaPorFecha(this.origen, this.destino, this.startDate)
+        .subscribe(
+          (data: registrarflotaInter[] | any) => {
+            if (data && data.mensaje === 'No se encontraron resultados') {
+              // No se encontraron resultados
+              this.mostrarAlerta = true;
+              alert('No se encontraron buses en ese rango.');
+              this.registrosFlota = []; // Puedes establecer la variable de registros como un arreglo vacío
+            } else if (Array.isArray(data)) {
+              // La respuesta es un arreglo, así que podemos aplicar filter
+              console.log(data); // Muestra la respuesta del backend en la consola
+              this.respuestaBackend = data; // Asigna la respuesta del backend a la variable
+              this.registrosFlota = data.filter((registro: registrarflotaInter) =>
+                this.isTodayOrFutureDate(registro.fecharegistro)
+              );
+
+              if (this.registrosFlota.length === 0) {
+                // No hay resultados
+                this.mostrarAlerta = true;
+                alert('No se permite fechas anteriores.');
+              } else {
+                // Hay resultados
+                this.mostrarTabla = true;
+              }
+            } else {
+              // La respuesta no es un arreglo ni un mensaje de "No se encontraron resultados"
+              console.error('La respuesta del servidor no es válida:', data);
+              alert('La respuesta del servidor no es válida.');
+            }
+
+            resolve(); // Resuelve la promesa después de buscar
+          },
+          (error) => {
+            console.error('Error al realizar la búsqueda.', error);
+            alert('Error al realizar la búsqueda.');
+            reject(error);
+          }
+        );
+    });
+  }
+//formatear fecha
 
   formatDate(dateInput: any): string {
     let date;
@@ -76,7 +119,7 @@ export class MenubusComponent implements OnInit, AfterViewInit {
       } else {
           date = new Date(dateInput);
       }
-      
+
       const day = date.getUTCDate().toString().padStart(2, '0');
       const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
       const year = date.getUTCFullYear();
@@ -87,6 +130,7 @@ export class MenubusComponent implements OnInit, AfterViewInit {
     }
   }
 
+  //comprobar si la fecha es actual o futura
   isTodayOrFutureDate(dateInput: any): boolean {
     let inputDate;
     if (dateInput instanceof Date) {
@@ -110,7 +154,50 @@ export class MenubusComponent implements OnInit, AfterViewInit {
       tipo: registro.tipo,
       hora: registro.hora,
       precio: registro.precio, } });
-}
+  }
+  onDateChange(event: any, datepicker: MatDatepicker<Date>) {
+    const selectedDate: Date = event.value;
+    const currentDate: Date = new Date();
+  
+    if (selectedDate < currentDate) {
+      // Si el usuario selecciona una fecha anterior a la actual, muestra un mensaje de error
+      this.mostrarAlerta = true;
+      this.mensajeAlerta = 'No se pueden buscar registros en fechas pasadas.';
+    } else {
+      // Actualiza la fecha de inicio correctamente
+      this.startDate = selectedDate;
+      this.mostrarAlerta = false; // Oculta el mensaje de error si estaba visible
+    }
+    datepicker.close(); // Cierra el datepicker después de seleccionar una fecha
+  }
 
+  openModal() {
+    this.modalRef = this.modalService.show('modalTemplate'); // Asegúrate de que el ID sea el correcto
+  }
 
-}
+  closeModal() {
+    this.modalRef.hide();
+  }
+
+  buscarYMostrarModal() {
+    // Llama a la función para buscar
+    this.buscarPorOrigenYDestino()
+      .then((data: any) => {
+        // Abre el modal solo si no hay resultados
+        if (this.registrosFlota.length === 0) {
+          this.openModal();
+          this.mensajeAlerta = ''; // Borra cualquier mensaje anterior
+        } else {
+          // Muestra el mensaje del backend si no se encontraron resultados
+          this.mostrarAlerta = true;
+          this.mensajeAlerta = data.mensaje;
+        }
+      })
+      .catch((error) => {
+        // Manejar otros errores aquí
+        console.error('Error al buscar flota:', error);
+        this.mostrarAlerta = true;
+        this.mensajeAlerta = 'Error al realizar la búsqueda.';
+      });
+  }
+}  
