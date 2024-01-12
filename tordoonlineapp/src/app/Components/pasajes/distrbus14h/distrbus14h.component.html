@@ -113,3 +113,47 @@
         </tr>
         </tbody>
         </table>
+
+
+
+
+
+        
+
+        <!--Codigo de distribucion de asientos-->
+
+<!--
+<ng-container *ngIf="numeroAsientos === 39">
+    <table class="outer-table" style="width: 60%;">
+      <tr>
+        <td style="width: 50%;">
+          <table style="border-collapse: collapse; width: 100%;" border="1">
+            <tbody>
+              <tr *ngFor="let row of asiento39v; let rowIndex = index">
+                <td style="width: 6.28258%;" *ngFor="let numeroAsiento of row; let colIndex = index">
+                  <ng-container>
+                    <div [ngStyle]="{'background-color': numeroAsiento !== null && isSeatSold(numeroAsiento) ? '#E2D162' : 'transparent'}">
+                      <ng-container *ngIf="numeroAsiento !== null; else emptyCell">
+                        <img src="../../../assets/img/asiento_tierra.png" alt="Imagen del asiento" style="max-width: 30px; height: auto;">
+                        {{ numeroAsiento }}
+                        <span *ngIf="isSeatSold(numeroAsiento)">Vendido</span>
+                      </ng-container>
+                      <ng-template #emptyCell>&nbsp;</ng-template>
+                    </div>
+                  </ng-container>
+                </td>
+              </tr>
+              <tr *ngIf="rowIndex === 2 || rowIndex === 5">
+                <td colspan="7" style="text-align: center;">2do piso</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td style="width: 60%;">
+         
+          <img src="../../../assets/img/bus_aereo.png" alt="Tu imagen" style="max-width: 80%; height: auto;">
+        </td>
+      </tr>
+    </table>
+  </ng-container>
+-->

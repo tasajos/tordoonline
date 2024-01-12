@@ -73,7 +73,7 @@
       <div class="col-md-4">
         <div class="mb-3">
           <label for="correo" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email">
+          <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" required>
         </div>
       </div>
       <div class="col-md-4">
@@ -146,7 +146,9 @@
     <br>
     <div class="row mt-3">
         <div class="col-md-12">
-          <button type="button" class="btn btn-primary custom-button" (click)="openModal()">Pagar</button>
+          <!--<button type="button" class="btn btn-primary custom-button" (click)="openModal()">Pagar</button>-->
+          <button type="button" class="btn btn-primary custom-button" (click)="openModal()" [disabled]="!reservaForm.valid">Pagar</button>
+
           <!--<button type="button" class="btn btn-primary custom-button" (click)="generateQROnEfectivo()">Pagar</button>-->
           <button mat-raised-button color="accent" class="custom-button" (click)="volver()">Volver</button>
         </div>
@@ -154,15 +156,9 @@
       
   </form>
 
-  <!-- Button trigger modal 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Launch static backdrop modal
-  </button>-->
-  
+ 
 
-
-
-<!-- Modal Efectivos -->
+<!-- Modal QR -->
 <div class="modal fade" id="staticBackdropefectivo" tabindex="-1" aria-labelledby="staticBackdropLabelefectivo" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

@@ -30,3 +30,10 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.sold-text {
+  color: red;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 20px; /* Ajusta este valor según sea necesario para centrar verticalmente */
+}
