@@ -356,7 +356,7 @@ export class VentaComponent implements OnInit {
 }
 
 cerraryvolver() {
-  window.location.href = '/';
+  window.location.reload();
 }
 
 openValidarQRModal() {
