@@ -423,4 +423,23 @@ onValidarQRClick() {
     this.showSpinner = false; // Oculta el spinner después de ejecutar la función
   }, 5000);
 }
+
+
+verificarCamposLlenos() {
+  if (
+    !this.nombre ||
+    !this.apellidos ||
+    !this.fechanacimiento ||
+    !this.nit ||
+    !this.telefono ||
+    !this.ci ||
+    !this.email
+  ) {
+    // Al menos uno de los campos requeridos está vacío
+    alert('Por favor, complete todos los campos requeridos.');
+  } else {
+    // Todos los campos requeridos están llenos, continuar con la lógica deseada
+    this.openModal(); // O cualquier otra acción que desees realizar
+  }
+}
 }
