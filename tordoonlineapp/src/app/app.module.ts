@@ -45,6 +45,7 @@ import { CtipsviajeComponent } from './Components/menu/ctipsviaje/ctipsviaje.com
 import { DistrbusComponent } from './Components/pasajes/distrbus/distrbus.component';
 import { Distrbus49Component } from './Components/pasajes/distrbus49/distrbus49.component';
 import { Distrbus14hComponent } from './Components/pasajes/distrbus14h/distrbus14h.component';
+import { WhatsappComponent } from './Components/principal/whatsapp/whatsapp.component';
 
 
 
@@ -74,6 +75,7 @@ import { Distrbus14hComponent } from './Components/pasajes/distrbus14h/distrbus1
     DistrbusComponent,
     Distrbus49Component,
     Distrbus14hComponent,
+    WhatsappComponent,
    
   ],
   imports: [
