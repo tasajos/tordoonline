@@ -385,6 +385,10 @@ cerraryvolver() {
   window.location.reload();
 }
 
+cerrarfintransaccion() {
+  window.location.href = '/principal';
+}
+
 openValidarQRModal() {
   const modalElement = document.getElementById('validarQRModal');
   const aliasElement = document.getElementById('aliasValue');
@@ -481,6 +485,7 @@ const modalElement = document.getElementById('modalEstadoPagado');
 if (modalElement) {
   const modalEstadoPagado = new bootstrap.Modal(modalElement);
   modalEstadoPagado.show();
+  
 } else {
   console.error('El modal con ID "modalEstadoPagado" no se encontró.');
 }
