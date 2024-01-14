@@ -145,14 +145,13 @@
     <!-- Botón de enviar -->
     <br>
     <div class="row mt-3">
-        <div class="col-md-12">
-          <!--<button type="button" class="btn btn-primary custom-button" (click)="openModal()">Pagar</button>-->
-          <button type="button" class="btn btn-primary custom-button" (click)="openModal()" [disabled]="!reservaForm.valid">Pagar</button>
+      <div class="col-md-12">
+          <button type="button" class="btn btn-primary custom-button" (click)="verificarCamposLlenos()">Pagar</button>
+          
 
-          <!--<button type="button" class="btn btn-primary custom-button" (click)="generateQROnEfectivo()">Pagar</button>-->
           <button mat-raised-button color="accent" class="custom-button" (click)="volver()">Volver</button>
-        </div>
       </div>
+  </div>
       
   </form>
 
@@ -168,7 +167,9 @@
       </div>
       <div class="modal-body">
         <!-- Mostrar la imagen del código QR -->
-        <img [src]="qrResponse?.objeto?.imagenQr" alt="QR" width="80%">
+       <img [src]="qrResponse?.objeto?.imagenQr" alt="QR" width="80%">
+        <!--<img [src]="qrGenerated ? qrResponse?.objeto?.imagenQr : null" alt="QR" width="80%">-->
+      
         <!-- Mostrar la imagen del código QR si qrGenerated es true -->
         <h1>Por Favor Pagar <span class="badge bg-secondary">{{ flota.precio }} Bs</span></h1>
       </div>
@@ -183,11 +184,7 @@
         <!--<button mat-raised-button color="accent" class="custom-button" (click)="openValidarQRModal()">Validar QR</button>-->
         <button mat-raised-button color="accent" class="custom-button" [disabled]="botonConfirmarModalHabilitado" (click)="openValidarQRModal()">Validar QR</button>
         </div>
-      <div class="d-flex justify-content-center mt-3 mb-2">
-        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" [disabled]="botonConfirmarModalHabilitado" (click)="onButtonClick()">
-          <mat-icon>print</mat-icon>
-      </button>     
-      </div>
+    
           </div>
   </div>
 </div>
@@ -207,8 +204,8 @@
 
         <!-- Nuevo alerta para el resultado de la validación -->
         <div class="alert alert-secondary mt-3" role="alert" id="validationResult">
-          Resultado de la validación.
-          <button type="button" class="btn btn-primary" (click)="enviarValidacionQR()">Validar QR</button>
+          Resultado de la validación.  {{ resultadoValidacionQR }}
+          <!--<button type="button" class="btn btn-primary" (click)="enviarValidacionQR()">Validar QR</button>-->
 
         </div>
 
@@ -218,6 +215,21 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-primary" (click)="onValidarQRClick()">Validar QR</button>
+
+        
+        <!--
+        <div class="d-flex justify-content-center mt-3 mb-2">
+          <button mat-fab color="primary" aria-label="Example icon button with a delete icon" [disabled]="botonConfirmarModalHabilitado" (click)="onButtonClick()">
+            <mat-icon>print</mat-icon>
+        </button>     
+        </div>-->
+        <!-- Botón de imprimir, visible solo si el estado es PAGADO -->
+<div class="d-flex justify-content-center mt-3 mb-2" *ngIf="resultadoValidacionQR === 'PAGADO'">
+  <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="onButtonClick()">
+      <mat-icon>print</mat-icon>
+  </button>
+</div>
+
 
         <!-- Spinner -->
   <div *ngIf="showSpinner" class="spinner-border" role="status">
@@ -230,3 +242,31 @@
     </div>
   </div>
 </div>
+
+
+<!-- Modal para Estado PAGADO -->
+<div class="modal fade" id="modalEstadoPagado" tabindex="-1" aria-labelledby="modalEstadoPagadoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEstadoPagadoLabel">Estado de Pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="../../../../assets/img/transferencia-en-linea.png" alt="Transaccion" style="width:30%;height:auto;">
+        <br>
+        El pago ha sido realizado con éxito.
+        <div class="d-flex justify-content-center mt-3 mb-2" *ngIf="resultadoValidacionQR === 'PAGADO'">
+          <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="onButtonClick()">
+              <mat-icon>print</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cerrarfintransaccion()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-whatsapp></app-whatsapp>

@@ -18,6 +18,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class VentaComponent implements OnInit {
 
 
+  resultadoValidacionQR: string = '';
+  
 
   registroExitoso: boolean = false;
   @ViewChild('registroExitosoMessage') registroExitosoMessage: ElementRef | undefined;
@@ -115,9 +117,9 @@ export class VentaComponent implements OnInit {
 
 
     this.qrData = {
-      alias: 'Pasaje Tordo'+' Fecha: '+ this.flota.fecharegistro +'-'+'Asiento: '+ this.flota.asiento +'-' + ' Nombres: '+this.nombre+ ' ' + this.apellidos,
+      alias: 'Pasaje Tordo'+' Fecha: '+ this.flota.fecharegistro +' '+'Asiento: '+ this.flota.asiento +' ' + ' Nombres: '+this.nombre+ ' ' + this.apellidos + ' '+ ' Origen: '+ this.flota.origen + '--'+'Destino: '+ this.flota.destino + '--' +'Hora: '+ this.flota.hora +' '+ 'Placa: '+ this.flota.placa + ' '+'Precio: ' +this.flota.precio+ 'Bs ' + 'Tipo: '+ this.flota.tipo + ' ',
       callback: this.flota.asiento,
-      detalleGlosa: this.apellidos + 'Tordo ' + this.flota.fecharegistro + 'Asiento: ' +this.flota.asiento + ' '+'Destino:'+ this.flota.destino,	
+      detalleGlosa: 'Sistema Tordo ' +' ' + 'Ppx: ' + this.apellidos + ''+ ' Fecha: ' + this.flota.fecharegistro + ' '+' Asiento: ' +this.flota.asiento,	
       monto: this.flota.precio, // Asegúrate de que 'monto' sea un número
       moneda: 'BOB', // Asegúrate de que 'BOB' sea un string
       fechaVencimiento:  this.flota.fecharegistro, // Reemplaza 'fechahoy' con la fecha adecuada
@@ -196,6 +198,8 @@ export class VentaComponent implements OnInit {
     );
      
     this.botonConfirmarHabilitado = false;
+
+  
   }
 
   openModal() {
@@ -246,33 +250,42 @@ export class VentaComponent implements OnInit {
   }
 
   generatePDF() {
-    
     let docDefinition = {
-      content: [
-        // Puedes agregar más elementos a este array para estructurar tu PDF.
-       
-        { text: '', margin: [0, 10] },
-        { text: 'Recibo', style: 'header' },
-        { text: 'Número de Asiento: ' + this.flota.asiento + ' - Tipo: ' + this.flota.tipo },
-        { text: 'Fecha: ' + this.flota.fecharegistro },
-        { text: 'Origen: ' + this.flota.origen + ' - Destino: ' + this.flota.destino },
-        { text: 'Nombre: ' + this.nombre + ' ' + this.apellidos },
-        // ... Agrega aquí todos los campos que desees.
-      ],
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true,
-          margin: [0, 0, 0, 10]
+        content: [
+            {
+                table: {
+                    widths: ['33.3333%', '33.3333%', '16.6667%', '33.3333%'],
+                    body: [
+                        [{ text: 'TORDO TRAVEL', colSpan: 4, alignment: 'center', bold: true }, {}, {}, {}],
+                        [{}, {}, {}, {}], // Fila vacía
+                        [{}, {}, {}, {}], // Fila vacía
+                        [{}, {}, {}, {}], // Fila vacía
+                        [{ text: 'Dirección:', bold: true }, 'Mariano Mendez 2135', { text: 'Nit:', bold: true }, '4947021011'],
+                        [{ text: 'Actividad Económica:', bold: true }, 'Sistema de Ventas Online', { text: 'Factura Nro:', bold: true }, ''],
+                        [{ text: 'Emisión:', bold: true }, 'Cochabamba', { text: 'Fecha:', bold: true }, this.flota.fecharegistro],
+                        [{ text: 'Nombre Pasajero:', bold: true }, this.nombre + ' ' + this.apellidos, { text: 'Nit:', bold: true }, this.nit],
+                        [{ text: 'Fecha:', bold: true }, this.flota.fecharegistro, { text: 'Emitido por:', bold: true }, 'TORDO TRAVEL'],
+                        [{ text: 'Ticket:', bold: true }, '', '', ''], // ColSpan para Ticket
+                        [{}, {}, {}, {}], // Fila vacía
+                        [{ text: 'Nombre Pasajero:', bold: true }, this.nombre + ' ' + this.apellidos, { text: 'Asiento:', bold: true }, this.flota.asiento],
+                        [{ text: 'Hora:', bold: true }, this.flota.hora, { text: 'Flota:', bold: true }, this.flota.placa],
+                        [{ text: 'Origen:', bold: true }, this.flota.origen, { text: 'Destino:', bold: true }, this.flota.destino],
+                        [{ text: 'Precio Unit:', bold: true }, this.flota.precio + ' ' +'Bs', { text: 'Precio Total:', bold: true }, this.flota.precio +' ' + 'Bs'],
+                    ]
+                },
+                layout: 'noBorders'
+            }
+        ],
+        styles: {
+            header: {
+                fontSize: 18,
+                bold: true
+            }
         }
-        // Puedes definir más estilos aquí.
-      }
-      
     };
-  
-    pdfMake.createPdf(docDefinition).download('Datos_Registrados.pdf');
-  }
-  
+
+    pdfMake.createPdf(docDefinition).download('Factura_TordoTravel.pdf');
+}
 
   enviarPorWhatsapp() {
     const telefono = '+59170776212'; // El número de teléfono al que deseas enviar el mensaje
@@ -344,6 +357,11 @@ export class VentaComponent implements OnInit {
         // Establece qrGenerated en true después de generar el código QR
         this.qrGenerated = true;
 
+
+        this.registroExitoso = false;
+        // Oculta la alerta después de cargar la imagen
+      this.hideQRAlert();
+
         // Abre el modal si es necesario
         this.openModal();
       },
@@ -355,8 +373,20 @@ export class VentaComponent implements OnInit {
   
 }
 
+hideQRAlert() {
+  // Oculta el mensaje de registro exitoso
+  if (this.registroExitosoMessage) {
+    this.registroExitosoMessage.nativeElement.style.display = 'none';
+  }
+}
+
+
 cerraryvolver() {
   window.location.reload();
+}
+
+cerrarfintransaccion() {
+  window.location.href = '/principal';
 }
 
 openValidarQRModal() {
@@ -395,8 +425,11 @@ enviarValidacionQR() {
       documentoCliente: null
     }
     */
+   
   };
 
+
+  /*
   this.qrService.validarqrbe(datosValidacion).subscribe(
     (response) => {
       // Actualiza el segundo alerta con la respuesta
@@ -404,6 +437,8 @@ enviarValidacionQR() {
       if (resultadoElement) {
         resultadoElement.innerHTML = `Resultado: ${JSON.stringify(response)}`;
       }
+      // Comprueba si el estado es PAGADO
+     
     },
     (error) => {
       console.error('Error en la validación:', error);
@@ -412,6 +447,48 @@ enviarValidacionQR() {
     }
   );
 
+*/
+this.qrService.validarqrbe(datosValidacion).subscribe(
+  (response: any) => {
+    console.log('Respuesta del servicio de validación QR:', response);
+
+    // Almacena el resultado en la propiedad
+    this.resultadoValidacionQR = response.estadoActual || 'Sin respuesta';
+
+    // Comprueba si el estado es "PAGADO"
+    if (response.estadoActual === 'PAGADO') {
+      // Cierra el modal de validación de QR
+      this.cerrarModal('validarQRModal');
+
+      // Abre el modal de "Estado de Pago"
+      this.abrirModalEstadoPagado();
+    }
+  },
+  (error) => {
+    console.error('Error en la validación:', error);
+  }
+);
+}
+
+cerrarModal(idModal: string) {
+// Lógica para cerrar un modal
+const modalElement = document.getElementById(idModal);
+if (modalElement) {
+  const modalInstance = bootstrap.Modal.getInstance(modalElement);
+  modalInstance?.hide();
+}
+}
+
+abrirModalEstadoPagado() {
+// Lógica para abrir el modal de "Estado de Pago"
+const modalElement = document.getElementById('modalEstadoPagado');
+if (modalElement) {
+  const modalEstadoPagado = new bootstrap.Modal(modalElement);
+  modalEstadoPagado.show();
+  
+} else {
+  console.error('El modal con ID "modalEstadoPagado" no se encontró.');
+}
 }
 
 onValidarQRClick() {
@@ -423,4 +500,36 @@ onValidarQRClick() {
     this.showSpinner = false; // Oculta el spinner después de ejecutar la función
   }, 5000);
 }
+
+
+verificarCamposLlenos() {
+  if (
+    !this.nombre ||
+    !this.apellidos ||
+    !this.fechanacimiento ||
+    !this.nit ||
+    !this.telefono ||
+    !this.ci ||
+    !this.email
+  ) {
+    // Al menos uno de los campos requeridos está vacío
+    alert('Por favor, complete todos los campos requeridos.');
+  } else {
+    // Todos los campos requeridos están llenos, continuar con la lógica deseada
+    this.openModal(); // O cualquier otra acción que desees realizar
+  }
 }
+
+
+
+  realizarTransaccion() {
+    // Tu lógica de transacción aquí...
+
+    // Cambia el estado a PAGADO
+    this.estado = 'PAGADO';
+    this.abrirModalEstadoPagado();
+  }  
+
+
+}
+

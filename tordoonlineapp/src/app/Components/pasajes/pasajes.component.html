@@ -89,23 +89,49 @@
   <app-distrbus49></app-distrbus49>
 </ng-container>
 
-<ng-container *ngIf="numeroAsientos === 16">
+<ng-container *ngIf="numeroAsientos === 17">
   <table class="outer-table" style="width: 60%;">
-    <tr>
+      <tr>
       <td style="width: 50%;">
         <table style="border-collapse: collapse; width: 100%;" border="1">
           <tbody>
-            <tr *ngFor="let row of [[13, 10, 7, 4, 1], [14, 11, 8, 5, 2], [15, null, null, null, null], [16, 12, 9, 6, 3]]; let rowIndex = index">
-              <td style="width: 6.28258%;" *ngFor="let numeroAsiento of row; let colIndex = index">
-                <ng-container *ngIf="numeroAsiento !== null">
-                  <div [ngStyle]="{'background-color': isSeatSold(numeroAsiento) ? '#E2D162' : 'transparent'}">
-                    <img src="../../../assets/img/asiento24.png" alt="Imagen del asiento" style="max-width: 30px; height: auto;">
-                    {{ numeroAsiento }}
-                    <span *ngIf="isSeatSold(numeroAsiento)">Vendido</span>
-                  </div>
+            <ng-container *ngFor="let row of asiento16v; let rowIndex = index">
+              <tr>
+                <ng-container *ngFor="let numeroAsiento of row; let colIndex = index">
+                  <td style="width: 6.28258%; padding: 10px;">
+                    <ng-container *ngIf="numeroAsiento !== null; else emptyCell">
+                      <div [ngStyle]="{'background-color': isSeatSold(numeroAsiento) ? '#E2D162' : 'transparent'}">
+                        <img src="../../../assets/img/asiento_tierra.png" alt="Imagen del asiento" style="max-width: 60px; height: auto;">
+                        {{ numeroAsiento }}
+                        <span *ngIf="isSeatSold(numeroAsiento)" class="sold-text">Vendido</span>
+                      </div>
+                    </ng-container>
+                    <ng-template #emptyCell>
+                      <div style="height: 40px; width: 60px;"></div>
+                    </ng-template>
+                    <ng-container *ngIf="numeroAsiento !== null">
+                      <div style="margin-top: 10px;"></div>
+                      <button mat-raised-button color="primary" [routerLink]="isSeatSold(numeroAsiento) ? null : ['/ventapasaje']"
+                        [queryParams]="{
+                          asiento: numeroAsiento,
+                          origen: origen,
+                          destino: destino,
+                          tipo: tipo,
+                          fecharegistro: fecharegistro,
+                          placa: placa,
+                          hora: hora,
+                          precio: precio
+                        }"
+                        [disabled]="isSeatSold(numeroAsiento)"
+                        (click)="openSoldSeatModal(numeroAsiento)">Comprar</button>
+                    </ng-container>
+                  </td>
                 </ng-container>
-              </td>
-            </tr>
+              </tr>
+              <tr *ngIf="rowIndex === 2 || rowIndex === 5">
+                <td colspan="10" style="height: 20px;"></td>
+              </tr>
+            </ng-container>
           </tbody>
         </table>
       </td>
@@ -201,4 +227,4 @@
 <p></p>
 <br>
 <br>
-
+<app-whatsapp></app-whatsapp>
