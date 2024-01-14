@@ -208,8 +208,8 @@
 
         <!-- Nuevo alerta para el resultado de la validación -->
         <div class="alert alert-secondary mt-3" role="alert" id="validationResult">
-          Resultado de la validación.
-          <button type="button" class="btn btn-primary" (click)="enviarValidacionQR()">Validar QR</button>
+          Resultado de la validación.  {{ resultadoValidacionQR }}
+          <!--<button type="button" class="btn btn-primary" (click)="enviarValidacionQR()">Validar QR</button>-->
 
         </div>
 
@@ -227,6 +227,25 @@
 
 
         <!-- Puedes agregar botones u opciones para validar el QR aquí -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal para Estado PAGADO -->
+<div class="modal fade" id="modalEstadoPagado" tabindex="-1" aria-labelledby="modalEstadoPagadoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEstadoPagadoLabel">Estado de Pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        El pago ha sido realizado con éxito.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

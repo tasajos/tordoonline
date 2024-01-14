@@ -18,7 +18,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class VentaComponent implements OnInit {
 
 
-
+  resultadoValidacionQR: string = '';
   
 
   registroExitoso: boolean = false;
@@ -117,7 +117,7 @@ export class VentaComponent implements OnInit {
 
 
     this.qrData = {
-      alias: 'Pasaje Tordo'+' Fecha: '+ this.flota.fecharegistro +'-'+'Asiento: '+ this.flota.asiento +'-' + ' Nombres: '+this.nombre+ ' ' + this.apellidos + 'Origen: '+ this.flota.origen + 'Destino: '+ this.flota.destino + 'Hora: '+ this.flota.hora + 'Placa: '+ this.flota.placa + 'Precio: '+ this.flota.precio + 'Tipo: '+ this.flota.tipo + 'Fecha: '+ this.flota.fecharegistro,
+      alias: 'Pasaje Tordo'+' Fecha: '+ this.flota.fecharegistro +' '+'Asiento: '+ this.flota.asiento +' ' + ' Nombres: '+this.nombre+ ' ' + this.apellidos + ' '+ ' Origen: '+ this.flota.origen + '--'+'Destino: '+ this.flota.destino + '--' +'Hora: '+ this.flota.hora +' '+ 'Placa: '+ this.flota.placa + ' '+'Precio: ' +this.flota.precio+ 'Bs ' + 'Tipo: '+ this.flota.tipo + ' ',
       callback: this.flota.asiento,
       detalleGlosa: 'Sistema Tordo ' +' ' + 'Ppx: ' + this.apellidos + ''+ ' Fecha: ' + this.flota.fecharegistro + ' '+' Asiento: ' +this.flota.asiento,	
       monto: this.flota.precio, // Asegúrate de que 'monto' sea un número
@@ -198,6 +198,8 @@ export class VentaComponent implements OnInit {
     );
      
     this.botonConfirmarHabilitado = false;
+
+  
   }
 
   openModal() {
@@ -410,8 +412,11 @@ enviarValidacionQR() {
       documentoCliente: null
     }
     */
+   
   };
 
+
+  /*
   this.qrService.validarqrbe(datosValidacion).subscribe(
     (response) => {
       // Actualiza el segundo alerta con la respuesta
@@ -419,6 +424,8 @@ enviarValidacionQR() {
       if (resultadoElement) {
         resultadoElement.innerHTML = `Resultado: ${JSON.stringify(response)}`;
       }
+      // Comprueba si el estado es PAGADO
+     
     },
     (error) => {
       console.error('Error en la validación:', error);
@@ -427,6 +434,47 @@ enviarValidacionQR() {
     }
   );
 
+*/
+this.qrService.validarqrbe(datosValidacion).subscribe(
+  (response: any) => {
+    console.log('Respuesta del servicio de validación QR:', response);
+
+    // Almacena el resultado en la propiedad
+    this.resultadoValidacionQR = response.estadoActual || 'Sin respuesta';
+
+    // Comprueba si el estado es "PAGADO"
+    if (response.estadoActual === 'PAGADO') {
+      // Cierra el modal de validación de QR
+      this.cerrarModal('validarQRModal');
+
+      // Abre el modal de "Estado de Pago"
+      this.abrirModalEstadoPagado();
+    }
+  },
+  (error) => {
+    console.error('Error en la validación:', error);
+  }
+);
+}
+
+cerrarModal(idModal: string) {
+// Lógica para cerrar un modal
+const modalElement = document.getElementById(idModal);
+if (modalElement) {
+  const modalInstance = bootstrap.Modal.getInstance(modalElement);
+  modalInstance?.hide();
+}
+}
+
+abrirModalEstadoPagado() {
+// Lógica para abrir el modal de "Estado de Pago"
+const modalElement = document.getElementById('modalEstadoPagado');
+if (modalElement) {
+  const modalEstadoPagado = new bootstrap.Modal(modalElement);
+  modalEstadoPagado.show();
+} else {
+  console.error('El modal con ID "modalEstadoPagado" no se encontró.');
+}
 }
 
 onValidarQRClick() {
@@ -457,4 +505,17 @@ verificarCamposLlenos() {
     this.openModal(); // O cualquier otra acción que desees realizar
   }
 }
+
+
+
+  realizarTransaccion() {
+    // Tu lógica de transacción aquí...
+
+    // Cambia el estado a PAGADO
+    this.estado = 'PAGADO';
+    this.abrirModalEstadoPagado();
+  }  
+
+
 }
+
