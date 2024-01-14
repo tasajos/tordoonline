@@ -250,33 +250,40 @@ export class VentaComponent implements OnInit {
   }
 
   generatePDF() {
-    
     let docDefinition = {
-      content: [
-        // Puedes agregar más elementos a este array para estructurar tu PDF.
-       
-        { text: '', margin: [0, 10] },
-        { text: 'Recibo', style: 'header' },
-        { text: 'Número de Asiento: ' + this.flota.asiento + ' - Tipo: ' + this.flota.tipo },
-        { text: 'Fecha: ' + this.flota.fecharegistro },
-        { text: 'Origen: ' + this.flota.origen + ' - Destino: ' + this.flota.destino },
-        { text: 'Nombre: ' + this.nombre + ' ' + this.apellidos },
-        // ... Agrega aquí todos los campos que desees.
-      ],
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true,
-          margin: [0, 0, 0, 10]
+        content: [
+            {
+                table: {
+                    widths: ['33.3333%', '33.3333%', '16.6667%', '33.3333%'],
+                    body: [
+                        [{ text: 'TORDO TRAVEL', colSpan: 4, alignment: 'center', bold: true }, {}, {}, {}],
+                        [{}, {}, {}, {}], // Fila vacía
+                        [{ text: 'Dirección:', bold: true }, 'Mariano Mendez 2135', { text: 'Nit:', bold: true }, '4947021011'],
+                        [{ text: 'Actividad Económica:', bold: true }, 'Sistema de Ventas Online', { text: 'Factura Nro:', bold: true }, ''],
+                        [{ text: 'Emisión:', bold: true }, 'Cochabamba', { text: 'Fecha:', bold: true }, this.flota.fecharegistro],
+                        [{ text: 'Nombre Pasajero:', bold: true }, this.nombre + ' ' + this.apellidos, { text: 'Nit:', bold: true }, this.nit],
+                        [{ text: 'Fecha:', bold: true }, this.flota.fecharegistro, { text: 'Emitido por:', bold: true }, 'TORDO TRAVEL'],
+                        [{ text: 'Ticket:', bold: true }, '', '', ''], // ColSpan para Ticket
+                        [{}, {}, {}, {}], // Fila vacía
+                        [{ text: 'Nombre Pasajero:', bold: true }, this.nombre + ' ' + this.apellidos, { text: 'Asiento:', bold: true }, this.flota.asiento],
+                        [{ text: 'Hora:', bold: true }, this.flota.hora, { text: 'Flota:', bold: true }, this.flota.placa],
+                        [{ text: 'Origen:', bold: true }, this.flota.origen, { text: 'Destino:', bold: true }, this.flota.destino],
+                        [{ text: 'Precio Unit:', bold: true }, this.flota.precio + ' ' +'Bs', { text: 'Precio Total:', bold: true }, this.flota.precio +' ' + 'Bs'],
+                    ]
+                },
+                layout: 'noBorders'
+            }
+        ],
+        styles: {
+            header: {
+                fontSize: 18,
+                bold: true
+            }
         }
-        // Puedes definir más estilos aquí.
-      }
-      
     };
-  
-    pdfMake.createPdf(docDefinition).download('Datos_Registrados.pdf');
-  }
-  
+
+    pdfMake.createPdf(docDefinition).download('Factura_TordoTravel.pdf');
+}
 
   enviarPorWhatsapp() {
     const telefono = '+59170776212'; // El número de teléfono al que deseas enviar el mensaje
