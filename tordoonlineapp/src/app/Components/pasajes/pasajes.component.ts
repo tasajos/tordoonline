@@ -53,6 +53,18 @@ export class PasajesComponent implements OnInit {
   ];
 
 
+  asiento16v: (number | null)[][] = [
+
+    [null,null, null, null,null],
+    [null,null, null, null],
+    [1, 2, 3, null, 4],
+    [5, 6, 7, null, 8],
+    [9, 10, 11, null, 12],
+    [13, 14, 15, 16, 17],
+      
+  ];
+
+
   rowIndex: number | null = null;
   
   numeroAsientos!: number;

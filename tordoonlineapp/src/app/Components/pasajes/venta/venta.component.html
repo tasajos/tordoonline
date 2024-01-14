@@ -147,6 +147,8 @@
     <div class="row mt-3">
       <div class="col-md-12">
           <button type="button" class="btn btn-primary custom-button" (click)="verificarCamposLlenos()">Pagar</button>
+          
+
           <button mat-raised-button color="accent" class="custom-button" (click)="volver()">Volver</button>
       </div>
   </div>
@@ -165,7 +167,9 @@
       </div>
       <div class="modal-body">
         <!-- Mostrar la imagen del código QR -->
-        <img [src]="qrResponse?.objeto?.imagenQr" alt="QR" width="80%">
+       <img [src]="qrResponse?.objeto?.imagenQr" alt="QR" width="80%">
+        <!--<img [src]="qrGenerated ? qrResponse?.objeto?.imagenQr : null" alt="QR" width="80%">-->
+      
         <!-- Mostrar la imagen del código QR si qrGenerated es true -->
         <h1>Por Favor Pagar <span class="badge bg-secondary">{{ flota.precio }} Bs</span></h1>
       </div>

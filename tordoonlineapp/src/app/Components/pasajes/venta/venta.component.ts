@@ -19,6 +19,8 @@ export class VentaComponent implements OnInit {
 
 
 
+  
+
   registroExitoso: boolean = false;
   @ViewChild('registroExitosoMessage') registroExitosoMessage: ElementRef | undefined;
   botonConfirmarHabilitado: boolean = true;
@@ -115,9 +117,9 @@ export class VentaComponent implements OnInit {
 
 
     this.qrData = {
-      alias: 'Pasaje Tordo'+' Fecha: '+ this.flota.fecharegistro +'-'+'Asiento: '+ this.flota.asiento +'-' + ' Nombres: '+this.nombre+ ' ' + this.apellidos,
+      alias: 'Pasaje Tordo'+' Fecha: '+ this.flota.fecharegistro +'-'+'Asiento: '+ this.flota.asiento +'-' + ' Nombres: '+this.nombre+ ' ' + this.apellidos + 'Origen: '+ this.flota.origen + 'Destino: '+ this.flota.destino + 'Hora: '+ this.flota.hora + 'Placa: '+ this.flota.placa + 'Precio: '+ this.flota.precio + 'Tipo: '+ this.flota.tipo + 'Fecha: '+ this.flota.fecharegistro,
       callback: this.flota.asiento,
-      detalleGlosa: this.apellidos + 'Tordo ' + this.flota.fecharegistro + 'Asiento: ' +this.flota.asiento + ' '+'Destino:'+ this.flota.destino,	
+      detalleGlosa: 'Sistema Tordo ' +' ' + 'Ppx: ' + this.apellidos + ''+ ' Fecha: ' + this.flota.fecharegistro + ' '+' Asiento: ' +this.flota.asiento,	
       monto: this.flota.precio, // Asegúrate de que 'monto' sea un número
       moneda: 'BOB', // Asegúrate de que 'BOB' sea un string
       fechaVencimiento:  this.flota.fecharegistro, // Reemplaza 'fechahoy' con la fecha adecuada
@@ -344,6 +346,11 @@ export class VentaComponent implements OnInit {
         // Establece qrGenerated en true después de generar el código QR
         this.qrGenerated = true;
 
+
+        this.registroExitoso = false;
+        // Oculta la alerta después de cargar la imagen
+      this.hideQRAlert();
+
         // Abre el modal si es necesario
         this.openModal();
       },
@@ -354,6 +361,14 @@ export class VentaComponent implements OnInit {
     );
   
 }
+
+hideQRAlert() {
+  // Oculta el mensaje de registro exitoso
+  if (this.registroExitosoMessage) {
+    this.registroExitosoMessage.nativeElement.style.display = 'none';
+  }
+}
+
 
 cerraryvolver() {
   window.location.reload();

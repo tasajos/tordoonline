@@ -118,7 +118,7 @@
 
 
 
-        
+
 
         <!--Codigo de distribucion de asientos-->
 
@@ -156,4 +156,237 @@
       </tr>
     </table>
   </ng-container>
+
+
+#generacion qr
+<app-cabecerx></app-cabecerx>
+<p></p>
+<p></p>
+<p></p>
+<br>
+<p></p>
+<br>
+<p>
+    <br>
+    <p></p>
+    <br>
+    <p>
+<div class="container mt-3">
+  <form #reservaForm="ngForm" (ngSubmit)="onSubmit(reservaForm.value)">
+     Primera fila de campos 
+    <div class="row">
+        <div class="col-md-4">
+          <div class="mb-2">
+            <label for="asiento" class="form-label">Número de Asiento</label>
+            <input type="number" class="form-control" id="asiento" name="asiento" [(ngModel)]="flota.asiento" readonly>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-2">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="text" class="form-control" id="fecha" name="fecha" [(ngModel)]="flota.fecharegistro" readonly>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-2">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="nombre" required>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Segunda fila de campos 
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="apellidos" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="apellidos" name="apellidos" [(ngModel)]="apellidos" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="apellidos" class="form-label">Fecha de Nacimiento</label>
+            <input type="date" class="form-control" id="FechaNacimiento" name="FechaNacimiento" [(ngModel)]="fechanacimiento" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="nit" class="form-label">NIT</label>
+            <input type="text" class="form-control" id="nit" name="nit" [(ngModel)]="nit" required>
+          </div>
+        </div>
+  
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Telefono</label>
+            <input type="tel" class="form-control" id="telefono" name="telefono" [(ngModel)]="telefono" required>
+          </div>
+        </div>
+        
+  
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="ci" class="form-label">CI</label>
+            <input type="number" class="form-control" id="ci" name="ci" [(ngModel)]="ci" required>
+          </div>
+        </div>
+  
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="correo" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-2">
+            <label for="precio" class="form-label">Precio</label>
+            <input type="number" class="form-control" id="precio" name="precio" [(ngModel)]="flota.precio" readonly>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo</label>
+            <input type="text" class="form-control" id="tipo" name="tipo" [(ngModel)]="flota.tipo" required readonly>
+          </div>
+        </div>
+  
+        
+  
+        
+      </div>
+  
+      <!-- Tercera fila de campos 
+      <div class="row">
+        
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="origen" class="form-label">Origen</label>
+            <input type="text" class="form-control" id="origen" name="origen" [(ngModel)]="flota.origen" required readonly>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="destino" class="form-label">Destino</label>
+            <input type="text" class="form-control" id="destino" name="destino" [(ngModel)]="flota.destino" required readonly>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="hora" class="form-label">Hora</label>
+            <input type="text" class="form-control" id="hora" name="hora" [(ngModel)]="flota.hora" required readonly>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="placa" class="form-label">Placa</label>
+            <input type="text" class="form-control" id="placa" name="placa" [(ngModel)]="flota.placa" required readonly>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Cuarta fila de campos (opciones de pago) -->
+     <!-- <div class="row">
+        <div class="col-md-4">
+          <div class="form-check form-check-inline align-items-center">
+            <input class="form-check-input" type="radio" name="metodopago" id="qr" value="qr" [(ngModel)]="metodopago">
+            <label class="form-check-label" for="qr"><img src="../../../assets/img/codigo-qr.png"> QR</label>
+          </div>
+        </div>-
+        <div class="col-md-4">
+          <div class="form-check form-check-inline align-items-center">
+            <input class="form-check-input" type="radio" name="metodopago" id="efectivo" value="efectivo" [(ngModel)]="metodopago">
+            <label class="form-check-label" for="efectivo"> <img src="../../../assets/img/codigo-qr.png">QR</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+           Opciones de pago aquí... 
+        </div>
+     
+  
+      Botón de enviar 
+      <br>
+      <div class="row mt-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary custom-button" (click)="verificarCamposLlenos()">Pagar</button>
+            <button mat-raised-button color="accent" class="custom-button" (click)="volver()">Volver</button>
+        </div>
+    </div>
+        
+    </form>
+  
+   
+  
+Modal QR 
+  <div class="modal fade" id="staticBackdropefectivo" tabindex="-1" aria-labelledby="staticBackdropLabelefectivo" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabelefectivo">Confirmar Compra</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Mostrar la imagen del código QR 
+          <img [src]="qrResponse?.objeto?.imagenQr" alt="QR" width="80%">
+          <!--<img [src]="qrGenerated ? qrResponse?.objeto?.imagenQr : null" alt="QR" width="80%">
+          <!-- Mostrar la imagen del código QR si qrGenerated es true 
+          <h1>Por Favor Pagar <span class="badge bg-secondary">{{ flota.precio }} Bs</span></h1>
+        </div>
+        <!-- Alerta de registro exitoso 
+        <div #registroExitosoMessage class="alert alert-success mt-3" *ngIf="registroExitoso">
+          Generando QR.............
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cerraryvolver()" >Cerrar</button>
+          <button type="button" class="btn btn-primary" [disabled]="!botonConfirmarModalHabilitado" (click)="onSubmit(reservaForm.value)">Generar QR</button>
+       
+          <button mat-raised-button color="accent" class="custom-button" [disabled]="botonConfirmarModalHabilitado" (click)="openValidarQRModal()">Validar QR</button>
+          </div>
+        <div class="d-flex justify-content-center mt-3 mb-2">
+          <button mat-fab color="primary" aria-label="Example icon button with a delete icon" [disabled]="botonConfirmarModalHabilitado" (click)="onButtonClick()">
+            <mat-icon>print</mat-icon>
+        </button>     
+        </div>
+            </div>
+    </div>
+  </div>
+  
+  <!-- Modal Validar QR 
+  <div class="modal fade" id="validarQRModal" tabindex="-1" aria-labelledby="validarQRModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="validarQRModalLabel">Validar QR</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-customvqr" role="alert">
+            <p id="aliasValue">Aquí se mostrará el alias.</p>
+          </div>
+  
+          <!-- Nuevo alerta para el resultado de la validación 
+          <div class="alert alert-secondary mt-3" role="alert" id="validationResult">
+            Resultado de la validación.
+            <button type="button" class="btn btn-primary" (click)="enviarValidacionQR()">Validar QR</button>
+  
+          </div>
+  
+          Contenido del modal de validación del QR 
+           Agrega aquí los elementos que necesitas para la validación del QR 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="onValidarQRClick()">Validar QR</button>
+  
+   
+    <div *ngIf="showSpinner" class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  
+  
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
 -->
