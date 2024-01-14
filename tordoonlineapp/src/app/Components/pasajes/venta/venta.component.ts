@@ -258,6 +258,8 @@ export class VentaComponent implements OnInit {
                     body: [
                         [{ text: 'TORDO TRAVEL', colSpan: 4, alignment: 'center', bold: true }, {}, {}, {}],
                         [{}, {}, {}, {}], // Fila vacía
+                        [{}, {}, {}, {}], // Fila vacía
+                        [{}, {}, {}, {}], // Fila vacía
                         [{ text: 'Dirección:', bold: true }, 'Mariano Mendez 2135', { text: 'Nit:', bold: true }, '4947021011'],
                         [{ text: 'Actividad Económica:', bold: true }, 'Sistema de Ventas Online', { text: 'Factura Nro:', bold: true }, ''],
                         [{ text: 'Emisión:', bold: true }, 'Cochabamba', { text: 'Fecha:', bold: true }, this.flota.fecharegistro],
