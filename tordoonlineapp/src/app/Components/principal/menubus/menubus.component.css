@@ -32,13 +32,13 @@
 
 .form-select {
   height: 30px; /* Altura deseada */
-  width: 350px; /* Ancho deseado */
+  width: 150px; /* Ancho deseado */
   font-size: 14px; /* Tamaño de fuente deseado */
 }	
 
 .formatofechamenu {
   height: 60px; /* Altura deseada */
-  width: 350px; /* Ancho deseado */
+  width: 150px; /* Ancho deseado */
   font-size: 14px; /* Tamaño de fuente deseado */
   background-color: #fff !important; /* Fondo blanco */
 }

@@ -50,17 +50,17 @@
   </div>
 
  <!-- Columna de Resultados -->
-<div class="col-md-3 mt-4">
+<div class="col-md-6 mt-4">
   <div>
       
   </div>
   <div *ngIf="mostrarTabla">
       <div class="card mt-3 custom-card" *ngFor="let registro of registrosFlota">
           <div class="row no-gutters">
-              <div class="col-md-3 mt-5 text-center">
+              <div class="col-md-20 mt-5 text-center">
                   <img src="../../../../assets/img/autobus.png" class="mx-auto custom-img" alt="Imagen">
               </div>
-              <div class="col-md-8 mt-2">
+              <div class="col-md-20 mt-2">
                   <div class="card-body">
                       <h2 class="card-title"> {{ registro.origen }} - {{ registro.destino }}</h2>
                       <h3 class="card-header">Hora: {{ registro.hora }} {{ formatDate(registro.fecharegistro) }}</h3>
