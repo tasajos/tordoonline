@@ -212,7 +212,7 @@ export class VentaComponent implements OnInit {
         // Deshabilita el botón "Confirmar" después de abrir el modal
         this.botonConfirmarHabilitado = false;
       }
-    } else if (this.metodopago === 'efectivo') {
+    } else if (this.metodopago === 'QR') {
       // Abre el modal "Efectivo"
       const modalEfectivo = document.getElementById('staticBackdropefectivo');
       if (modalEfectivo) {
