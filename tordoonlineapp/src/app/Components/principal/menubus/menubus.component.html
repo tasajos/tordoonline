@@ -36,10 +36,13 @@
                   </div>
                   
                   
-                  <button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()" [disabled]="!startDate">Buscar</button>
-                 <!-- <button type="button" class="btn btn-primary mt-3" (click)="buscarYMostrarResultados()" [disabled]="!startDate">Buscar</button>-->
+            <button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()" [disabled]="!startDate">Buscar</button>
+            <!--    <button type="button" class="btn btn-primary mt-3" (click)="buscarYMostrarEnNuevaVentana()" [disabled]="!startDate">Buscar</button>-->
 
-                  <!-- <button type="button" class="btn btn-primary mt-3" (click)="buscarYMostrarModal()" [disabled]="!startDate">Buscar</button>-->
+
+
+                <!--<button type="button" class="btn btn-primary mt-3" (click)="buscarYMostrarModalResu()" [disabled]="!startDate">Buscar</button>-->
+
                   
 
                   <!--<button type="button" class="btn btn-primary mt-3" (click)="buscarPorOrigenYDestino()">Buscar</button>-->
@@ -50,7 +53,7 @@
   </div>
 
  <!-- Columna de Resultados -->
-<div class="col-md-6 mt-4">
+ <div class="col-md-6 mt-4" id="resultados">
   <div>
       
   </div>
@@ -74,3 +77,40 @@
   </div>
 </div>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="resultadosModal" tabindex="-1" aria-labelledby="resultadosModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resultadosModalLabel">Resultados de la Búsqueda</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Aquí irán los resultados de la búsqueda -->
+          <div *ngIf="mostrarTabla">
+            <div class="card mt-3 custom-card" *ngFor="let registro of registrosFlota">
+              <div class="row no-gutters">
+                <div class="col-md-20 mt-5 text-center">
+                  <img src="../../../../assets/img/autobus.png" class="mx-auto custom-img" alt="Imagen">
+                </div>
+                <div class="col-md-20 mt-2">
+                  <div class="card-body">
+                    <h2 class="card-title"> {{ registro.origen }} - {{ registro.destino }}</h2>
+                    <h3 class="card-header">Hora: {{ registro.hora }} {{ formatDate(registro.fecharegistro) }}</h3>
+                    <h3 class="card-title">Tipo: {{ registro.tipo }}</h3>
+                    <h3 class="card-title">Precio: {{ registro.precio }} Bs</h3>
+                    <a (click)="verAsientos(registro)" class="btn btn-primary">Comprar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>

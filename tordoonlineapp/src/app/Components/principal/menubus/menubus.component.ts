@@ -60,13 +60,24 @@ export class MenubusComponent implements OnInit, AfterViewInit {
    
   }
 
+  async buscarYMostrarModalResu() {
+    await this.buscarPorOrigenYDestino();
+    if (this.mostrarTabla) { // Si hay resultados, abre el modal
+      
+      const modal = new Modal(document.getElementById('resultadosModal')!);
+
+      modal.show();
+    }
+
+  }
+  
   
 
   buscarPorOrigenYDestino() {
     if (!this.origen || !this.destino || !this.startDate) {
       return Promise.resolve(); // No hagas nada si faltan datos
     }
-
+  
     return new Promise<void>((resolve, reject) => {
       this.buscarFlotaService
         .buscarFlotaPorFecha(this.origen, this.destino, this.startDate)
@@ -84,7 +95,7 @@ export class MenubusComponent implements OnInit, AfterViewInit {
               this.registrosFlota = data.filter((registro: registrarflotaInter) =>
                 this.isTodayOrFutureDate(registro.fecharegistro)
               );
-
+  
               if (this.registrosFlota.length === 0) {
                 // No hay resultados
                 this.mostrarAlerta = true;
@@ -92,13 +103,16 @@ export class MenubusComponent implements OnInit, AfterViewInit {
               } else {
                 // Hay resultados
                 this.mostrarTabla = true;
+                setTimeout(() => {
+                  document.getElementById('resultados')?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
               }
             } else {
               // La respuesta no es un arreglo ni un mensaje de "No se encontraron resultados"
               console.error('La respuesta del servidor no es válida:', data);
               alert('La respuesta del servidor no es válida.');
             }
-
+  
             resolve(); // Resuelve la promesa después de buscar
           },
           (error) => {
@@ -199,5 +213,14 @@ export class MenubusComponent implements OnInit, AfterViewInit {
         this.mostrarAlerta = true;
         this.mensajeAlerta = 'Error al realizar la búsqueda.';
       });
+
+      
   }
-}  
+
+  
+  
+  
+  }
+  
+
+
